@@ -32,6 +32,18 @@
         <servlet-name>Action</servlet-name>
         <servlet-class>controller.Action</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Products</servlet-name>
+        <servlet-class>controller.Product.Products</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>productInfo</servlet-name>
+        <servlet-class>controller.Product.productInfo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>search</servlet-name>
+        <servlet-class>controller.Product.search</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -63,5 +75,17 @@
     <servlet-mapping>
         <servlet-name>Action</servlet-name>
         <url-pattern>/Action</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Products</servlet-name>
+        <url-pattern>/Products</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>productInfo</servlet-name>
+        <url-pattern>/productInfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>search</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
 </web-app>
