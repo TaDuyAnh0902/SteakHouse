@@ -133,7 +133,7 @@ color: #234666;
                     </c:if>
                     <p style="color: red;"><c:out value="${requestScope.notSuccess}"/></p>
                     <button type="submit" name="send2">login</button>
-                    <p class="message">Not registered? <a href="register">Create an account</a></p>
+                    <p class="message">Not registered? <a href="Register">Create an account</a></p>
                 </form>
             </div>
         </div>
