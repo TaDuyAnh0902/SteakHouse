@@ -20,6 +20,14 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>controller.LogIn.Register</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>choiceTable</servlet-name>
+        <servlet-class>Order.choiceTable</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetListTable</servlet-name>
+        <servlet-class>Order.GetListTable</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -39,5 +47,13 @@
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>choiceTable</servlet-name>
+        <url-pattern>/choiceTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetListTable</servlet-name>
+        <url-pattern>/GetListTable</url-pattern>
     </servlet-mapping>
 </web-app>
