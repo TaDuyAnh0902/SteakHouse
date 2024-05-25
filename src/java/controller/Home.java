@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -55,7 +56,18 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        if (session.getAttribute("role") == null) {
+            response.sendRedirect("login");
+        }
+
+        if (session.getAttribute("role") != null) {
+            if ((int) session.getAttribute("role") == 3) {
+                response.sendRedirect("GetListTable");
+            } else {
+                request.getRequestDispatcher("home.jsp").forward(request, response);
+            }
+        }
     } 
 
     /** 
