@@ -64,6 +64,7 @@ public class Home extends HttpServlet {
             if ((int) session.getAttribute("role") == 3) {
                 response.sendRedirect("GetListTable");
             } else {
+                request.setAttribute("main", "success");
                 request.getRequestDispatcher("home.jsp").forward(request, response);
             }
         }
