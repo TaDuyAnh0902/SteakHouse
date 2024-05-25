@@ -30,7 +30,12 @@
         </style>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div>
+            <%@include file="header.jsp" %>
+            <c:if test="${requestScope.main!=null}"> <%@include file="option/main.jsp" %> </c:if>
+            <c:if test="${requestScope.main!=null}"> <%@include file="option/main.jsp" %> </c:if>
+            <%@include file="footer.jsp" %>
+        </div>
         
     </body>
 </html>
