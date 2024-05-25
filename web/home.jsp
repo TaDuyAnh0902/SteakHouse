@@ -33,7 +33,14 @@
         <div>
             <%@include file="header.jsp" %>
             <c:if test="${requestScope.main!=null}"> <%@include file="option/main.jsp" %> </c:if>
+            
             <c:if test="${requestScope.introduction!=null}"> <%@include file="option/main.jsp" %> </c:if>
+            
+            <c:if test="${requestScope.store!=null}"> <%@include file="option/store.jsp" %> </c:if>
+                <c:if test="${requestScope.productInfo!=null}"> <%@include file="option/productInfo.jsp" %> </c:if>
+                
+                
+                
             <%@include file="footer.jsp" %>
         </div>
         
