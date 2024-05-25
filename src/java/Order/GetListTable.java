@@ -5,12 +5,15 @@
 
 package Order;
 
+import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Table;
 
 /**
  *
@@ -53,7 +56,12 @@ public class GetListTable extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        OrderDAO od = new OrderDAO();
+        
+        List<Table> table = od.getAllTable();
+        
+        request.setAttribute("table", table);
+        request.getRequestDispatcher("option/choiceTable.jsp").forward(request, response);
     } 
 
     /** 
