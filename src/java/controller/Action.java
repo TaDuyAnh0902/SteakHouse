@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Category;
+import model.Product;
 
 /**
  *
@@ -57,7 +61,7 @@ public class Action extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
+        ProductsDAO PdDAO = new ProductsDAO();
         String check = request.getParameter("check");
         switch (check) {
             case "introduction" ->
@@ -67,7 +71,21 @@ public class Action extends HttpServlet {
             }
 
             case "store" -> {
-
+                request.setAttribute("store", "success");
+                
+                List<Category> c = PdDAO.getAllCategory();
+                session.setAttribute("data", c);
+                
+                List<Product> list = PdDAO.getproductByCid(0);
+                
+                request.setAttribute("Cid", 0);
+                request.setAttribute("page", 1);
+                int size = list.size();
+                int numperpage=6;
+                int num=(size%numperpage==0?(size/numperpage):((size/numperpage)+1));
+                request.setAttribute("num", num);
+                List<Product> list1 = PdDAO.getListByPage(list, 0, numperpage);
+                request.setAttribute("products", list1);
             }
             case "blog" -> {
 
