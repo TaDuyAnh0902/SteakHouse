@@ -11,6 +11,9 @@
             <file>file:/D:/SWP300/SteakHouse/src/java/controller/LogIn/Login.java</file>
             <file>file:/D:/SWP300/SteakHouse/web/user/login.jsp</file>
             <file>file:/D:/SWP300/SteakHouse/src/java/dal/AccountDAO.java</file>
+        <group name="test">
+            <file>file:/D:/SteakHouse/SteakHouse/src/java/controller/Home.java</file>
+            <file>file:/D:/SteakHouse/SteakHouse/src/java/dal/DBContext.java</file>
         </group>
     </open-files>
 </project-private>
