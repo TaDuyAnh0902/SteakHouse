@@ -93,7 +93,7 @@
                     <h2 style="color: red;margin-right: 20px;">Bàn <c:out value="${sessionScope.tableNumber}"/></h2>
                 </c:if>
                 <a href="home" title="Livehealthy - Sức khỏe mạnh bắt đầu từ chọn lựa">
-                    <img src="images/logoo.jpg" alt="images"></a>
+                    <img src="images/logo.jpg" alt="images"></a>
             </div>
             <nav class="nav">
                 <ul>
