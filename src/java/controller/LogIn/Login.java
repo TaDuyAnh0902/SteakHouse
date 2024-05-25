@@ -20,7 +20,6 @@ import model.Account;
  *
  * @author ASUS
  */
-@WebServlet(name="Login", urlPatterns={"/login"})
 public class Login extends HttpServlet {
    
     /** 

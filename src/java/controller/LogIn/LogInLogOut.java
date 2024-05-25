@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author ASUS
  */
-@WebServlet(name="LogInLogOut", urlPatterns={"/LogInLogOut"})
 public class LogInLogOut extends HttpServlet {
    
     /** 

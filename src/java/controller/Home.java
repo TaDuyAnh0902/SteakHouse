@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Admin
  */
-@WebServlet(name="Home", urlPatterns={"/home"})
 public class Home extends HttpServlet {
    
     /** 
