@@ -44,6 +44,10 @@
         <servlet-name>search</servlet-name>
         <servlet-class>controller.Product.search</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>choiceBlog</servlet-name>
+        <servlet-class>Blog.choiceBlog</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -87,5 +91,9 @@
     <servlet-mapping>
         <servlet-name>search</servlet-name>
         <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>choiceBlog</servlet-name>
+        <url-pattern>/choiceBlog</url-pattern>
     </servlet-mapping>
 </web-app>
