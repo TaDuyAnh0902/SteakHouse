@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.BlogDAO;
 import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Blog;
 import model.Category;
 import model.Product;
 
@@ -62,6 +64,7 @@ public class Action extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         ProductsDAO PdDAO = new ProductsDAO();
+        BlogDAO bdDAO = new BlogDAO();
         String check = request.getParameter("check");
         switch (check) {
             case "introduction" ->
@@ -88,7 +91,9 @@ public class Action extends HttpServlet {
                 request.setAttribute("products", list1);
             }
             case "blog" -> {
-
+                request.setAttribute("blog", "success");
+                List<Blog> list = bdDAO.getAllBlog();
+                request.setAttribute("blogList", list);
             }
             case "manage" -> {
 
