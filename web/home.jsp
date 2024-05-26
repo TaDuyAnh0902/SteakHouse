@@ -42,7 +42,7 @@
                 <c:if test="${requestScope.productInfo!=null}"> <%@include file="option/productInfo.jsp" %> </c:if>
                 
             <c:if test="${requestScope.blogList!=null}"> <%@include file="option/blog.jsp" %> </c:if>    
-                <%--<c:if test="${requestScope.sourceBlog!=null}"> <%@include file="${requestScope.sourceBlog}" %> </c:if>--%> 
+                <c:if test="${requestScope.sourceBlog!=null}"> <jsp:include page="${requestScope.sourceBlog}" /> </c:if> 
                 
                 
             <%@include file="footer.jsp" %>
