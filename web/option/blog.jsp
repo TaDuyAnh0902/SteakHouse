@@ -42,7 +42,7 @@
                 <c:forEach var="blog" items="${requestScope.blogList}">
                     <div class="BlogItem">
                         <div>
-                            <a href="choiceBlog?id=${blog.id}"><img src="${blog.image}" alt="alt"/></a>
+                            <a href="choiceBlog?sourceBlog=${blog.source}"><img src="${blog.image}" alt="alt"/></a>
                         </div>
                         <div>
                             <h5>${blog.title}</h5>
