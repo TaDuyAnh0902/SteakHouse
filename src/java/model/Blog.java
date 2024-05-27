@@ -10,16 +10,17 @@ package model;
  */
 public class Blog {
     private int id;
-    private String title, image, date;
+    private String title, image, source, date;
     private Account aid;
 
     public Blog() {
     }
 
-    public Blog(int id, String title, String image, String date, Account aid) {
+    public Blog(int id, String title, String image, String source, String date, Account aid) {
         this.id = id;
         this.title = title;
         this.image = image;
+        this.source = source;
         this.date = date;
         this.aid = aid;
     }
@@ -48,6 +49,14 @@ public class Blog {
         this.image = image;
     }
 
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     public String getDate() {
         return date;
     }
@@ -63,6 +72,7 @@ public class Blog {
     public void setAid(Account aid) {
         this.aid = aid;
     }
+
     
     
 }
