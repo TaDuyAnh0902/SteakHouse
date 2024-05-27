@@ -26,6 +26,7 @@ public class BlogDAO extends AccountDAO{
                 b.setId(rs.getInt("id"));
                 b.setTitle(rs.getString("title"));
                 b.setImage(rs.getString("image"));
+                b.setSource(rs.getString("source"));
                 b.setDate(rs.getString("date"));
                 Account a = getAccountByUser(rs.getString("aid"));
                 b.setAid(a);
