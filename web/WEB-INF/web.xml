@@ -48,6 +48,14 @@
         <servlet-name>choiceBlog</servlet-name>
         <servlet-class>Blog.choiceBlog</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>manageOption</servlet-name>
+        <servlet-class>controller.manage.manageOption</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>manage</servlet-name>
+        <servlet-class>controller.manage.manage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -95,5 +103,13 @@
     <servlet-mapping>
         <servlet-name>choiceBlog</servlet-name>
         <url-pattern>/choiceBlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageOption</servlet-name>
+        <url-pattern>/manageOption</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manage</servlet-name>
+        <url-pattern>/manage</url-pattern>
     </servlet-mapping>
 </web-app>
