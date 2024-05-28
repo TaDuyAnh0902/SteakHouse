@@ -3,12 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package Order;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,9 +15,9 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author ASUS
  */
-public class Home extends HttpServlet {
+public class choiceTable extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +34,10 @@ public class Home extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Home</title>");  
+            out.println("<title>Servlet choiceTable</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Home at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet choiceTable at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,18 +55,11 @@ public class Home extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if (session.getAttribute("role") == null) {
-            response.sendRedirect("login");
-        }
-
-        if (session.getAttribute("role") != null) {
-            if ((int) session.getAttribute("role") == 3) {
-                response.sendRedirect("GetListTable");
-            } else {
-                request.setAttribute("main", "success");
-                request.getRequestDispatcher("home.jsp").forward(request, response);
-            }
-        }
+        String tableNumber = request.getParameter("tableNumber");
+        
+        session.setAttribute("tableNumber", tableNumber);
+        request.setAttribute("main", "success");
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
     /** 

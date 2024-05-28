@@ -3,22 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.Product;
 
+import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Product;
 
 /**
  *
  * @author Admin
  */
-public class Home extends HttpServlet {
+public class productInfo extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +37,10 @@ public class Home extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Home</title>");  
+            out.println("<title>Servlet productInfo</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Home at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet productInfo at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,18 +58,28 @@ public class Home extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if (session.getAttribute("role") == null) {
-            response.sendRedirect("login");
+
+//        session.removeAttribute("mainSuccess");
+        String id = request.getParameter("id");
+        String cid = request.getParameter("cid");
+        int cid_int;
+
+        ProductsDAO db = new ProductsDAO();
+//        session.removeAttribute("storeSuccess");
+
+        try {
+            cid_int = Integer.parseInt(cid);
+            Product p = db.getProductById(id);
+            List<Product> list = db.getproductByCid2(id, cid_int);
+
+            request.setAttribute("productById", p);
+            request.setAttribute("productByCid", list);
+        } catch (Exception e) {
         }
 
-        if (session.getAttribute("role") != null) {
-            if ((int) session.getAttribute("role") == 3) {
-                response.sendRedirect("GetListTable");
-            } else {
-                request.setAttribute("main", "success");
-                request.getRequestDispatcher("home.jsp").forward(request, response);
-            }
-        }
+        request.setAttribute("productInfo", "success");
+        request.getRequestDispatcher("home.jsp").forward(request, response);
+
     } 
 
     /** 

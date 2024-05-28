@@ -5,6 +5,7 @@
 
 package controller.LogIn;
 
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,7 +18,6 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author ASUS
  */
-@WebServlet(name="Register", urlPatterns={"/Register"})
 public class Register extends HttpServlet {
    
     /** 
@@ -55,7 +55,7 @@ public class Register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("user/register.jsp").forward(request, response);
     } 
 
     /** 
@@ -68,7 +68,20 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String phoneNumber = request.getParameter("phone");
+        String name = request.getParameter("name");
+
+        AccountDAO ad = new AccountDAO();
+        
+        
+        if (ad.checkUserName(phoneNumber) != null) {
+            request.setAttribute("phoneNumberFail", "duplicate phone number");
+            request.getRequestDispatcher("user/register.jsp").forward(request, response);
+        }else {
+            ad.addUser(name, phoneNumber);
+            request.setAttribute("successfully", "Registered successfully");
+            request.getRequestDispatcher("user/register.jsp").forward(request, response);
+        }
     }
 
     /** 

@@ -3,22 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.Product;
 
+import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import model.Product;
 
 /**
  *
  * @author Admin
  */
-public class Home extends HttpServlet {
+public class Products extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +37,10 @@ public class Home extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Home</title>");  
+            out.println("<title>Servlet Products</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Home at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet Products at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,20 +57,47 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("role") == null) {
-            response.sendRedirect("login");
-        }
-
-        if (session.getAttribute("role") != null) {
-            if ((int) session.getAttribute("role") == 3) {
-                response.sendRedirect("GetListTable");
-            } else {
-                request.setAttribute("main", "success");
-                request.getRequestDispatcher("home.jsp").forward(request, response);
+        String cid = request.getParameter("cid");
+        ProductsDAO d = new ProductsDAO();
+        int cid_int;
+        try {
+            cid_int = Integer.parseInt(cid);
+            List<Product> list = d.getproductByCid(cid_int);
+            
+            
+            int size = list.size();
+            int page, numperpage = 6;
+            int num=(size%numperpage==0?(size/numperpage):((size/numperpage)+1));
+            String xpage = request.getParameter("page");
+            if(xpage == null){
+                page = 1;
+            }else{
+                page = Integer.parseInt(xpage);
             }
+            int start, end;
+            start = (page-1)*numperpage;
+            end = Math.min(page*numperpage, size);
+            List<Product> list1 = d.getListByPage(list, start, end);
+            
+            request.setAttribute("products", list1);
+            request.setAttribute("page", page);
+            request.setAttribute("num", num);
+            request.setAttribute("Cid", cid);
+            request.setAttribute("store", "success");
+        } catch (NumberFormatException e) {
+//            System.out.println(e);
         }
-    } 
+        request.getRequestDispatcher("home.jsp").forward(request, response);
+    }
+
+    public List<Product> getListByPage(ArrayList<Product> list,
+            int start, int end) {
+        ArrayList<Product> arr = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            arr.add(list.get(i));
+        }
+        return arr;
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.

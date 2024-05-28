@@ -3,22 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package Order;
 
+import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Table;
 
 /**
  *
- * @author Admin
+ * @author ASUS
  */
-public class Home extends HttpServlet {
+public class GetListTable extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +36,10 @@ public class Home extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Home</title>");  
+            out.println("<title>Servlet GetListTable</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Home at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet GetListTable at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,19 +56,12 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("role") == null) {
-            response.sendRedirect("login");
-        }
-
-        if (session.getAttribute("role") != null) {
-            if ((int) session.getAttribute("role") == 3) {
-                response.sendRedirect("GetListTable");
-            } else {
-                request.setAttribute("main", "success");
-                request.getRequestDispatcher("home.jsp").forward(request, response);
-            }
-        }
+        OrderDAO od = new OrderDAO();
+        
+        List<Table> table = od.getAllTable();
+        
+        request.setAttribute("table", table);
+        request.getRequestDispatcher("option/choiceTable.jsp").forward(request, response);
     } 
 
     /** 

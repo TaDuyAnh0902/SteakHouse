@@ -3,22 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.Product;
 
+import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Product;
 
 /**
  *
  * @author Admin
  */
-public class Home extends HttpServlet {
+public class search extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +36,10 @@ public class Home extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Home</title>");  
+            out.println("<title>Servlet search</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Home at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet search at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,19 +56,7 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("role") == null) {
-            response.sendRedirect("login");
-        }
-
-        if (session.getAttribute("role") != null) {
-            if ((int) session.getAttribute("role") == 3) {
-                response.sendRedirect("GetListTable");
-            } else {
-                request.setAttribute("main", "success");
-                request.getRequestDispatcher("home.jsp").forward(request, response);
-            }
-        }
+        processRequest(request, response);
     } 
 
     /** 
@@ -80,7 +69,43 @@ public class Home extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String search = request.getParameter("search");
+        String price = request.getParameter("price");
+        String sort = request.getParameter("sort");
+        ProductsDAO db = new ProductsDAO();
+        if (search.isEmpty()) {
+            if (!sort.equals("0")) {
+                List<Product> list = null;
+                switch (sort) {
+                    case "sort1" -> {
+                        list = db.searchProductBySort(1);
+                    }
+                    case "sort2" -> {
+                        list = db.searchProductBySort(2);
+                    }
+                    case "sort3" -> {
+                        list = db.searchProductBySort(3);
+                        
+                    }
+                }
+                request.setAttribute("products", list);
+            } else {
+                float price_float;
+                try {
+                    price_float = Integer.parseInt(price);
+                    List<Product> list = db.searchProductByPrice(price_float);
+                    request.setAttribute("products", list);
+                } catch (NumberFormatException e) {
+                }
+            }
+
+        } else {
+            List<Product> list = db.searchProductByName(search);
+            request.setAttribute("products", list);
+        }
+        
+        request.setAttribute("store", "success");
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     /** 
