@@ -43,7 +43,9 @@
                 
             <c:if test="${requestScope.blogList!=null}"> <%@include file="option/blog.jsp" %> </c:if>    
                 <c:if test="${requestScope.sourceBlog!=null}"> <jsp:include page="${requestScope.sourceBlog}" /> </c:if> 
-                
+            
+            <c:if test="${sessionScope.manageOption!=null}"> <%@include file="option/manageOption.jsp" %> </c:if>
+                <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
                 
             <%@include file="footer.jsp" %>
         </div>
