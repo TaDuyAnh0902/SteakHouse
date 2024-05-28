@@ -8,29 +8,75 @@
         <style>
             .introduction {
                 margin-top: 50px;
-                padding: 0 20%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 18px;
+                padding: 0 15%;
+                font-size: 20px;
             }
-
-            .left-introduction,
-            .right-introduction {
-                width: 50%;
+            .introduction h2 {
+                text-align: center;
+            }
+            .introduction-content1 p {
+                text-indent: 50px;
+                text-align: justify;
+            }
+            .introduction img {
+                display: block;
+                margin: 50px auto;
+                width: 80%;
             }
         </style>
     </head>
     <body>
-        <c:set var="intro" value="${requestScope.introduction}"/>
         <div class="introduction">
-            <div class="left-introduction">
-                <img src="images/store.jpg" width="100%" height="400px" alt="image"/>
-            </div>
-            <div class="right-introduction">
-                <h3>VỀ CHÚNG TÔI</h3>
+            <div class="introduction-content1">
+                <h2>VỀ CHÚNG TÔI</h2>
                 <hr>
-                <p></p>
+                <p>Ẩm thực phương Tây vô cùng phong phú và hấp dẫn thị giác vì vậy đã chiếm được cảm tình của nhiều người Việt sành ăn. 
+                    Ở Sài Gòn, bạn có thể dễ dàng khám phá nét tinh tế, quyến rũ của ẩm thực Âu Châu ngay tại Thế Giới Steak. 
+                    Đến với Thế Giới Steak, các món Âu xa xỉ cũng trở nên bình dị và gần gũi với mọi thực khách Việt. 
+                    Trong số các món Âu được nhiều người Việt ưa chuộng, món bít tết phố biến hơn cả. Nếu trước kia, 
+                    thực khách từng quen thuộc với món bít tết bò thì giờ đây, đến với Thế Giới Steak, 
+                    các bạn còn có thể lựa chọn steak cừu, đà điểu, gà hoặc thịt  cá sấu… để thay đổi khẩu vị thường xuyên.
+                    Steak ăn kèm với bánh mì tươi, salad, khoai tây chiên cùng  9 loại sốt chế biến tươi hàng ngày chắn sẽ làm hài lòng quý khách.
+                </p>
+                <img src="images/intro1.jpg" alt="images"></a>
+                <p>
+                    Ngay từ tên gọi, Thế Giới Steak đã khiến thực khách bồn chồn bao tử khi liên tưởng đến các món steak hảo hạng, kèm nước sốt đậm đà, 
+                    hương thơm lừng và kích thích vị giác. Lấy sự hài lòng của thực khách làm tiêu chí hàng đầu, Thế Giới Steak luôn chú trọng đến việc 
+                    đa dạng hóa và mở rộng thực đơn các món steak nhằm đáp ứng nhu cầu đa dạng của nhiều đối tượng khách hàng. Nếu là tín đồ của các món 
+                    bít tết bò quen thuộc, ắt hẳn bạn sẽ phải “ồ!” lên thích thú khi lần đầu nếm qua hương vị mới mẻ từ các món steak thịt cừu, cá sấu, 
+                    đà điểu,cá hồi hoặc vịt xông khói.
+</p>
+                <img src="images/intro2.jpg" alt="images"></a>
+            </div>
+            <div class="introduction-content2">
+                <h2>VÌ SAO BẠN NÊN CHỌN THẾ GIỚI STEAK?</h2>
+                <ul>
+                    <li>
+                        <p>
+                            Thế Giới Steak là điểm đến lý tưởng khi bạn muốn thay đổi khẩu vị cùng gia đình, bạn bè.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Nguyên liệu tươi ngon, hàm lượng dinh dưỡng cao, quy trình chế biến công phu, tỉ mỉ, hợp vệ sinh, đảm bảo sức khỏe người dùng.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Món ăn được chế biến bởi đầu bếp lành nghề, giàu kinh nghiệm, mang đến cho thực khách những trải nghiệm ẩm thực lý thú và độc đáo.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Không gian Thế Giới Steak khá rộng rãi, lối bày trí ấm cúng và lịch sự, tinh tế.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Cung cách phục vụ chu đáo, lịch sự.
+                        </p>
+                    </li>
+                </ul>
             </div>
         </div>    
     </body>
