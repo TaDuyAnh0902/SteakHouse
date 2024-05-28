@@ -96,7 +96,7 @@ public class Action extends HttpServlet {
                 request.setAttribute("blogList", list);
             }
             case "manage" -> {
-
+                session.setAttribute("manageOption", "success");
             }
             case "main" -> {
                 request.setAttribute("main", "success");
