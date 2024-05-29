@@ -56,6 +56,14 @@
         <servlet-name>manage</servlet-name>
         <servlet-class>controller.manage.manage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>productAction</servlet-name>
+        <servlet-class>controller.manage.productAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>checkAdd</servlet-name>
+        <servlet-class>controller.manage.checkAdd</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -111,5 +119,13 @@
     <servlet-mapping>
         <servlet-name>manage</servlet-name>
         <url-pattern>/manage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>productAction</servlet-name>
+        <url-pattern>/productAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>checkAdd</servlet-name>
+        <url-pattern>/checkAdd</url-pattern>
     </servlet-mapping>
 </web-app>
