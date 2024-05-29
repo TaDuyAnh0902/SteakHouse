@@ -18,69 +18,66 @@ import java.util.List;
  * @author ASUS
  */
 public class AccountDAO extends DBContext {
-    public List<Account> getAllAccount(){
-        String sql = "select * from Account where role != 1";
-        List<Account> list = new ArrayList<>();
-        
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while(rs.next()){
-                Account ad = new Account(rs.getString("phoneNumber"),
-                            rs.getString("password"),
-                        rs.getString("name"),
-                        rs.getInt("role"));
-                
-                list.add(ad);
-            }
-        } catch (SQLException e) {
-        }
-        return list;
-    }
+//    public List<Account> getAllAccount(){
+//        String sql = "select * from Account where role != 1";
+//        List<Account> list = new ArrayList<>();
+//        
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            ResultSet rs = st.executeQuery();
+//            while(rs.next()){
+//                Account ad = new Account(rs.getString("phoneNumber"),
+//                            rs.getString("password"),
+//                        rs.getString("name"),
+//                        rs.getInt("role"));
+//                
+//                list.add(ad);
+//            }
+//        } catch (SQLException e) {
+//        }
+//        return list;
+//    }
 
-    public Account check(String phone) {
+//    public Account check(String phone) {
+//        String sql = """
+//                     SELECT [phoneNumber]
+//                           ,[name]
+//                           ,[password]
+//                           ,[role]
+//                       FROM [dbo].[Account]
+//                       where phoneNumber = ?""";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setString(1, phone);
+//            ResultSet rs = st.executeQuery();
+//
+//            if (rs.next()) {
+//                //return new Account(rs.getString("phoneNumber"),
+//                        rs.getString("name"),
+//                        rs.getString("password"),
+//                        rs.getInt("role"));
+//            }
+//        } catch (SQLException e) {
+//
+//        }
+//        return null;
+//    }
+    public Account checkAccountSystem(String username, String password) {
         String sql = """
-                     SELECT [phoneNumber]
-                           ,[name]
+                     SELECT [username]
                            ,[password]
                            ,[role]
                        FROM [dbo].[Account]
-                       where phoneNumber = ?""";
+                       where username = ? and password = ?""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, phone);
-            ResultSet rs = st.executeQuery();
-
-            if (rs.next()) {
-                return new Account(rs.getString("phoneNumber"),
-                        rs.getString("name"),
-                        rs.getString("password"),
-                        rs.getInt("role"));
-            }
-        } catch (SQLException e) {
-
-        }
-        return null;
-    }
-
-    public Account checkAccountSystemr(String phone, String password) {
-        String sql = """
-                     SELECT [phoneNumber]
-                           ,[name]
-                           ,[password]
-                           ,[role]
-                       FROM [dbo].[Account]
-                       where phoneNumber = ? and password = ?""";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, phone);
+            st.setString(1, username);
             st.setString(2, password);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                Account ad = new Account(rs.getString("phoneNumber"),
-                            rs.getString("password"),
-                        rs.getString("name"),
+                Account ad = new Account(rs.getString("username"),
+                        rs.getString("password"),
                         rs.getInt("role"));
 
                 return ad;
@@ -90,23 +87,22 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-    public Account checkUserName(String phone) {
+
+    public Account checkUserName(String username) {
         String sql = """
-                     SELECT  [phoneNumber]
-                            ,[name]
+                     SELECT  [username]
                             ,[password]
                             ,[role]
                        FROM [dbo].[Account]
-                       where phoneNumber = ?""";
+                       where username = ?""";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, phone);
+            st.setString(1, username);
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                Account ad = new Account(rs.getString("phoneNumber"),
-                        rs.getString("name"),
+                Account ad = new Account(rs.getString("username"),
                         rs.getString("password"),
                         rs.getInt("role"));
                 return ad;
@@ -116,19 +112,18 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
-    public void addUser(String name, String phone) {
+    public void addUser(String username, String password) {
         String sql = """
                      INSERT INTO [dbo].[Account]
-                                ([phoneNumber]
-                                ,[name]
+                                ([username]
                                 ,[password]
                                 ,[role])
                           VALUES
                                 (?,?,?)""";
         try {
-PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, phone);
-            st.setString(2, name);
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, password);
             st.setInt(3, 3);
             st.executeUpdate();
 
@@ -137,24 +132,22 @@ PreparedStatement st = connection.prepareStatement(sql);
         }
     }
 
-    public Account getAccountByUser(String phone) {
+    public Account getAccountByUser(String username) {
         String sql = """
-                     SELECT [phoneNumber]
-                           ,[name]
+                     SELECT [username]
                            ,[password]
                            ,[role]
                        FROM [dbo].[Account]
-                       where phoneNumber = ?""";
+                       where username = ?""";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, phone);
+            st.setString(1, username);
 
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                Account ac = new Account(rs.getString("phoneNumber"),
-                        rs.getString("name"),
+                Account ac = new Account(rs.getString("username"),
                         rs.getString("password"),
                         rs.getInt("role"));
 
