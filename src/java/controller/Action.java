@@ -108,6 +108,12 @@ public class Action extends HttpServlet {
             default -> {
             }
         }
+        if(!check.equals("manage")){
+            session.removeAttribute("manageOption");
+            session.removeAttribute("manage");
+            session.removeAttribute("productsManagement");
+            session.removeAttribute("productAdd");
+        }
 
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
