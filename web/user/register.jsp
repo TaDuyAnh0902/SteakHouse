@@ -101,17 +101,21 @@ color: #234666;
     <body>
         <div class="login-page">
             <div class="form">
-                <form action="register" class="register-form" method="post">
+                <form action="Register" class="register-form" method="post">
                     <h2><i class="fas fa-lock"></i> Register</h2>
                     <!--<input type="text" placeholder="Full Name *" required />-->
-                    <input type="text" placeholder="Phone Number *" name="phone" value="${param.phone}" required />
-                    <input type="text" placeholder="Name *" name="name" value="${param.name}" required />
+                    <input type="text" placeholder="Username *" name="username" value="${param.username}" required />
+                    <input type="password" placeholder="Password *" name="pass" value="${param.pass}" required />
+                    <input type="password" placeholder="Confirm Password *" name="confirmPass" required />
                      
-                    <c:if test="${requestScope.phoneNumberFail != null}">
-                        <p style="color: red;"><c:out value="${requestScope.phoneNumberFail}"/></p>
+                    <c:if test="${requestScope.usernameFail != null}">
+                        <p style="color: red;"><c:out value="${requestScope.usernameFail}"/></p>
                     </c:if>  
-                    <c:if test="${requestScope.NameFail != null}">
-                        <p style="color: red;"><c:out value="${requestScope.NameFail}"/></p>
+                    <c:if test="${requestScope.duplicateUser != null}">
+                        <p style="color: red;"><c:out value="${requestScope.duplicateUser}"/></p>
+                    </c:if>
+                    <c:if test="${requestScope.passwordNotMatch != null}">
+                        <p style="color: red;"><c:out value="${requestScope.passwordNotMatch}"/></p>
                     </c:if>
                     <c:if test="${requestScope.successfully != null}">
                         <p style="color: green;"><c:out value="${requestScope.successfully}"/></p>
