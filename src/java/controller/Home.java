@@ -5,6 +5,7 @@
 
 package controller;
 
+import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Product;
 
 /**
  *
@@ -55,19 +58,33 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("role") == null) {
-            response.sendRedirect("login");
-        }
-
-        if (session.getAttribute("role") != null) {
-            if ((int) session.getAttribute("role") == 3) {
-                response.sendRedirect("GetListTable");
-            } else {
-                request.setAttribute("main", "success");
-                request.getRequestDispatcher("home.jsp").forward(request, response);
+       HttpSession session = request.getSession();
+        ProductsDAO PdDAO = new ProductsDAO();
+        String idTable = request.getParameter("idTable");
+        
+        if(idTable!=null){
+            try {
+                int idTable_int = Integer.parseInt(idTable);
+                session.setAttribute("tableNumber", idTable_int);
+                
+            } catch (NumberFormatException e) {
             }
         }
+//        if (session.getAttribute("role") == null) {
+//            response.sendRedirect("login");
+//        }
+//
+//        if (session.getAttribute("role") != null) {
+//            if ((int) session.getAttribute("role") == 3) {
+//                response.sendRedirect("GetListTable");
+//            } else {
+                request.setAttribute("main", "success");
+//                List<Product> list = PdDAO.getNewProduct();
+                
+//                session.setAttribute("getNewProduct", list);
+                request.getRequestDispatcher("home.jsp").forward(request, response);
+//            }
+//        }
     } 
 
     /** 
