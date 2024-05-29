@@ -70,31 +70,21 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String phoneNumber = request.getParameter("phone");
+      String username = request.getParameter("username");
         String pass = request.getParameter("pass");
-        
-        if((phoneNumber.equals("123") || phoneNumber.equals("456"))&& pass == null){
-            request.setAttribute("AccountSystem", "success");
-            request.getRequestDispatcher("user/login.jsp").forward(request, response);
-        }else{
-            AccountDAO ad = new AccountDAO();
-            HttpSession session = request.getSession();
-            Account x;
-            if(pass !=null){
-                x = ad.checkAccountSystemr(phoneNumber, pass);
-            }else{
-                x = ad.check(phoneNumber);
-            }
-            if (x != null) {
-                session.setAttribute("role", x.getRole());
-                session.setAttribute("success", x);
-                session.setAttribute("phoneNumber", phoneNumber);
+
+        AccountDAO ad = new AccountDAO();
+        HttpSession session = request.getSession();
+        Account x = ad.checkAccountSystem(username, pass);
+        if (x != null) {
+            session.setAttribute("role", x.getRole());
+            session.setAttribute("success", x);
+            session.setAttribute("username", username);
 //            session.setAttribute("user", user);
-                response.sendRedirect("home");
-            } else {
-                request.setAttribute("notSuccess", "please enter again");
-                request.getRequestDispatcher("user/login.jsp").forward(request, response);
-            }
+            response.sendRedirect("home");
+        } else {
+            request.setAttribute("notSuccess", "please enter again");
+            request.getRequestDispatcher("user/login.jsp").forward(request, response);
         }
     }
 
