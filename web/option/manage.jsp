@@ -147,6 +147,33 @@
                     </table>
                 </div>
             </c:if>
+            <c:if test="${requestScope.tableManagement!=null}">
+                <form action="tableAction">
+                    <input type="submit" value="add" class="add" name="action">
+                </form>
+                <div>
+                    <h2>Danh Sách Bàn</h2>
+                    <div class="content">
+                        <table border="1">
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+
+                            <c:forEach items="${sessionScope.tableManage}" var="t">
+                                <tr>
+                                    <td>${t.id}</td>
+                                    <td>${t.nameTable}</td>
+                                    <td><a href="tableAction?action=edit&id=${t.id}">Edit</a></td>
+                                    <td><a href="tableAction?action=delete&id=${t.id}">Delete</a></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                </div>
+            </c:if>
+
         </div>
     </body>
 </html>
