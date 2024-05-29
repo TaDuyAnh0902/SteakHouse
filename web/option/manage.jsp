@@ -133,8 +133,8 @@
                                 <td>${p.price}</td>
                                 <td>${p.describe}</td>
                                 <td>${p.category.name}</td>
-                                <td><a href="manageAction?action=edit&id=${p.id}&cid=${p.category.id}">Edit</a></td>
-                                <td><a href="manageAction?action=delete&id=${p.id}">Delete</a></td>
+                                <td><a href="productAction?action=edit&id=${p.id}&cid=${p.category.id}">Edit</a></td>
+                                <td><a href="productAction?action=delete&id=${p.id}">Delete</a></td>
                             </tr>
                         </c:forEach>
                         <c:if test="${cid!=null}">
