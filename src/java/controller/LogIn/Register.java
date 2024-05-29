@@ -68,18 +68,23 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String phoneNumber = request.getParameter("phone");
-        String name = request.getParameter("name");
+        String user = request.getParameter("username");
+        String pass = request.getParameter("pass");
+        String confirmPass = request.getParameter("confirmPass");
 
         AccountDAO ad = new AccountDAO();
         
         
-        if (ad.checkUserName(phoneNumber) != null) {
-            request.setAttribute("phoneNumberFail", "duplicate phone number");
+        if (ad.checkUserName(user) != null) {
+            request.setAttribute("duplicateUser", "duplicate user name");
             request.getRequestDispatcher("user/register.jsp").forward(request, response);
-        }else {
-            ad.addUser(name, phoneNumber);
+        }
+        if (pass.equals(confirmPass)) {
+            ad.addUser(user, pass);
             request.setAttribute("successfully", "Registered successfully");
+            request.getRequestDispatcher("user/register.jsp").forward(request, response);
+        } else {
+            request.setAttribute("passwordNotMatch", "passwords do not match");
             request.getRequestDispatcher("user/register.jsp").forward(request, response);
         }
     }
