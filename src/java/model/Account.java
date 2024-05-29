@@ -9,33 +9,24 @@ package model;
  * @author Admin
  */
 public class Account {
-    private String phoneNumber, name, passWord;
+private String username, passWord;
     private int role;
 
     public Account() {
     }
 
-    public Account(String phoneNumber, String name, String passWord, int role) {
-        this.phoneNumber = phoneNumber;
-        this.name = name;
+    public Account(String username, String passWord, int role) {
+        this.username = username;
         this.passWord = passWord;
         this.role = role;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassWord() {
