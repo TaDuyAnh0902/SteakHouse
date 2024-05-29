@@ -64,6 +64,10 @@
         <servlet-name>checkAdd</servlet-name>
         <servlet-class>controller.manage.checkAdd</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>tableAction</servlet-name>
+        <servlet-class>controller.manage.tableAction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -127,5 +131,9 @@
     <servlet-mapping>
         <servlet-name>checkAdd</servlet-name>
         <url-pattern>/checkAdd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>tableAction</servlet-name>
+        <url-pattern>/tableAction</url-pattern>
     </servlet-mapping>
 </web-app>
