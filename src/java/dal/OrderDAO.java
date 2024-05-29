@@ -48,4 +48,45 @@ public class OrderDAO extends DBContext {
         }
         return null;
     }
+    public Table deleteTableById(int id){
+        String sql = "delete [Table] where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+    
+    public void addTable(String nameTable){
+        String sql = """
+                     INSERT INTO [dbo].[Table]
+                                ([nameTable])
+                          VALUES
+                                (?)""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, nameTable);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+        }
+    }
+    
+    public void updateTable(String nameTable, int id){
+        String sql = """
+                     UPDATE [dbo].[Table]
+                        SET [nameTable] = ?
+                      WHERE id = ?""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, nameTable);
+            st.setInt(2, id);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+        }
+    }
 }
