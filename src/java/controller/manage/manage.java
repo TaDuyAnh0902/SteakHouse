@@ -70,7 +70,6 @@ public class manage extends HttpServlet {
 //            System.out.println(e);
         }
         session.removeAttribute("productAdd");
-        session.setAttribute("table", "table");
         request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
