@@ -118,7 +118,7 @@
                     <li><a href="Action?check=ListOrderLine" title="shopping cart"><i class="fas fa-shopping-cart"></i></a></li>
                             <c:set var="a" value="${sessionScope.success}"/>
                             <c:if test="${a==null}">
-                        <li><a href="logInLogOut?check=logIn" title="Log In"><i class="fas fa-sign-in-alt"></i></a></li>
+                        <li><a href="LogInLogOut?check=logIn" title="Log In"><i class="fas fa-sign-in-alt"></i></a></li>
                             </c:if>
 
                     <c:if test="${a!=null}">
