@@ -127,10 +127,8 @@ color: #234666;
                 <c:set var="cookie" value="${pageContext.request.cookies}"/>
                 <form action="login" class="login-form" method="post">
                     <h2><i class="fas fa-lock"></i> Login</h2>
-                    <input type="text" placeholder="Phone Number *" name="phone" value="${param.phone}" required />
-                    <c:if test="${requestScope.AccountSystem!=null}">
-                        <input type="text" placeholder="Password *" name="pass" required/>
-                    </c:if>
+                    <input type="text" placeholder="Username *" name="username" value="${param.username}" required />
+                    <input type="text" placeholder="Password *" name="pass" required/>
                     <p style="color: red;"><c:out value="${requestScope.notSuccess}"/></p>
                     <button type="submit" name="send2">login</button>
                     <p class="message">Not registered? <a href="Register">Create an account</a></p>
