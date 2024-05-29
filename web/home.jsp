@@ -48,6 +48,10 @@
                 <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
                 <c:if test="${sessionScope.productAdd!=null}"> <%@include file="option/productAdd.jsp" %> </c:if>
                 <c:if test="${requestScope.productUpdate!=null}"> <%@include file="option/productUpdate.jsp" %> </c:if>
+                
+                <c:if test="${requestScope.tableAdd!=null}"> <%@include file="option/tableAdd.jsp" %> </c:if>
+                <c:if test="${requestScope.tableUpdate!=null}"> <%@include file="option/tableUpdate.jsp" %> </c:if>
+                
             <%@include file="footer.jsp" %>
         </div>
         
