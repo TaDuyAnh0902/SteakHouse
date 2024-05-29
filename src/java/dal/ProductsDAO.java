@@ -262,4 +262,72 @@ public class ProductsDAO extends AccountDAO{
         }
         return list;
     }
+    
+    
+    public void addProduct(String name, int quantity, double price, String describe, String image, int cid) {
+        String sql = """
+                     INSERT INTO [dbo].[Products]
+                                ([name]
+                                ,[quantity]
+                                ,[price]
+                                ,[dateproduct]
+                                ,[describe]
+                                ,[image]
+                                ,[cid])
+                          VALUES
+                                (?,?,?,CURRENT_TIMESTAMP,?,?,?)""";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.setInt(2, quantity);
+            st.setDouble(3, price);
+            st.setString(4, describe);
+            st.setString(5, image);
+            st.setInt(6, cid);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public void deleteProductById(String id) {
+        String sql = """
+                     DELETE FROM [dbo].[Products]
+                           WHERE id = ?""";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
+            
+    public void updateProductById(String name, int quantity, double price, String describe, String image, int cid, String id) {
+        String sql = "UPDATE [dbo].[Products]\n"
+                + "   SET [name] = ?\n"
+                + "      ,[quantity] = ?\n"
+                + "      ,[price] = ?\n"
+                + "      ,[describe] = ?\n"
+                + "      ,[image] = ?\n"
+                + "      ,[cid] = ?\n"
+                + " WHERE id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.setInt(2, quantity);
+            st.setDouble(3, price);
+            st.setString(4, describe);
+            st.setString(5, image);
+            st.setInt(6, cid);
+            st.setString(7, id);
+
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
 }
