@@ -47,7 +47,7 @@
                         <div>
                             <h5>${blog.title}</h5>
                             <p>${blog.date}</p>
-                            <p>Posted By ${blog.aid.name}</p>
+                            <p>Posted By ${blog.aid.username}</p>
                         </div>
                     </div>
                 </c:forEach>
