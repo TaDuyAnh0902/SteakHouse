@@ -36,5 +36,79 @@ public class BlogDAO extends AccountDAO{
         }
         return list;
     }
+    public Blog getBlogById(int id){
+        String sql = "select * from [Blog] where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()){
+                Blog b = new Blog();
+                b.setId(rs.getInt("id"));
+                b.setTitle(rs.getString("title"));
+                b.setImage(rs.getString("image"));
+                b.setSource(rs.getString("source"));
+                b.setDate(rs.getString("date"));
+                Account a = getAccountByUser(rs.getString("aid"));
+                b.setAid(a);
+                
+                return b;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+    
+    public Blog deleteBlogById(int id){
+        String sql = "delete [Blog] where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+    
+    public void addBlog(String title, String image, String source){
+        String sql = """
+                     INSERT INTO [dbo].[Blog]
+                                ([title]
+                                ,[image]
+                                ,[source]
+                                ,[date]
+                                ,[aid])
+                          VALUES
+                                (?,?,?,CURRENT_TIMESTAMP,'admin')""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, title);
+            st.setString(2, image);
+            st.setString(3, source);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+        }
+    }
+    
+    public void updateBlog(String title, String image, String source, int id){
+        String sql = """
+                     UPDATE [dbo].[Blog]
+                        SET [title] = ?
+                           ,[image] = ?
+                           ,[source] = ?
+                      WHERE id = ?""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, title);
+            st.setString(2, image);
+            st.setString(3, source);
+            st.setInt(4, id);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+        }
+    }
 }
 
