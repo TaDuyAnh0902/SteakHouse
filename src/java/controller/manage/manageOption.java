@@ -4,6 +4,7 @@
  */
 package controller.manage;
 
+import dal.AccountDAO;
 import dal.BlogDAO;
 import dal.OrderDAO;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Account;
 import model.Blog;
 import model.Table;
 
@@ -65,12 +67,18 @@ public class manageOption extends HttpServlet {
         String check = request.getParameter("check");
         OrderDAO odDAO = new OrderDAO();
         BlogDAO blDAO = new BlogDAO();
+        AccountDAO acDAO =new AccountDAO();
         switch (check) {
             case "productsManagement" -> {
                 session.setAttribute("productsManagement", "success");
             }
-            case "accountManagement" ->
+            case "accountManagement" ->{
                 request.setAttribute("accountManagement", "success");
+                List<Account> list = acDAO.getAllAccount();
+                session.setAttribute("accountManage", list);
+            }
+                
+                
             case "blogManagement" -> {
                 request.setAttribute("blogManagement", "success");
                 List<Blog> list = blDAO.getAllBlog();
