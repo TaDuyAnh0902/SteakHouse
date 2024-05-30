@@ -92,6 +92,9 @@
             .add:hover {
                 background-color: var(--green-color);
             }
+            #wrapperrr table{
+                width: 60%;
+            }
         </style>
     </head>
     <body>
@@ -151,7 +154,7 @@
             <c:if test="${requestScope.accountManagement!=null}">
                 
                 <div>
-                    <h2>dog</h2>
+                    <h2>Danh Sách Tài Khoản</h2>
                     <div class="content">
                         <table border="1">
                             <tr>
@@ -167,7 +170,7 @@
                                     <td>${a.passWord}</td>
                                     <td>${a.role}</td>
                                     <td><a href="accountAction?action=edit&user=${a.username}">Edit</a></td>
-                                    <td><a href="accountAction?action=delete&user=${a.userName}">Delete</a></td>
+                                    <td><a href="accountAction?action=delete&user=${a.username}">Delete</a></td>
                                 </tr>
                             </c:forEach>
                         </table>
