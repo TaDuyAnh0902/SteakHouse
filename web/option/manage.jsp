@@ -171,7 +171,7 @@
                                     <td>${a.passWord}</td>
                                     <td>${a.role}</td>
 <!--                                    <td><a href="accountAction?action=edit&user=${a.username}">Edit</a></td>-->
-                                    <td><a href="accountAction?action=delete&user=${a.username}">Delete</a></td>
+                                    <td><a href="accountAction?action=delete&username=${a.username}">Delete</a></td>
                                 </tr>
                             </c:forEach>
                         </table>
