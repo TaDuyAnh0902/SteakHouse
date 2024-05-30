@@ -79,9 +79,9 @@ public class Home extends HttpServlet {
 //                response.sendRedirect("GetListTable");
 //            } else {
                 request.setAttribute("main", "success");
-//                List<Product> list = PdDAO.getNewProduct();
+                List<Product> list = PdDAO.getNewProduct();
                 
-//                session.setAttribute("getNewProduct", list);
+                session.setAttribute("getNewProduct", list);
                 request.getRequestDispatcher("home.jsp").forward(request, response);
 //            }
 //        }
