@@ -88,6 +88,33 @@ public class ProductsDAO extends AccountDAO{
         }
         return list;
     }
+    public List<Product> getNewProduct() {
+        List<Product> list = new ArrayList<>();
+        String sql = """
+                     SELECT top 3 * from [Products]
+                     order by dateproduct desc""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getString("id"));
+                p.setName(rs.getString("name"));
+                p.setQuantity(rs.getInt("quantity"));
+                p.setPrice(rs.getDouble("price"));
+                p.setDateproduct(rs.getString("dateproduct"));
+                p.setDescribe(rs.getString("describe"));
+                p.setImage(rs.getString("image"));
+                Category c = getCategoryById(rs.getInt("cid"));
+                p.setCategory(c);
+                list.add(p);
+
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
 
     public List<Product> getListByPage(List<Product> list,
             int start, int end) {
