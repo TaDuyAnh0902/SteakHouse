@@ -18,26 +18,25 @@ import java.util.List;
  * @author ASUS
  */
 public class AccountDAO extends DBContext {
-//    public List<Account> getAllAccount(){
-//        String sql = "select * from Account where role != 1";
-//        List<Account> list = new ArrayList<>();
-//        
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while(rs.next()){
-//                Account ad = new Account(rs.getString("phoneNumber"),
-//                            rs.getString("password"),
-//                        rs.getString("name"),
-//                        rs.getInt("role"));
-//                
-//                list.add(ad);
-//            }
-//        } catch (SQLException e) {
-//        }
-//        return list;
-//    }
-
+    public List<Account> getAllAccount(){
+        String sql = "select * from Account";
+        List<Account> list = new ArrayList<>();
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Account ad = new Account();
+                ad.setUsername(rs.getString("username"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setRole(rs.getInt("role"));
+                
+                list.add(ad);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
 //    public Account check(String phone) {
 //        String sql = """
 //                     SELECT [phoneNumber]
