@@ -174,6 +174,37 @@
                 </div>
             </c:if>
 
+            <c:if test="${requestScope.blogManagement!=null}">
+                <form action="blogAction">
+                    <input type="submit" value="add" class="add" name="action">
+                </form>
+                <div>
+                    <h2>Danh Sách Blog</h2>
+                    <div class="content">
+                        <table border="1">
+                            <tr>
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>image</th>
+                                <th>source</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+
+                            <c:forEach items="${sessionScope.blogManage}" var="b">
+                                <tr>
+                                    <td>${b.id}</td>
+                                    <td>${b.title}</td>
+                                    <td><img src="${b.image}" alt="${p.image}" width="80px" height="80px"/></td>
+                                    <td><a href="${b.source}">${b.source}</a></td>
+                                    <td><a href="blogAction?action=edit&id=${b.id}">Edit</a></td>
+                                    <td><a href="blogAction?action=delete&id=${b.id}">Delete</a></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                </div>
+            </c:if>                
+                
         </div>
     </body>
 </html>
