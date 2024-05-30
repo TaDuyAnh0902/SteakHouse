@@ -52,6 +52,8 @@
                 <c:if test="${requestScope.tableAdd!=null}"> <%@include file="option/tableAdd.jsp" %> </c:if>
                 <c:if test="${requestScope.tableUpdate!=null}"> <%@include file="option/tableUpdate.jsp" %> </c:if>
                 
+                <c:if test="${requestScope.blogAdd!=null}"> <%@include file="option/blogAdd.jsp" %> </c:if>
+                <c:if test="${requestScope.blogUpdate!=null}"> <%@include file="option/blogUpdate.jsp" %> </c:if>
             <%@include file="footer.jsp" %>
         </div>
         
