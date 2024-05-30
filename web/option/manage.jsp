@@ -147,6 +147,34 @@
                     </table>
                 </div>
             </c:if>
+                
+            <c:if test="${requestScope.accountManagement!=null}">
+                
+                <div>
+                    <h2>dog</h2>
+                    <div class="content">
+                        <table border="1">
+                            <tr>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>role</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+
+                            <c:forEach items="${sessionScope.accountManage}" var="a">
+                                <tr>
+                                    <td>${a.username}</td>
+                                    <td>${a.passWord}</td>
+                                    <td>${a.role}</td>
+                                    <td><a href="accountAction?action=edit&user=${a.username}">Edit</a></td>
+                                    <td><a href="accountAction?action=delete&user=${a.userName}">Delete</a></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                </div>
+            </c:if>
+
             <c:if test="${requestScope.tableManagement!=null}">
                 <form action="tableAction">
                     <input type="submit" value="add" class="add" name="action">
