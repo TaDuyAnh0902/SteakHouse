@@ -72,6 +72,10 @@
         <servlet-name>blogAction</servlet-name>
         <servlet-class>controller.manage.blogAction</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>accountAction</servlet-name>
+        <servlet-class>controller.manage.accountAction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -143,5 +147,9 @@
     <servlet-mapping>
         <servlet-name>blogAction</servlet-name>
         <url-pattern>/blogAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>accountAction</servlet-name>
+        <url-pattern>/accountAction</url-pattern>
     </servlet-mapping>
 </web-app>
