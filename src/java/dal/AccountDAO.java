@@ -5,8 +5,6 @@
 package dal;
 
 import model.Account;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,19 +16,20 @@ import java.util.List;
  * @author ASUS
  */
 public class AccountDAO extends DBContext {
-    public List<Account> getAllAccount(){
+
+    public List<Account> getAllAccount() {
         String sql = "select * from Account";
         List<Account> list = new ArrayList<>();
-        
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Account ad = new Account();
                 ad.setUsername(rs.getString("username"));
                 ad.setPassWord(rs.getString("password"));
                 ad.setRole(rs.getInt("role"));
-                
+
                 list.add(ad);
             }
         } catch (SQLException e) {
@@ -61,6 +60,7 @@ public class AccountDAO extends DBContext {
 //        }
 //        return null;
 //    }
+
     public Account checkAccountSystem(String username, String password) {
         String sql = """
                      SELECT [username]
@@ -157,4 +157,15 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
+    public void deleteUser(String user) {
+        String sql = "delete Account where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, user);
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+
+        }
+    }
 }
