@@ -161,7 +161,8 @@
                                 <th>Username</th>
                                 <th>Password</th>
                                 <th>role</th>
-                                <th colspan="2">Action</th>
+                                <th>Action</th>
+                                <!--<th colspan="2">Action</th>-->
                             </tr>
 
                             <c:forEach items="${sessionScope.accountManage}" var="a">
@@ -169,7 +170,7 @@
                                     <td>${a.username}</td>
                                     <td>${a.passWord}</td>
                                     <td>${a.role}</td>
-                                    <td><a href="accountAction?action=edit&user=${a.username}">Edit</a></td>
+<!--                                    <td><a href="accountAction?action=edit&user=${a.username}">Edit</a></td>-->
                                     <td><a href="accountAction?action=delete&user=${a.username}">Delete</a></td>
                                 </tr>
                             </c:forEach>
