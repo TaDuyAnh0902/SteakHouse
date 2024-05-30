@@ -55,7 +55,7 @@
     </head>
     <body>
         <div class="tableUpdate">
-            <h1>Update Product</h1>
+            <h1>Update Table</h1>
             <c:set var="t" value="${requestScope.tableUpdate}"/>
             <form action="tableAction" method="post">
                 <input type="hidden" name="id" value="${t.id}">
