@@ -41,7 +41,7 @@
                 width: calc(33.33% - 40px);
                 margin: 20px;
             }
-
+            
             .newProducts img {
                 width: 100%;
                 height: 70%;
@@ -66,13 +66,22 @@
                 border-left: 1px solid rgb(192, 192, 192);
                 border-right: 1px solid rgb(192, 192, 192);
             }
+            .banner img {
+                transition: opacity 0.3s ease-in-out;
+                opacity: 1;
+            }
+
+            .fade-out {
+                opacity: 0;
+            }
         </style>
     </head>
+    
     <body>
         <c:set var="main" value="${requestScope.main}"/>
         <div class="main">
             <div class="banner">
-                <img src="images/bannerr.jpg" alt="images" width=" 80%" height="700px">
+                <img id="img" src="images/banner.jpg" alt="images" onclick="changeImage()" width="80%" height="700px">
             </div>
             <div class="selling">
                 <div class="hot-selling-title">
@@ -118,4 +127,19 @@
             </div>
         </div>
     </body>
+    
+    <script>
+        var index = 1;
+        var imgs = ["images/banner.jpg",  "images/banner12.jpg","images/banner10.jpg"];
+
+        function changeImage() {
+            document.getElementById('img').src = imgs[index];
+            index++;
+            if (index == imgs.length) {
+                index = 0;
+            }
+        }
+
+        setInterval(changeImage, 3000);
+    </script>
 </html>
