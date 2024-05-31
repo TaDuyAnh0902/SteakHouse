@@ -193,10 +193,7 @@
                     width: 20px;
                 }
             }
-        </style>
-    </head>
-    <body>
-        @media only screen and (max-width: 500px) {
+                    @media only screen and (max-width: 500px) {
                 body {
                     min-width: 100vw;
                     background: none;
@@ -271,6 +268,10 @@
                     width: 20px;
                 }
             }
+        </style>
+    </head>
+    <body>
+
         <c:set var="store" value="${requestScope.store}"/>
         <div class="row store">
             <div class="left-store col-md-3">
