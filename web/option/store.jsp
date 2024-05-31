@@ -51,9 +51,18 @@
                 height: 450px;
             }
 
+            .product {
+                overflow: hidden;
+            }
             .product img {
+                border-radius: 8px;
                 width: 100%;
                 height: 60%;
+                transition: 0.3s;
+            }
+
+            .product img:hover {
+                transform: scale(1.2);
             }
 
             .actions {
@@ -63,8 +72,8 @@
             }
 
             .action input{
-                width: 80px;
-                height: 35px;
+                width: 68px;
+                height: 32px;
                 border: 1px solid black;
                 border-radius: 8px;
                 background-color: var(--dark-green-color);
@@ -111,89 +120,11 @@
                 border-radius: 8px;
                 padding: 0 10px;
             }
-            .product button,
-            #quantity{
-                width: 30px;
-                border: 1px solid black;
-                height: 30px;
-                text-align: center;
+            center {
+                margin-top: 100px;
             }
+            
             @media only screen and (max-width: 500px) {
-                body {
-                    min-width: 100vw;
-                    background: none;
-                }
-                .store {
-                    padding: 0;
-                    margin: 0;
-                }
-                .store h4 {
-                    display: none;
-                }
-                .right-store {
-                    display: flex;
-                    text-align: center;
-                    flex-wrap: wrap;
-                }
-
-                .right-store > div {
-                    gap: 20px;
-                    width: calc(50% - 40px);
-                    height: 300px;
-                }
-                .left-store {
-                    background-color: #E2D9BC;
-                }
-                .menu {
-                    width: 100%;
-                    display: flex;
-                    text-align: center;
-                }
-
-                .menu li {
-                    width: 20%;
-                }
-                .menu a {
-                    font-size: 12px;
-                }
-                .nav ul li:nth-child(2) {
-                    display: none;
-                }
-                .header {
-                    display: none;
-                }
-                .product p {
-                    display: none;
-                }
-                .product h5 {
-                    font-weight: normal;
-                    font-size: 16px;
-                }
-                center {
-                    margin-top: 0;
-                }
-                .BuyProduct {
-                    position: relative;
-                    align-items: center;
-                }
-                .buttonShop {
-                    position: absolute;
-                    
-                    left: 10px;
-                    top: 0;
-                }
-                .actions{
-                    position: absolute;
-                    right: 10px;
-                }
-                button {
-                    border: 1px solid black;
-                    border-radius: 8px;
-                    height: 32px;
-                    width: 20px;
-                }
-            }
-                    @media only screen and (max-width: 500px) {
                 body {
                     min-width: 100vw;
                     background: none;
@@ -271,21 +202,24 @@
         </style>
     </head>
     <body>
-
+        <c:if test="${sessionScope.tableNumber!=null}">
+            <h2 style="color: #F90;text-align: center;background-color: #E2D9BC; margin: 0;">Bàn <c:out value="${sessionScope.tableNumber}"/></h2>
+        </c:if>
         <c:set var="store" value="${requestScope.store}"/>
         <div class="row store">
             <div class="left-store col-md-3">
                 <h4>Browse</h4><br>
                 <ul class="menu">
-                    <li><a href="Products?cid=0">Tất Cả Sản Phẩm</a></li>
+                    <li><a href="Products?cid=0">Sản Phẩm</a></li>
                     <hr>
                     <c:forEach var="c" items="${sessionScope.data}">
                         <li><a href="Products?cid=${c.id}">${c.name}</a></li><hr>
                         </c:forEach>
                 </ul>
-                <h4>Search</h4>
-                <%@include file="searchProduct.jsp" %>
-
+                <c:if test="${sessionScope.tableNumber==null}">
+                    <h4>Search</h4>
+                    <%@include file="searchProduct.jsp" %>
+                </c:if>
             </div>
 
             <div class="right-store col-md-9">
@@ -294,8 +228,7 @@
                         <img src="${p.image}" alt="${p.image}"/>
                         <p>${p.category.name}</p>
                         <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; ">${p.name}</a>
-                        <h5 style="font-weight: bold;">Price: ${p.price}00 vnđ</h5>
-
+                        <h5 style="font-weight: bold;">${p.price}00 vnđ</h5>
                         <c:if test="${sessionScope.tableNumber!=null}">
                             <div class="BuyProduct">
                                 <form action="BuyProduct">
@@ -332,7 +265,7 @@
                 </c:forEach>
             </div>
         </div>
-    <center style="margin-top: 100px;">
+    <center>
         <c:set var="Cid" value="${requestScope.Cid}"/>
         <%--<c:set var="page" value="${requestScope.page}"/>--%>
         <c:if test="${num>1}">
