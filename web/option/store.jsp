@@ -118,9 +118,159 @@
                 height: 30px;
                 text-align: center;
             }
+            @media only screen and (max-width: 500px) {
+                body {
+                    min-width: 100vw;
+                    background: none;
+                }
+                .store {
+                    padding: 0;
+                    margin: 0;
+                }
+                .store h4 {
+                    display: none;
+                }
+                .right-store {
+                    display: flex;
+                    text-align: center;
+                    flex-wrap: wrap;
+                }
+
+                .right-store > div {
+                    gap: 20px;
+                    width: calc(50% - 40px);
+                    height: 300px;
+                }
+                .left-store {
+                    background-color: #E2D9BC;
+                }
+                .menu {
+                    width: 100%;
+                    display: flex;
+                    text-align: center;
+                }
+
+                .menu li {
+                    width: 20%;
+                }
+                .menu a {
+                    font-size: 12px;
+                }
+                .nav ul li:nth-child(2) {
+                    display: none;
+                }
+                .header {
+                    display: none;
+                }
+                .product p {
+                    display: none;
+                }
+                .product h5 {
+                    font-weight: normal;
+                    font-size: 16px;
+                }
+                center {
+                    margin-top: 0;
+                }
+                .BuyProduct {
+                    position: relative;
+                    align-items: center;
+                }
+                .buttonShop {
+                    position: absolute;
+                    
+                    left: 10px;
+                    top: 0;
+                }
+                .actions{
+                    position: absolute;
+                    right: 10px;
+                }
+                button {
+                    border: 1px solid black;
+                    border-radius: 8px;
+                    height: 32px;
+                    width: 20px;
+                }
+            }
         </style>
     </head>
     <body>
+        @media only screen and (max-width: 500px) {
+                body {
+                    min-width: 100vw;
+                    background: none;
+                }
+                .store {
+                    padding: 0;
+                    margin: 0;
+                }
+                .store h4 {
+                    display: none;
+                }
+                .right-store {
+                    display: flex;
+                    text-align: center;
+                    flex-wrap: wrap;
+                }
+
+                .right-store > div {
+                    gap: 20px;
+                    width: calc(50% - 40px);
+                    height: 300px;
+                }
+                .left-store {
+                    background-color: #E2D9BC;
+                }
+                .menu {
+                    width: 100%;
+                    display: flex;
+                    text-align: center;
+                }
+
+                .menu li {
+                    width: 20%;
+                }
+                .menu a {
+                    font-size: 12px;
+                }
+                .nav ul li:nth-child(2) {
+                    display: none;
+                }
+                .header {
+                    display: none;
+                }
+                .product p {
+                    display: none;
+                }
+                .product h5 {
+                    font-weight: normal;
+                    font-size: 16px;
+                }
+                center {
+                    margin-top: 0;
+                }
+                .BuyProduct {
+                    position: relative;
+                    align-items: center;
+                }
+                .buttonShop {
+                    position: absolute;
+                    
+                    left: 10px;
+                    top: 0;
+                }
+                .actions{
+                    position: absolute;
+                    right: 10px;
+                }
+                button {
+                    border: 1px solid black;
+                    border-radius: 8px;
+                    height: 32px;
+                    width: 20px;
+                }
+            }
         <c:set var="store" value="${requestScope.store}"/>
         <div class="row store">
             <div class="left-store col-md-3">
@@ -145,34 +295,37 @@
                         <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; ">${p.name}</a>
                         <h5 style="font-weight: bold;">Price: ${p.price}00 vnđ</h5>
 
-                        <div>
-                            <form action="BuyProduct">
-                                
-                            
-                                <button type="button" onclick="decrement()">-</button>
-                                <input type="text" id="quantity" value="1" name="quantity" style="width: 30px;" >
-                                <button type="button" onclick="increment()">+</button> (còn : ${p.quantity})<br>
+                        <c:if test="${sessionScope.tableNumber!=null}">
+                            <div class="BuyProduct">
+                                <form action="BuyProduct">
 
-                                <h3 style="color: red"><c:out value="${requestScope.quantityFail}"/></h3>
-
-                                <input type="hidden" name="id" value="${p.id}">     
-                                <c:set var="q" value="${param.quantity}"/>
-                                <c:if test="${p.quantity > 0}">
-
-                                    <div class="actions">
-                                        <div class="action" style="margin-right: 20px;">
-                                            <input type="submit" value="+ Giỏ">
-                                        </div>
-                                        <div class="action">
-                                            <input type="submit" value="Buy">
-                                        </div>
+                                    <div class="buttonShop">
+                                        <button type="button" onclick="decrement()">-</button>
+                                        <input type="text" id="quantity" value="1" name="quantity" style="width: 24px; height: 28px;" >
+                                        <button type="button" onclick="increment()">+</button><br>
                                     </div>
-                                </c:if>
-                                <c:if test="${p.quantity == 0}">
-                                    <h3 style="color: red">Hết hàng</h3>
-                                </c:if>
-                            </form> 
-                        </div>
+                                    
+
+                                    <h3 style="color: red"><c:out value="${requestScope.quantityFail}"/></h3>
+
+                                    <input type="hidden" name="id" value="${p.id}">     
+                                    <c:set var="q" value="${param.quantity}"/>
+
+                                    <c:if test="${p.quantity > 0}">
+                                        <div class="actions">
+                                            <div class="action">
+                                                <input type="submit" value="+ Giỏ">
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${p.quantity == 0}">
+                                        <h3 style="color: red">Hết hàng</h3>
+                                    </c:if>
+
+
+                                </form> 
+                            </div>
+                        </c:if>
                     </div>
 
                 </c:forEach>
