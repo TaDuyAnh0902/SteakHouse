@@ -41,7 +41,7 @@
                 width: calc(33.33% - 40px);
                 margin: 20px;
             }
-            
+
             .newProducts img {
                 width: 100%;
                 height: 70%;
@@ -72,7 +72,7 @@
         <c:set var="main" value="${requestScope.main}"/>
         <div class="main">
             <div class="banner">
-                <img src="images/banner.jpg" alt="images" width=" 80%" height="700px">
+                <img src="images/bannerr.jpg" alt="images" width=" 80%" height="700px">
             </div>
             <div class="selling">
                 <div class="hot-selling-title">
@@ -84,7 +84,7 @@
                     <c:forEach items="${requestScope.getNewProduct}" var="p">
                         <div class="newProducts">
                             <img src="${p.image}" alt="${p.image}"/>
-<p>${p.category.name}</p>
+                            <p>${p.category.name}</p>
                             <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; ">${p.name}</a>
                         </div>
                     </c:forEach>
