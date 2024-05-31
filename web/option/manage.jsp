@@ -137,7 +137,7 @@
                                 <td>${p.describe}</td>
                                 <td>${p.category.name}</td>
                                 <td><a href="productAction?action=edit&id=${p.id}&cid=${p.category.id}">Edit</a></td>
-                                <td><a href="productAction?action=delete&id=${p.id}">Delete</a></td>
+                                <td><a href="productAction?action=delete&id=${p.id}" onclick="return confirmDeleteProduct(${p.id});">Delete</a></td>
                             </tr>
                         </c:forEach>
                         <c:if test="${cid!=null}">
@@ -150,9 +150,9 @@
                     </table>
                 </div>
             </c:if>
-                
+
             <c:if test="${requestScope.accountManagement!=null}">
-                
+
                 <div>
                     <h2>Danh Sách Tài Khoản</h2>
                     <div class="content">
@@ -171,7 +171,7 @@
                                     <td>${a.passWord}</td>
                                     <td>${a.role}</td>
 <!--                                    <td><a href="accountAction?action=edit&user=${a.username}">Edit</a></td>-->
-                                    <td><a href="accountAction?action=delete&username=${a.username}">Delete</a></td>
+                                    <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');">Delete</a></td>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -198,7 +198,7 @@
                                     <td>${t.id}</td>
                                     <td>${t.nameTable}</td>
                                     <td><a href="tableAction?action=edit&id=${t.id}">Edit</a></td>
-                                    <td><a href="tableAction?action=delete&id=${t.id}">Delete</a></td>
+                                    <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteTable(${t.id});">Delete</a></td>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -229,14 +229,58 @@
                                     <td><img src="${b.image}" alt="${p.image}" width="80px" height="80px"/></td>
                                     <td><a href="${b.source}">${b.source}</a></td>
                                     <td><a href="blogAction?action=edit&id=${b.id}">Edit</a></td>
-                                    <td><a href="blogAction?action=delete&id=${b.id}">Delete</a></td>
+                                    <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteBlog(${b.id});">Delete</a></td>
+                                </tr>
                                 </tr>
                             </c:forEach>
                         </table>
                     </div>
                 </div>
             </c:if>                
-                
+
         </div>
+      
+        
+        <script>
+        function confirmDeleteProduct(id) {
+            var confirmation = confirm("Are you sure you want to delete your Product?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Product deletion canceled.");
+                return false;
+            }
+        }
+        
+         function confirmDeleteAccount(username) {
+            var confirmation = confirm("Are you sure you want to delete the Account for " + username + "?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Account deletion canceled.");
+                return false;
+            }
+        }
+        
+        function confirmDeleteBlog(id) {
+            var confirmation = confirm("Are you sure you want to delete this blog post?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Blog post deletion canceled.");
+                return false;
+            }
+        }
+        
+        function confirmDeleteTable(id) {
+            var confirmation = confirm("Are you sure you want to delete your Table " + id + "?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Table deletion canceled.");
+                return false;
+            }
+        }
+    </script>
     </body>
 </html>
