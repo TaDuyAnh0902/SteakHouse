@@ -90,7 +90,7 @@
                     <hr>
                 </div>
                 <div class="hot-selling">
-                    <c:forEach items="${requestScope.getNewProduct}" var="p">
+                    <c:forEach items="${sessionScope.getNewProduct}" var="p">
                         <div class="newProducts">
                             <img src="${p.image}" alt="${p.image}"/>
                             <p>${p.category.name}</p>
