@@ -45,7 +45,11 @@
                 width: 300px;
                 height: 300px;
             }
-            
+            @media only screen and (max-width: 600px){
+                .row {
+                    padding: 0;
+                }
+            }
         </style>
     </head>
     <body>
