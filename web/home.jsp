@@ -26,6 +26,12 @@
             body {
                 width: 100%;
                 min-width: 1200px;
+                position: relative;
+            }
+            .footer {
+                position: absolute;
+                width: 100%;
+                top: 100%;
             }
             @media only screen and (max-width: 600px) {
                 body {
@@ -49,7 +55,7 @@
         </style>
     </head>
     <body>
-        <div>
+        <div class="wrapper">
             <%@include file="header.jsp" %>
             
             
