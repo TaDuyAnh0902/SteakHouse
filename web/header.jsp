@@ -84,12 +84,31 @@
             .header-right i {
                 color: var(--green-color);
             }
+            @media only screen and (max-width: 600px) {
+                body {
+                    min-width: 100vw;
+                    background: none;
+                }
+                .footer {
+                    display: none;
+                }
+                #container {
+                    display: none;
+                }
+                .selling {
+                    display: none;
+                }
+                .header {
+                    height: 0vh;
+                    width: 0vw;
+                }
+            }
         </style>
     </head>
     <body>
         <div class="header">
             <div class="logo">
-                <c:if test="${sessionScope.role == 3}">
+                <c:if test="${sessionScope.tableNumber != null}">
                     <h2 style="color: red;margin-right: 20px;">Bàn <c:out value="${sessionScope.tableNumber}"/></h2>
                 </c:if>
                 <a href="home" title="Livehealthy - Sức khỏe mạnh bắt đầu từ chọn lựa">
