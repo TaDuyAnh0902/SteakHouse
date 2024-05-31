@@ -84,23 +84,48 @@
             .header-right i {
                 color: var(--green-color);
             }
+            .cart {
+                display: none;
+            }
             @media only screen and (max-width: 600px) {
-                body {
-                    min-width: 100vw;
-                    background: none;
-                }
-                .footer {
-                    display: none;
-                }
-                #container {
-                    display: none;
-                }
-                .selling {
-                    display: none;
+                body{
+                    position: relative;
+                    height: 100vh;
+                    background: url(images/loginPhone2.jpg);
+                    background-repeat: no-repeat;
+                    background-size: 100% 100vh;
                 }
                 .header {
-                    height: 0vh;
-                    width: 0vw;
+                    display: inline;
+                }
+                .logo {
+                    display: none;
+                }
+                .banner {
+                    display: none;
+                }
+                .nav {
+                    width: 100%;
+                    margin: 0 auto;
+                }
+                .nav ul li {
+                    display: none;
+                }
+                .header-right {
+                    display: none;
+                }
+                .nav ul li:nth-child(2) {
+                    border: 1px solid black;
+                    border-radius: 20px;
+                    background-color: #E2D9BC;
+                    padding: 50px 50px;
+                    display: inline;
+                    position: absolute;
+                    top: 35%;
+                    color: brown;
+                }
+                .header-right ul li:nth-child(1) {
+                    display: inline;
                 }
             }
         </style>
