@@ -27,6 +27,25 @@
                 width: 100%;
                 min-width: 1200px;
             }
+            @media only screen and (max-width: 600px) {
+                body {
+                    min-width: 100vw;
+                    background: none;
+                }
+                .footer {
+                    display: none;
+                }
+                #container {
+                    display: none;
+                }
+                .selling {
+                    display: none;
+                }
+                .header {
+                    height: 0vh;
+                    width: 0vw;
+                }
+            }
         </style>
     </head>
     <body>
