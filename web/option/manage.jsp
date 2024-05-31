@@ -253,7 +253,7 @@
         }
         
          function confirmDeleteAccount(username) {
-            var confirmation = confirm("Are you sure you want to delete the Account for " + username + "?");
+            var confirmation = confirm("Are you sure you want to delete the Account : " + username + "?");
             if (confirmation === true) {
                 return true;
             } else {
@@ -273,7 +273,7 @@
         }
         
         function confirmDeleteTable(id) {
-            var confirmation = confirm("Are you sure you want to delete your Table " + id + "?");
+            var confirmation = confirm("Are you sure you want to delete Table ");
             if (confirmation === true) {
                 return true;
             } else {
