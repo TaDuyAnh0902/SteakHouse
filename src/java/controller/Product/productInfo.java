@@ -56,16 +56,15 @@ public class productInfo extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
+
         HttpSession session = request.getSession();
 
-//        session.removeAttribute("mainSuccess");
         String id = request.getParameter("id");
         String cid = request.getParameter("cid");
         int cid_int;
 
         ProductsDAO db = new ProductsDAO();
-//        session.removeAttribute("storeSuccess");
 
         try {
             cid_int = Integer.parseInt(cid);
@@ -80,7 +79,7 @@ public class productInfo extends HttpServlet {
         request.setAttribute("productInfo", "success");
         request.getRequestDispatcher("home.jsp").forward(request, response);
 
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
