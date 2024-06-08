@@ -55,12 +55,35 @@ public class search extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    } 
+            throws ServletException, IOException {
+        String sort = request.getParameter("sort");
+        String search = request.getParameter("search");
+        ProductsDAO db = new ProductsDAO();
+        List<Product> list = null;
+        if(search!=null){
+            list = db.searchProductByName(search);
+        }else {
+            switch (sort) {
+                case "sort1" -> {
+                    list = db.searchProductBySort(1);
+                }
+                case "sort2" -> {
+                    list = db.searchProductBySort(2);
+                }
+                case "sort3" -> {
+                    list = db.searchProductBySort(3);
+                }
+            }
+        }
+        
+        request.setAttribute("products", list);
+        request.setAttribute("store", "success");
+        request.getRequestDispatcher("home.jsp").forward(request, response);
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -68,44 +91,7 @@ public class search extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        String search = request.getParameter("search");
-        String price = request.getParameter("price");
-        String sort = request.getParameter("sort");
-        ProductsDAO db = new ProductsDAO();
-        if (search.isEmpty()) {
-            if (!sort.equals("0")) {
-                List<Product> list = null;
-                switch (sort) {
-                    case "sort1" -> {
-                        list = db.searchProductBySort(1);
-                    }
-                    case "sort2" -> {
-                        list = db.searchProductBySort(2);
-                    }
-                    case "sort3" -> {
-                        list = db.searchProductBySort(3);
-                        
-                    }
-                }
-                request.setAttribute("products", list);
-            } else {
-                float price_float;
-                try {
-                    price_float = Integer.parseInt(price);
-                    List<Product> list = db.searchProductByPrice(price_float);
-                    request.setAttribute("products", list);
-                } catch (NumberFormatException e) {
-                }
-            }
-
-        } else {
-            List<Product> list = db.searchProductByName(search);
-            request.setAttribute("products", list);
-        }
-        
-        request.setAttribute("store", "success");
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+            throws ServletException, IOException {
     }
 
     /** 
