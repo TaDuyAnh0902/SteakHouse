@@ -56,7 +56,7 @@ public class Products extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         String cid = request.getParameter("cid");
         ProductsDAO d = new ProductsDAO();
         int cid_int;
@@ -66,7 +66,7 @@ public class Products extends HttpServlet {
             
             
             int size = list.size();
-            int page, numperpage = 6;
+            int page, numperpage = 12;
             int num=(size%numperpage==0?(size/numperpage):((size/numperpage)+1));
             String xpage = request.getParameter("page");
             if(xpage == null){
