@@ -160,35 +160,47 @@
                                     <th>Price</th>
                                     <th>Describe</th>
                                     <th>Category Name</th>
+                                    <th>Status</th>
                                     <th colspan="2">Action</th>
                                 </tr>
                             </c:if>
 
                             <c:set var="cid" value="${null}"/>
-                            <!--Products-->
+
                             <c:forEach items="${requestScope.products}" var="p">
                                 <c:set var="cid" value="${p.category.id}"/>
                                 <tr>
                                     <td>${p.id}</td>
                                     <td>${p.name}</td>
-                                    <td><img src="${p.image}" alt="${p.image}" width="80px" height="80px"/></td>
+                                    <td><img src="${p.image}" alt="${p.image}" class="imgProduct"/></td>
                                     <td>${p.quantity}</td>
                                     <td>${p.price}</td>
                                     <td>${p.describe}</td>
                                     <td>${p.category.name}</td>
+                                    <td>${p.sid.nameStatus}</td>
                                     <td><a href="productAction?action=edit&id=${p.id}&cid=${p.category.id}">Edit</a></td>
                                     <td><a href="productAction?action=delete&id=${p.id}" onclick="return confirmDeleteProduct(${p.id});">Delete</a></td>
                                 </tr>
                             </c:forEach>
                             <c:if test="${cid!=null}">
-                                <form action="checkAdd">
-                                    <input type="hidden" name="cid" value="${cid}">
-                                    <input type="submit" value="+ Thêm sản phẩm" class="add">
-                                </form>
+                                <div>
+                                    <form action="checkAdd">
+                                        <input type="hidden" name="cid" value="${cid}">
+                                        <input type="submit" value="+ Thêm sản phẩm" class="add">
+                                    </form>
+                                </div>
                             </c:if>
 
                         </table>
                     </div>
+                </c:if>
+
+                <c:if test="${requestScope.productAdd!=null}"> 
+                    <%@include file="productAdd.jsp" %>
+                </c:if>
+
+                <c:if test="${requestScope.productUpdate!=null}"> 
+                    <%@include file="productUpdate.jsp" %> 
                 </c:if>
                 <!--                Account-->
 
@@ -249,7 +261,7 @@
                         </div>
                     </div>
                 </c:if>
-                    
+
                 <c:if test="${requestScope.tableAdd!=null}"> 
                     <%@include file="tableAdd.jsp" %> 
                 </c:if>
@@ -298,7 +310,7 @@
             function ac(id) {
                 window.location.href = "manageOption?check=" + id;
             }
-        
+
             function confirmDeleteProduct(id) {
                 var confirmation = confirm("Are you sure you want to delete your Product?");
                 if (confirmation === true) {
