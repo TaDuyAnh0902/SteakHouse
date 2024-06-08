@@ -19,7 +19,6 @@
 
             .productInfo p {
                 font-size: 18px;
-                margin: 40px 0;
             }
             .productInfo > div {
                 width: 50%;
@@ -27,6 +26,7 @@
 
             .productInfo img {
                 width: 90%;
+                height: 100%;
             }
 
             .productByCid{
@@ -47,44 +47,18 @@
                 height: 60%;
             }
 
-            .actions {
-                width: 100%;
-                display: flex;
-                justify-content: space-evenly;
-
-            }
-
-            .action {
-                display: flex;
-                width: 80px;
-                height: 40px;
-                border: 1px solid black;
-                border-radius: 8px;
-                background-color: var(--dark-green-color);
-                align-items: center;
-            }
-
-            .action:hover{
-                background-color: var(--green-color);
-            }
-
-            .action a{
-                margin: 0 auto;
-                text-decoration: none;
-                color: white;
-            }
-            .actions {
-                display: none;
-            }
             @media only screen and (max-width: 500px) {
                 body {
                     background: none;
+                }
+                .header {
+                    display: none;
                 }
                 .nav ul li:nth-child(2) {
                     display: none;
                 }
                 .productById {
-                    padding: 0 5%;
+                    padding: 5% 5% 0 5%; 
                     margin: 0;
                 }
                 .productInfo h2 {
@@ -104,7 +78,22 @@
                     margin: 20px;
                 }
                 .product a {
-font-size: 16px;
+                    font-size: 16px;
+                }
+                .BuyProduct {
+                    position: relative;
+                    align-items: center;
+                    bottom:  50px;
+                }
+                .buttonShop {
+                    position: absolute;
+                    left: 10px;
+                    top: 0;
+                }
+                .actions {
+                    position: absolute;
+                    left: 80px;
+                    top: 0;
                 }
             }
         </style>
@@ -120,28 +109,75 @@ font-size: 16px;
                     <h2>${p.name}</h2>
                     <p>${p.describe}</p>
                     <h3>${p.price}00 vnđ</h3><br><br>
-                    <div class="actions" style="justify-content: left">
-                        <div class="action" style="margin-right: 20px;">
-                            <a href="">+<i class="fas fa-shopping-basket"></i></a>
+                    <c:if test="${sessionScope.tableNumber!=null}">
+                        <div class="BuyProduct">
+                            <form action="BuyProduct">
+
+                                <div class="buttonShop">
+                                    <button type="button" onclick="decrement()">-</button>
+                                    <input type="text" id="quantity" value="1" name="quantity" style="width: 24px; height: 28px; border-radius: 4px;" >
+                                    <button type="button" onclick="increment()">+</button><br>
+                                </div>
+
+
+                                <h3 style="color: red"><c:out value="${requestScope.quantityFail}"/></h3>
+                                
+                                <input type="hidden" name="id" value="${p.id}">     
+                                <input type="hidden" value="${sessionScope.tableNumber}" name="tableNumber">
+                                <input type="hidden" value="${sessionScope.userByMobile}" name="userByMobile">
+                                <c:set var="q" value="${param.quantity}"/>
+
+                                <c:if test="${p.quantity > 0}">
+                                    <div class="actions">
+                                        <div class="action">
+                                            <input type="submit" value="🛒">
+                                        </div>
+                                    </div>
+                                </c:if>
+                                <c:if test="${p.quantity == 0}">
+                                    <h3 style="color: red">Hết hàng</h3>
+                                </c:if>
+
+
+                            </form> 
                         </div>
-                        <div class="action">
-                            <a href="bill?id=${p.id}">Buy</a>
-                        </div>
-                    </div>
+                    </c:if>
                 </div>
+                
             </div>
 
             <h3>Sản Phẩm Tương Tự<h3>
 
             <div class="productByCid">
                 <c:forEach items="${requestScope.productByCid}" var="p">
-                    <div class="product">
-                        <img src="${p.image}" alt="${p.image}"/>
-                        <a href="productInfo?id=${p.id}&cid=${p.category.id}">${p.name}</a>
-                        <h6 style="font-weight: bold;">${p.price}00 vnđ</h6>
-                    </div>
+                    <c:if test="${p.sid.id==1}">
+                        <div class="product">
+                            <a href="productInfo?id=${p.id}&cid=${p.category.id}"><img src="${p.image}" alt="${p.image}"/></a>
+                            <h6>${p.name}</h6>
+                            <h6 style="font-weight: bold;">${p.price}00 vnđ</h6>
+                        </div>
+                    </c:if>
                 </c:forEach>
             </div>
         </div>
     </body>
+    <script>
+        var quantity = 0;
+
+        function increment() {
+            quantity++;
+            updateQuantity();
+        }
+
+        function decrement() {
+            if (quantity > 0) {
+                quantity--;
+                updateQuantity();
+            }
+        }
+
+        function updateQuantity() {
+            document.getElementById("quantity").value = quantity;
+        }
+    </script>
 </html>
