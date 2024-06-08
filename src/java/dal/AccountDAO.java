@@ -17,19 +17,19 @@ import java.util.List;
  */
 public class AccountDAO extends StatusDAO {
 
-    public List<Account> getAllAccount() {
-        String sql = "select * from Account";
+    public List<Account> getAllAccount(){
+        String sql = "select * from Account order by role asc";
         List<Account> list = new ArrayList<>();
-
+        
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {
+            while(rs.next()){
                 Account ad = new Account();
                 ad.setUsername(rs.getString("username"));
                 ad.setPassWord(rs.getString("password"));
                 ad.setRole(rs.getInt("role"));
-
+                
                 list.add(ad);
             }
         } catch (SQLException e) {
