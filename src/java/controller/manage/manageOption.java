@@ -7,6 +7,7 @@ package controller.manage;
 import dal.AccountDAO;
 import dal.BlogDAO;
 import dal.OrderDAO;
+import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Account;
 import model.Blog;
+import model.Product;
 import model.Table;
 
 /**
@@ -68,9 +70,13 @@ public class manageOption extends HttpServlet {
         OrderDAO odDAO = new OrderDAO();
         BlogDAO blDAO = new BlogDAO();
         AccountDAO acDAO =new AccountDAO();
+        ProductsDAO PdDAO = new ProductsDAO();
         switch (check) {
             case "productsManagement" -> {
                 session.setAttribute("productsManagement", "success");
+                List<Product> list = PdDAO.getproductByCid(1);
+                request.setAttribute("products", list);
+
             }
             case "accountManagement" ->{
                 request.setAttribute("accountManagement", "success");
@@ -98,7 +104,6 @@ public class manageOption extends HttpServlet {
         if (!check.equals("productsManagement")) {
             session.removeAttribute("productsManagement");
         }
-        session.removeAttribute("productAdd");
         session.setAttribute("manage", "success");
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
