@@ -57,7 +57,7 @@
     <body>
         <div class="productAdd">
             <h1>Add Product</h1>
-            <c:set var="cid" value="${sessionScope.productAdd}"/>
+            <c:set var="cid" value="${requestScope.productAdd}"/>
             <form action="checkAdd" method="post">
                 Name: <input type="text" name="name" required><br>
                 Quantity: <input type="number" name="quantity" required><br>
