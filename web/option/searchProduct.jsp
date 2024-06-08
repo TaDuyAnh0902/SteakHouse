@@ -18,7 +18,13 @@
             }
             .slidecontainer {
                 width: 100%;
-                margin-bottom: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 0 -60px 0;
+                padding-left: 60%;
+                background-color: #E2D9BC;
+                height: 60px;
             }
 
             .slider {
@@ -57,51 +63,69 @@
                 padding: 0 8px;
             }
             
-            input, select {
-                width: 100%;
-                margin-top: 20px;
+            select, input {
+                border: none;
+                width: 200px;
+                height: 32px;
+                border-radius: 8px;
             }
-
-            .submit {
-                height: 35px;
-                background-color: var(--dark-green-color);
-                color: white;
-                border: 0;
-                border-radius: 8px; 
-            }
-            
-            .submit:hover{
-                background-color: var(--green-color);
+            #search {
+                margin-right: 20px;
             }
         </style>
     </head>
     <body>
-        <form action="search" class="slidecontainer" method="post">
-            <input type="text" name="search" id="search">
+        <div action="search" class="slidecontainer">
 
-            <input type="range" min="1" max="500" name="price" value="${param.price}" class="slider" id="myRange">
-            <p>Price: <span id="demo"></span>k to 500k</p>
+<!--            <input type="range" min="1" max="500" name="price" value="${param.price}" class="slider" id="myRange">
+            <p>Price: <span id="demo"></span>k to 500k</p>-->
             
-            <input type="submit" value="Search" style="margin-top: 0;" class="submit"><br><br>
-            <h4>Sắp xếp theo:</h4>
-            <select name="sort">
-                <option value="0">Chọn</option>
-                <option value="sort1">Tên a-z</option>
-                <option value="sort2">Giá giảm dần</option>
-                <option value="sort3">Giá tăng dần</option>
-            </select><br>
-            <input type="submit" value="Sort" class="submit">
-        </form>
+            <!--<input type="submit" value="Search" style="margin-top: 0;" class="submit"><br><br>-->
+            <!--<h4>Sắp xếp theo:</h4>-->
+            <div>
+                <form id="searchForm" action="search">
+                    <input type="text" id="search" name="search" placeholder="Search"><br>
+                    <button type="submit" hidden>Login</button>
+                </form>
+            </div>
+            
+            <div>
+                <select name="sort" onchange="search(this.value)">
+                    <option value="0">Thứ tự mặc định</option>
+                    <option value="sort1">Tên a-z</option>
+                    <option value="sort2">Giá giảm dần</option>
+                    <option value="sort3">Giá tăng dần</option>
+                </select><br>
+            </div>
+            
+        </div>
 
         <script>
-            var slider = document.getElementById("myRange");
-            var output = document.getElementById("demo");
-            output.innerHTML = slider.value;
+//            var slider = document.getElementById("myRange");
+//            var output = document.getElementById("demo");
+//            output.innerHTML = slider.value;
+//
+//            slider.oninput = function () {
+//                output.innerHTML = this.value;
+//            }
+            
+            function search(id) {
+                window.location.href = "search?sort=" + id;
+            }
+            
+            function handleEnter(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent default action
+                    document.getElementById('searchForm').submit(); // Submit the form
+                }
+            }
 
-            slider.oninput = function () {
-                output.innerHTML = this.value;
-            };
+            // Adding event listener to the input field
+            window.onload = function() {
+                document.getElementById('search').addEventListener('keydown', handleEnter);
+            }
         </script>
 
     </body>
 </html>
+
