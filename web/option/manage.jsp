@@ -221,7 +221,7 @@
                 </c:if>
                 <!--                Table-->
 
-                <c:if test="${requestScope.tableManagement!=null}">
+              <c:if test="${requestScope.tableManagement!=null}">
                     <form action="tableAction">
                         <input type="submit" value="add" class="add" name="action">
                     </form>
@@ -232,6 +232,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
+                                    <th>Status</th>
                                     <th colspan="2">Action</th>
                                 </tr>
 
@@ -239,13 +240,21 @@
                                     <tr>
                                         <td>${t.id}</td>
                                         <td>${t.nameTable}</td>
+                                        <td>${t.sid.nameStatus}</td>
                                         <td><a href="tableAction?action=edit&id=${t.id}">Edit</a></td>
-                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteTable(${t.id});">Delete</a></td>
+                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});">Delete</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>
                         </div>
                     </div>
+                </c:if>
+                    
+                <c:if test="${requestScope.tableAdd!=null}"> 
+                    <%@include file="tableAdd.jsp" %> 
+                </c:if>
+                <c:if test="${requestScope.tableUpdate!=null}"> 
+                    <%@include file="tableUpdate.jsp" %> 
                 </c:if>
                 <!--                // Blog-->
                 <c:if test="${requestScope.blogManagement!=null}">
