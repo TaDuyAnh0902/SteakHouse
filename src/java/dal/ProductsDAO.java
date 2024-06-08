@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Category;
 import model.Product;
+import model.Status;
 
 /**
  *
@@ -61,6 +62,7 @@ public class ProductsDAO extends AccountDAO{
                            ,[describe]
                            ,[image]
                            ,[cid]
+                           ,[sid]
                        FROM [dbo].[Products]
                        where 1=1""";
         if (cid != 0) {
@@ -79,33 +81,8 @@ public class ProductsDAO extends AccountDAO{
                 p.setDescribe(rs.getString("describe"));
                 p.setImage(rs.getString("image"));
                 Category c = getCategoryById(rs.getInt("cid"));
-                p.setCategory(c);
-                list.add(p);
-
-            }
-        } catch (SQLException e) {
-
-        }
-        return list;
-    }
-    public List<Product> getNewProduct() {
-        List<Product> list = new ArrayList<>();
-        String sql = """
-                     SELECT top 3 * from [Products]
-                     order by dateproduct desc""";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Product p = new Product();
-                p.setId(rs.getString("id"));
-                p.setName(rs.getString("name"));
-                p.setQuantity(rs.getInt("quantity"));
-                p.setPrice(rs.getDouble("price"));
-                p.setDateproduct(rs.getString("dateproduct"));
-                p.setDescribe(rs.getString("describe"));
-                p.setImage(rs.getString("image"));
-                Category c = getCategoryById(rs.getInt("cid"));
+                Status s = getStatusById(rs.getInt("sid"));
+                p.setSid(s);
                 p.setCategory(c);
                 list.add(p);
 
@@ -125,6 +102,36 @@ public class ProductsDAO extends AccountDAO{
         return arr;
     }
 
+    public List<Product> getNewProduct() {
+        List<Product> list = new ArrayList<>();
+        String sql = """
+                     SELECT top 3 * from [Products]
+                     order by dateproduct desc""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getString("id"));
+                p.setName(rs.getString("name"));
+                p.setQuantity(rs.getInt("quantity"));
+                p.setPrice(rs.getDouble("price"));
+                p.setDateproduct(rs.getString("dateproduct"));
+                p.setDescribe(rs.getString("describe"));
+                p.setImage(rs.getString("image"));
+                Category c = getCategoryById(rs.getInt("cid"));
+                p.setCategory(c);
+                Status s = getStatusById(rs.getInt("sid"));
+                p.setSid(s);
+                list.add(p);
+
+            }
+        } catch (SQLException e) {
+
+        }
+        return list;
+    }
+
     public List<Product> getproductByCid2(String id, int cid) {
         List<Product> list = new ArrayList<>();
         String sql = """
@@ -136,6 +143,7 @@ public class ProductsDAO extends AccountDAO{
                            ,[describe]
                            ,[image]
                            ,[cid]
+                           ,[sid]
                        FROM [dbo].[Products]
                        where 1=1 and id != ? and cid = ?""";
         try {
@@ -154,6 +162,8 @@ public class ProductsDAO extends AccountDAO{
                 p.setImage(rs.getString("image"));
                 Category c = getCategoryById(rs.getInt("cid"));
                 p.setCategory(c);
+                Status s = getStatusById(rs.getInt("sid"));
+                p.setSid(s);
                 list.add(p);
 
             }
@@ -173,6 +183,7 @@ public class ProductsDAO extends AccountDAO{
                            ,[describe]
                            ,[image]
                            ,[cid]
+                           ,[sid]
                        FROM [dbo].[Products]
                        where id = ?""";
 
@@ -192,40 +203,13 @@ public class ProductsDAO extends AccountDAO{
                 p.setImage(rs.getString("image"));
                 Category c = getCategoryById(rs.getInt("cid"));
                 p.setCategory(c);
+                Status s = getStatusById(rs.getInt("sid"));
+                p.setSid(s);
                 return p;
             }
         } catch (SQLException e) {
         }
         return null;
-    }
-
-    public List<Product> searchProductByPrice(float price) {
-        List<Product> list = new ArrayList<>();
-        String sql = "select * from Products where price > ? and price < 500";
-
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-
-            st.setFloat(1, price);
-
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Product p = new Product();
-                p.setId(rs.getString("id"));
-                p.setName(rs.getString("name"));
-                p.setQuantity(rs.getInt("quantity"));
-                p.setPrice(rs.getDouble("price"));
-                p.setDateproduct(rs.getString("dateproduct"));
-                p.setDescribe(rs.getString("describe"));
-                p.setImage(rs.getString("image"));
-                Category c = getCategoryById(rs.getInt("cid"));
-                p.setCategory(c);
-
-                list.add(p);
-            }
-        } catch (SQLException e) {
-        }
-        return list;
     }
 
     public List<Product> searchProductByName(String name) {
@@ -249,7 +233,8 @@ public class ProductsDAO extends AccountDAO{
                 p.setImage(rs.getString("image"));
                 Category c = getCategoryById(rs.getInt("cid"));
                 p.setCategory(c);
-
+                Status s = getStatusById(rs.getInt("sid"));
+                p.setSid(s);
                 list.add(p);
             }
         } catch (SQLException e) {
@@ -262,9 +247,12 @@ public class ProductsDAO extends AccountDAO{
         String sql = "select * from Products";
 
         switch (idx) {
-            case 1 -> sql += " ORDER BY [name] ASC";
-            case 2 -> sql += " ORDER BY [price] DESC";
-            case 3 -> sql += " ORDER BY [price] ASC";
+            case 1 ->
+                sql += " ORDER BY [name] ASC";
+            case 2 ->
+                sql += " ORDER BY [price] DESC";
+            case 3 ->
+                sql += " ORDER BY [price] ASC";
             default -> {
             }
         }
@@ -283,6 +271,8 @@ public class ProductsDAO extends AccountDAO{
                 p.setImage(rs.getString("image"));
                 Category c = getCategoryById(rs.getInt("cid"));
                 p.setCategory(c);
+                Status s = getStatusById(rs.getInt("sid"));
+                p.setSid(s);
                 list.add(p);
             }
         } catch (SQLException e) {
