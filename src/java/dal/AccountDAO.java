@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author ASUS
  */
-public class AccountDAO extends DBContext {
+public class AccountDAO extends StatusDAO {
 
     public List<Account> getAllAccount() {
         String sql = "select * from Account";
