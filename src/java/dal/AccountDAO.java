@@ -187,4 +187,16 @@ public class AccountDAO extends StatusDAO {
 
         }
     }
+    public void deleteAccountRole4(){
+        String sql = """
+                     delete orderline 
+                     delete account where role = 4""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+
+        }
+    }
 }
