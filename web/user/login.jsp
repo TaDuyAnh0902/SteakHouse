@@ -94,30 +94,8 @@
             }
 
             .form .message a {
-color: #234666;
+                color: #234666;
                 text-decoration: none;
-            }
-            @media only screen and (max-width: 600px) {
-                
-                body {
-                    background: url(images/loginPhone2.jpg);
-                    background-repeat: no-repeat;
-                    background-position: center top;
-                }
-                .login-page {
-                    width: 350px;
-                    padding: 0;
-                    margin: auto;
-                }
-                .form {
-                    width: 60%;
-                    margin: 120px auto 0;
-                    padding: 40px;
-                    text-align: center;
-                    border-radius: 15px;
-                    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-                }
-                
             }
         </style>
     </head>
@@ -128,7 +106,7 @@ color: #234666;
                 <form action="login" class="login-form" method="post">
                     <h2><i class="fas fa-lock"></i> Login</h2>
                     <input type="text" placeholder="Username *" name="username" value="${param.username}" required />
-                    <input type="text" placeholder="Password *" name="pass" required/>
+                    <input type="password" placeholder="Password *" name="pass" required/>
                     <p style="color: red;"><c:out value="${requestScope.notSuccess}"/></p>
                     <button type="submit" name="send2">login</button>
                     <p class="message">Not registered? <a href="Register">Create an account</a></p>
