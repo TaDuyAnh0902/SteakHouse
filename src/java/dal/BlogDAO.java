@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Account;
 import model.Blog;
+import model.Status;
 /**
  *
  * @author Admin
@@ -30,12 +31,15 @@ public class BlogDAO extends AccountDAO{
                 b.setDate(rs.getString("date"));
                 Account a = getAccountByUser(rs.getString("aid"));
                 b.setAid(a);
+                Status s = getStatusById(rs.getInt("sid"));
+                b.setSid(s);
                 list.add(b);
             }
         } catch (SQLException e) {
         }
         return list;
     }
+    
     public Blog getBlogById(int id){
         String sql = "select * from [Blog] where id = ?";
         try {
@@ -51,7 +55,8 @@ public class BlogDAO extends AccountDAO{
                 b.setDate(rs.getString("date"));
                 Account a = getAccountByUser(rs.getString("aid"));
                 b.setAid(a);
-                
+                Status s = getStatusById(rs.getInt("sid"));
+                b.setSid(s);
                 return b;
             }
         } catch (SQLException e) {
