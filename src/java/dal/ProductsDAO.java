@@ -281,7 +281,7 @@ public class ProductsDAO extends AccountDAO{
     }
     
     
-    public void addProduct(String name, int quantity, double price, String describe, String image, int cid) {
+public void addProduct(String name, int quantity, double price, String describe, String image, int cid) {
         String sql = """
                      INSERT INTO [dbo].[Products]
                                 ([name]
@@ -290,9 +290,10 @@ public class ProductsDAO extends AccountDAO{
                                 ,[dateproduct]
                                 ,[describe]
                                 ,[image]
-                                ,[cid])
+                                ,[cid]
+                                ,[sid])
                           VALUES
-                                (?,?,?,CURRENT_TIMESTAMP,?,?,?)""";
+                                (?,?,?,CURRENT_TIMESTAMP,?,?,?,1)""";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -308,9 +309,7 @@ public class ProductsDAO extends AccountDAO{
     }
 
     public void deleteProductById(String id) {
-        String sql = """
-                     DELETE FROM [dbo].[Products]
-                           WHERE id = ?""";
+        String sql = "Update [Products] SET sid = 2 where id = ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -321,16 +320,17 @@ public class ProductsDAO extends AccountDAO{
         } catch (SQLException e) {
         }
     }
-            
+
     public void updateProductById(String name, int quantity, double price, String describe, String image, int cid, String id) {
-        String sql = "UPDATE [dbo].[Products]\n"
-                + "   SET [name] = ?\n"
-                + "      ,[quantity] = ?\n"
-                + "      ,[price] = ?\n"
-                + "      ,[describe] = ?\n"
-                + "      ,[image] = ?\n"
-                + "      ,[cid] = ?\n"
-                + " WHERE id = ?";
+        String sql = """
+                     UPDATE [dbo].[Products]
+                        SET [name] = ?
+                           ,[quantity] = ?
+                           ,[price] = ?
+                           ,[describe] = ?
+                           ,[image] = ?
+                           ,[cid] = ?
+                      WHERE id = ?""";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -343,7 +343,7 @@ public class ProductsDAO extends AccountDAO{
             st.setString(7, id);
 
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
     }
     
