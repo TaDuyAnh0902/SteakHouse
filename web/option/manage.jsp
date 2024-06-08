@@ -149,7 +149,7 @@
                         </ul>
                     </div>
                     <div class="clr"></div>
-                    <div id="content">
+                    <div class="content">
                         <table border="1">
                             <c:if test="${requestScope.products!=null}">
                                 <tr>
