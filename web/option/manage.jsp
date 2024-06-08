@@ -16,11 +16,41 @@
                 --green-color: rgb(139, 197, 63);
                 --dark-green-color: rgb(19, 149, 79);
             }
+            .manageContent {
+                display: flex;
+                justify-content: center;
+                height: 100%;
+                margin-bottom: -50px;
+            }
+            .manageOption {
+                width: 15%;
+                font-size: 20px;
+                min-height: 500px;
+            }
+            .manageOption > ul {
+                list-style: none;
+                display: block;
+                height: 100%;
+                background: #E2D9BC;
+            }
+            .manageOption ul li {
+                cursor: pointer;
+                padding: 16px;
+                padding-left: 16%;
+                border-bottom: 1px solid rgb(179, 179, 179);
+            }
+            .manageOption ul li:hover {
+                color: gray;
+            }
             #wrapperrr{
+                width: 85%;
                 font-family: arial;
-                /*padding: 0 10px;*/
-                /*width: 80%;*/
                 margin-bottom: 100px;
+            }
+
+            .imgProduct {
+                width: 80px;
+                height: 80px;
             }
             .clr {
                 clear: both;
@@ -31,7 +61,6 @@
             ul.menu{
                 float: left;
                 background-color: var(--dark-green-color);
-                /*display: block;*/
                 list-style-type: none;
                 font-weight: bold;
                 height: 50px;
@@ -67,7 +96,7 @@
             ul.meny li a:focus {
                 color: #96F;
             }
-            #content{
+            .content{
                 margin: 0 30px;
             }
             table{
@@ -92,195 +121,210 @@
             .add:hover {
                 background-color: var(--green-color);
             }
-            #wrapperrr table{
-                width: 60%;
+            #wrapperrr table {
+                width: 100%;
             }
         </style>
     </head>
     <body>
-        <div id="wrapperrr">
-            <c:if test="${sessionScope.productsManagement!=null}">
+        <div class="manageContent">
+            <div class="manageOption">
+                <ul>
+                    <li onclick="ac('statistics')">Thống kê</li>
+                    <li onclick="ac('productsManagement')">Quản Lý Sản Phẩm</li>
+                    <li onclick="ac('accountManagement')">Quản Lý Tài Khoản</li>
+                    <li onclick="ac('blogManagement')">Quản Lý Blog</li>
+                    <li onclick="ac('tableManagement')">Quản Lý Bàn</li>
+                </ul>
+            </div>
 
-                <div id="menu_tab">
-                    <ul class="menu">
-                        <c:forEach var="c" items="${sessionScope.data}">
-                            <li><a href="manage?cid=${c.id}">${c.name}</a></li>
-                            </c:forEach>
-                    </ul>
-                </div>
-                <div class="clr"></div>
-                <div id="content">
-                    <table border="1">
-                        <c:if test="${requestScope.products!=null}">
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Describe</th>
-                                <th>Category Name</th>
-                                <th colspan="2">Action</th>
-                            </tr>
-                        </c:if>
+            <div id="wrapperrr">
+                <c:if test="${sessionScope.productsManagement!=null}">
 
-                        <c:set var="cid" value="${null}"/>
-                        <!--Products-->
-                        <c:forEach items="${requestScope.products}" var="p">
-                            <c:set var="cid" value="${p.category.id}"/>
-                            <tr>
-                                <td>${p.id}</td>
-                                <td>${p.name}</td>
-                                <td><img src="${p.image}" alt="${p.image}" width="80px" height="80px"/></td>
-                                <td>${p.quantity}</td>
-                                <td>${p.price}</td>
-                                <td>${p.describe}</td>
-                                <td>${p.category.name}</td>
-                                <td><a href="productAction?action=edit&id=${p.id}&cid=${p.category.id}">Edit</a></td>
-                                <td><a href="productAction?action=delete&id=${p.id}" onclick="return confirmDeleteProduct(${p.id});">Delete</a></td>
-                            </tr>
-                        </c:forEach>
-                        <c:if test="${cid!=null}">
-                            <form action="checkAdd">
-                                <input type="hidden" name="cid" value="${cid}">
-                                <input type="submit" value="+ Thêm sản phẩm" class="add">
-                            </form>
-                        </c:if>
-
-                    </table>
-                </div>
-            </c:if>
-
-            <c:if test="${requestScope.accountManagement!=null}">
-
-                <div>
-                    <h2>Danh Sách Tài Khoản</h2>
-                    <div class="content">
+                    <div id="menu_tab">
+                        <ul class="menu">
+                            <c:forEach var="c" items="${sessionScope.data}">
+                                <li><a href="manage?cid=${c.id}">${c.name}</a></li>
+                                </c:forEach>
+                        </ul>
+                    </div>
+                    <div class="clr"></div>
+                    <div id="content">
                         <table border="1">
-                            <tr>
-                                <th>Username</th>
-                                <th>Password</th>
-                                <th>role</th>
-                                <th>Action</th>
-                                <!--<th colspan="2">Action</th>-->
-                            </tr>
-
-                            <c:forEach items="${sessionScope.accountManage}" var="a">
+                            <c:if test="${requestScope.products!=null}">
                                 <tr>
-                                    <td>${a.username}</td>
-                                    <td>${a.passWord}</td>
-                                    <td>${a.role}</td>
-<!--                                    <td><a href="accountAction?action=edit&user=${a.username}">Edit</a></td>-->
-                                    <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');">Delete</a></td>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Describe</th>
+                                    <th>Category Name</th>
+                                    <th colspan="2">Action</th>
+                                </tr>
+                            </c:if>
+
+                            <c:set var="cid" value="${null}"/>
+                            <!--Products-->
+                            <c:forEach items="${requestScope.products}" var="p">
+                                <c:set var="cid" value="${p.category.id}"/>
+                                <tr>
+                                    <td>${p.id}</td>
+                                    <td>${p.name}</td>
+                                    <td><img src="${p.image}" alt="${p.image}" width="80px" height="80px"/></td>
+                                    <td>${p.quantity}</td>
+                                    <td>${p.price}</td>
+                                    <td>${p.describe}</td>
+                                    <td>${p.category.name}</td>
+                                    <td><a href="productAction?action=edit&id=${p.id}&cid=${p.category.id}">Edit</a></td>
+                                    <td><a href="productAction?action=delete&id=${p.id}" onclick="return confirmDeleteProduct(${p.id});">Delete</a></td>
                                 </tr>
                             </c:forEach>
+                            <c:if test="${cid!=null}">
+                                <form action="checkAdd">
+                                    <input type="hidden" name="cid" value="${cid}">
+                                    <input type="submit" value="+ Thêm sản phẩm" class="add">
+                                </form>
+                            </c:if>
+
                         </table>
                     </div>
-                </div>
-            </c:if>
+                </c:if>
+                <!--                Account-->
 
-            <c:if test="${requestScope.tableManagement!=null}">
-                <form action="tableAction">
-                    <input type="submit" value="add" class="add" name="action">
-                </form>
-                <div>
-                    <h2>Danh Sách Bàn</h2>
-                    <div class="content">
-                        <table border="1">
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th colspan="2">Action</th>
-                            </tr>
+                <c:if test="${requestScope.accountManagement!=null}">
 
-                            <c:forEach items="${sessionScope.tableManage}" var="t">
+                    <div>
+                        <h2>Danh Sách Tài Khoản</h2>
+                        <div class="content">
+                            <table border="1">
                                 <tr>
-                                    <td>${t.id}</td>
-                                    <td>${t.nameTable}</td>
-                                    <td><a href="tableAction?action=edit&id=${t.id}">Edit</a></td>
-                                    <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteTable(${t.id});">Delete</a></td>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>role</th>
+                                    <th>Action</th>
+                                    <!--<th colspan="2">Action</th>-->
                                 </tr>
-                            </c:forEach>
-                        </table>
+
+                                <c:forEach items="${sessionScope.accountManage}" var="a">
+                                    <tr>
+                                        <td>${a.username}</td>
+                                        <td>${a.passWord}</td>
+                                        <td>${a.role}</td>
+    <!--                                    <td><a href="accountAction?action=edit&user=${a.username}">Edit</a></td>-->
+                                        <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');">Delete</a></td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </c:if>
+                </c:if>
+                <!--                Table-->
 
-            <c:if test="${requestScope.blogManagement!=null}">
-                <form action="blogAction">
-                    <input type="submit" value="add" class="add" name="action">
-                </form>
-                <div>
-                    <h2>Danh Sách Blog</h2>
-                    <div class="content">
-                        <table border="1">
-                            <tr>
-                                <th>Id</th>
-                                <th>Title</th>
-                                <th>image</th>
-                                <th>source</th>
-                                <th colspan="2">Action</th>
-                            </tr>
-
-                            <c:forEach items="${sessionScope.blogManage}" var="b">
+                <c:if test="${requestScope.tableManagement!=null}">
+                    <form action="tableAction">
+                        <input type="submit" value="add" class="add" name="action">
+                    </form>
+                    <div>
+                        <h2>Danh Sách Bàn</h2>
+                        <div class="content">
+                            <table border="1">
                                 <tr>
-                                    <td>${b.id}</td>
-                                    <td>${b.title}</td>
-                                    <td><img src="${b.image}" alt="${p.image}" width="80px" height="80px"/></td>
-                                    <td><a href="${b.source}">${b.source}</a></td>
-                                    <td><a href="blogAction?action=edit&id=${b.id}">Edit</a></td>
-                                    <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteBlog(${b.id});">Delete</a></td>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th colspan="2">Action</th>
                                 </tr>
-                                </tr>
-                            </c:forEach>
-                        </table>
-                    </div>
-                </div>
-            </c:if>                
 
+                                <c:forEach items="${sessionScope.tableManage}" var="t">
+                                    <tr>
+                                        <td>${t.id}</td>
+                                        <td>${t.nameTable}</td>
+                                        <td><a href="tableAction?action=edit&id=${t.id}">Edit</a></td>
+                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteTable(${t.id});">Delete</a></td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                </c:if>
+                <!--                // Blog-->
+                <c:if test="${requestScope.blogManagement!=null}">
+                    <form action="blogAction">
+                        <input type="submit" value="add" class="add" name="action">
+                    </form>
+                    <div>
+                        <h2>Danh Sách Blog</h2>
+                        <div class="content">
+                            <table border="1">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>image</th>
+                                    <th>source</th>
+                                    <th colspan="2">Action</th>
+                                </tr>
+
+                                <c:forEach items="${sessionScope.blogManage}" var="b">
+                                    <tr>
+                                        <td>${b.id}</td>
+                                        <td>${b.title}</td>
+                                        <td><img src="${b.image}" alt="${p.image}" width="80px" height="80px"/></td>
+                                        <td><a href="${b.source}">${b.source}</a></td>
+                                        <td><a href="blogAction?action=edit&id=${b.id}">Edit</a></td>
+                                        <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteBlog(${b.id});">Delete</a></td>
+                                    </tr>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                </c:if>                
+
+            </div>
         </div>
-      
-        
+
+
+
         <script>
-        function confirmDeleteProduct(id) {
-            var confirmation = confirm("Are you sure you want to delete your Product?");
-            if (confirmation === true) {
-                return true;
-            } else {
-                alert("Product deletion canceled.");
-                return false;
+            function confirmDeleteProduct(id) {
+                var confirmation = confirm("Are you sure you want to delete your Product?");
+                if (confirmation === true) {
+                    return true;
+                } else {
+                    alert("Product deletion canceled.");
+                    return false;
+                }
             }
-        }
-        
-         function confirmDeleteAccount(username) {
-            var confirmation = confirm("Are you sure you want to delete the Account : " + username + "?");
-            if (confirmation === true) {
-                return true;
-            } else {
-                alert("Account deletion canceled.");
-                return false;
+
+            function confirmDeleteAccount(username) {
+                var confirmation = confirm("Are you sure you want to delete the Account : " + username + "?");
+                if (confirmation === true) {
+                    return true;
+                } else {
+                    alert("Account deletion canceled.");
+                    return false;
+                }
             }
-        }
-        
-        function confirmDeleteBlog(id) {
-            var confirmation = confirm("Are you sure you want to delete this blog post?");
-            if (confirmation === true) {
-                return true;
-            } else {
-                alert("Blog post deletion canceled.");
-                return false;
+
+            function confirmDeleteBlog(id) {
+                var confirmation = confirm("Are you sure you want to delete this blog post?");
+                if (confirmation === true) {
+                    return true;
+                } else {
+                    alert("Blog post deletion canceled.");
+                    return false;
+                }
             }
-        }
-        
-        function confirmDeleteTable(id) {
-            var confirmation = confirm("Are you sure you want to delete Table ");
-            if (confirmation === true) {
-                return true;
-            } else {
-                alert("Table deletion canceled.");
-                return false;
+
+            function confirmDeleteTable(id) {
+                var confirmation = confirm("Are you sure you want to delete Table ");
+                if (confirmation === true) {
+                    return true;
+                } else {
+                    alert("Table deletion canceled.");
+                    return false;
+                }
             }
-        }
-    </script>
+        </script>
     </body>
 </html>
