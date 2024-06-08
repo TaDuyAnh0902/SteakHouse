@@ -12,7 +12,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -55,9 +54,8 @@ public class checkAdd extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
         String cid = request.getParameter("cid");
-        session.setAttribute("productAdd", cid);
+        request.setAttribute("productAdd", cid);
         request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
     
@@ -71,7 +69,6 @@ public class checkAdd extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
         String name = request.getParameter("name");
         String quantity = request.getParameter("quantity");
         String price = request.getParameter("price");
@@ -88,8 +85,6 @@ public class checkAdd extends HttpServlet {
             ProductsDAO db = new ProductsDAO();
 
             db.addProduct(name, quantity_int, price_float, describe, "images/" + image, cid_int);
-
-            session.removeAttribute("productAdd");
 
         } catch (NumberFormatException e) {
 
