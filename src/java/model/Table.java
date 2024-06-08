@@ -9,15 +9,18 @@ package model;
  * @author ADMIN
  */
 public class Table {
+
     private int id;
     private String nameTable;
+    private Status sid;
 
     public Table() {
     }
 
-    public Table(int id, String nameTable) {
+    public Table(int id, String nameTable, Status sid) {
         this.id = id;
         this.nameTable = nameTable;
+        this.sid = sid;
     }
 
     public int getId() {
@@ -35,4 +38,13 @@ public class Table {
     public void setNameTable(String nameTable) {
         this.nameTable = nameTable;
     }
+
+    public Status getSid() {
+        return sid;
+    }
+
+    public void setSid(Status sid) {
+        this.sid = sid;
+    }
+
 }
