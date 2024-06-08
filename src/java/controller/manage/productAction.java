@@ -54,8 +54,7 @@ public class productAction extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        //        HttpSession session = request.getSession();
+            throws ServletException, IOException {
         String id = request.getParameter("id");
 
         String action = request.getParameter("action");
@@ -70,16 +69,12 @@ public class productAction extends HttpServlet {
             request.setAttribute("productUpdate", productUpdate);
 
         }
-//            else if ("buy".equals(action)) {
-//                Student xx = db.getStudentByRollNo(rollNo);
-//                session.setAttribute("xx", xx);
-//                request.getRequestDispatcher("studentBuy.jsp").forward(request, response);
-//            }
         request.getRequestDispatcher("home.jsp").forward(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -87,7 +82,7 @@ public class productAction extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         String id = request.getParameter("id");
         String name = request.getParameter("name");
         String quantity = request.getParameter("quantity");
