@@ -232,6 +232,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
+                                    <th>Status</th>
                                     <th colspan="2">Action</th>
                                 </tr>
 
@@ -239,13 +240,21 @@
                                     <tr>
                                         <td>${t.id}</td>
                                         <td>${t.nameTable}</td>
+                                        <td>${t.sid.nameStatus}</td>
                                         <td><a href="tableAction?action=edit&id=${t.id}">Edit</a></td>
-                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteTable(${t.id});">Delete</a></td>
+                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});">Delete</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>
                         </div>
                     </div>
+                </c:if>
+                    
+                <c:if test="${requestScope.tableAdd!=null}"> 
+                    <%@include file="tableAdd.jsp" %> 
+                </c:if>
+                <c:if test="${requestScope.tableUpdate!=null}"> 
+                    <%@include file="tableUpdate.jsp" %> 
                 </c:if>
                 <!--                // Blog-->
                 <c:if test="${requestScope.blogManagement!=null}">
@@ -286,6 +295,10 @@
 
 
         <script>
+            function ac(id) {
+                window.location.href = "manageOption?check=" + id;
+            }
+        
             function confirmDeleteProduct(id) {
                 var confirmation = confirm("Are you sure you want to delete your Product?");
                 if (confirmation === true) {
