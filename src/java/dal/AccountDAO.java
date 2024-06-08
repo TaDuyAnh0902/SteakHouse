@@ -149,6 +149,32 @@ public class AccountDAO extends StatusDAO {
 
         }
     }
+    
+    public Account getAccountByUser(String username) {
+        String sql = """
+                     SELECT [username]
+                           ,[password]
+                           ,[role]
+                       FROM [dbo].[Account]
+                       where username = ?""";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                Account ac = new Account(rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("role"));
+
+                return ac;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
 
     public void deleteUser(String user) {
         String sql = "delete Account where username = ?";
