@@ -15,11 +15,11 @@ public class Product {
     private String dateproduct;
     private String describe, image;
     private Category category;
-
+    private Status sid;
     public Product() {
     }
 
-    public Product(String id, String name, int quantity, double price, String dateproduct, String describe, String image, Category category) {
+    public Product(String id, String name, int quantity, double price, String dateproduct, String describe, String image, Category category, Status sid) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
@@ -28,6 +28,7 @@ public class Product {
         this.describe = describe;
         this.image = image;
         this.category = category;
+        this.sid = sid;
     }
 
     public String getId() {
@@ -92,5 +93,13 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Status getSid() {
+        return sid;
+    }
+
+    public void setSid(Status sid) {
+        this.sid = sid;
     }
 }
