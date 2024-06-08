@@ -12,17 +12,18 @@ public class Blog {
     private int id;
     private String title, image, source, date;
     private Account aid;
-
+    private Status sid;
     public Blog() {
     }
 
-    public Blog(int id, String title, String image, String source, String date, Account aid) {
+    public Blog(int id, String title, String image, String source, String date, Account aid, Status sid) {
         this.id = id;
         this.title = title;
         this.image = image;
         this.source = source;
         this.date = date;
         this.aid = aid;
+        this.sid = sid;
     }
 
     public int getId() {
@@ -71,6 +72,14 @@ public class Blog {
 
     public void setAid(Account aid) {
         this.aid = aid;
+    }
+
+    public Status getSid() {
+        return sid;
+    }
+
+    public void setSid(Status sid) {
+        this.sid = sid;
     }
 
     
