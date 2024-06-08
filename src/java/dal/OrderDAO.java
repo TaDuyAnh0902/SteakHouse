@@ -55,7 +55,7 @@ public class OrderDAO extends ProductsDAO {
         return null;
     }
     public Table deleteTableById(int id){
-        String sql = "delete [Table] where id = ?";
+        String sql = "Update [Table] set sid = 2 where id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -69,9 +69,9 @@ public class OrderDAO extends ProductsDAO {
     public void addTable(String nameTable){
         String sql = """
                      INSERT INTO [dbo].[Table]
-                                ([nameTable])
+                                ([nameTable], sid)
                           VALUES
-                                (?)""";
+                                (?, 1)""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, nameTable);
