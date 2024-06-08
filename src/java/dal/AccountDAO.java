@@ -36,30 +36,29 @@ public class AccountDAO extends StatusDAO {
         }
         return list;
     }
-//    public Account check(String phone) {
-//        String sql = """
-//                     SELECT [phoneNumber]
-//                           ,[name]
-//                           ,[password]
-//                           ,[role]
-//                       FROM [dbo].[Account]
-//                       where phoneNumber = ?""";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, phone);
-//            ResultSet rs = st.executeQuery();
-//
-//            if (rs.next()) {
-//                //return new Account(rs.getString("phoneNumber"),
-//                        rs.getString("name"),
-//                        rs.getString("password"),
-//                        rs.getInt("role"));
-//            }
-//        } catch (SQLException e) {
-//
-//        }
-//        return null;
-//    }
+
+    public Account check(String username) {
+        String sql = """
+                     SELECT [username]
+                           ,[password]
+                           ,[role]
+                       FROM [dbo].[Account]
+                       where username = ?""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return new Account(rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("role"));
+            }
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
 
     public Account checkAccountSystem(String username, String password) {
         String sql = """
@@ -131,30 +130,24 @@ public class AccountDAO extends StatusDAO {
         }
     }
 
-    public Account getAccountByUser(String username) {
+    public void addUserPhone(String username, int role) {
         String sql = """
-                     SELECT [username]
-                           ,[password]
-                           ,[role]
-                       FROM [dbo].[Account]
-                       where username = ?""";
-
+                     INSERT INTO [dbo].[Account]
+                                ([username]
+                                ,[password]
+                                ,[role])
+                          VALUES
+                                (?,?,?)""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
+            st.setString(2, "");
+            st.setInt(3, role);
+            st.executeUpdate();
 
-            ResultSet rs = st.executeQuery();
-
-            if (rs.next()) {
-                Account ac = new Account(rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getInt("role"));
-
-                return ac;
-            }
         } catch (SQLException e) {
+
         }
-        return null;
     }
 
     public void deleteUser(String user) {
