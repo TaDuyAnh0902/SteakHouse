@@ -69,26 +69,25 @@ public class Action extends HttpServlet {
         switch (check) {
             case "introduction" ->
                 request.setAttribute("introduction", "success");
-            case "contact" -> {
-
-            }
-
+            case "contact" ->
+                request.setAttribute("contact", "success");
             case "store" -> {
                 request.setAttribute("store", "success");
-                
+
                 List<Category> c = PdDAO.getAllCategory();
                 session.setAttribute("data", c);
-                
+
                 List<Product> list = PdDAO.getproductByCid(0);
-                
+
                 request.setAttribute("Cid", 0);
                 request.setAttribute("page", 1);
                 int size = list.size();
-                int numperpage=6;
-                int num=(size%numperpage==0?(size/numperpage):((size/numperpage)+1));
+                int numperpage = 12;
+                int num = (size % numperpage == 0 ? (size / numperpage) : ((size / numperpage) + 1));
                 request.setAttribute("num", num);
                 List<Product> list1 = PdDAO.getListByPage(list, 0, numperpage);
                 request.setAttribute("products", list1);
+
             }
             case "blog" -> {
                 request.setAttribute("blog", "success");
@@ -96,11 +95,16 @@ public class Action extends HttpServlet {
                 request.setAttribute("blogList", list);
             }
             case "manage" -> {
-                session.setAttribute("manageOption", "success");
+                session.setAttribute("manage", "success");
+                request.setAttribute("statistics", "success");
+                List<Category> c = PdDAO.getAllCategory();
+                session.setAttribute("data", c);
+            }
+            case "manageOrder" -> {
+                request.setAttribute("manageOrder", "success");
             }
             case "main" -> {
                 request.setAttribute("main", "success");
-
             }
             case "ListOrderLine" ->
                 request.setAttribute("ListOrderLine", "success");
@@ -108,7 +112,7 @@ public class Action extends HttpServlet {
             default -> {
             }
         }
-        if(!check.equals("manage")){
+        if (!check.equals("manage")) {
             session.removeAttribute("manageOption");
             session.removeAttribute("manage");
             session.removeAttribute("productsManagement");
