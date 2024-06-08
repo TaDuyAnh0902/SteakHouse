@@ -18,13 +18,13 @@
             }
 
             .footer {
-                margin-top: 200px;
                 background-color: var(--dark-green-color);
                 color: white;
                 height: auto;
                 font-size: 22px;
                 line-height: 70px;
                 font-weight: 500;
+                margin-top: 50px;
             }
 
             .row{
@@ -45,7 +45,7 @@
                 width: 300px;
                 height: 300px;
             }
-            @media only screen and (max-width: 600px){
+            @media only screen and (max-width: 500px){
                 .row {
                     padding: 0;
                 }
