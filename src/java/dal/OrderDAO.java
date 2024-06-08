@@ -10,12 +10,13 @@ import model.Table;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import model.Status;
 /**
  *
  * @author ASUS
  */
-public class OrderDAO extends DBContext {
-    public List<Table> getAllTable() {
+public class OrderDAO extends ProductsDAO {
+   public List<Table> getAllTable() {
         String sql = "select * from [Table]";
         List<Table> list = new ArrayList<>();
 
@@ -23,12 +24,14 @@ public class OrderDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Table tb = new Table(rs.getInt("id"),
-                        rs.getString("nameTable"));
-
+                Table tb = new Table();
+                tb.setId(rs.getInt("id"));
+                tb.setNameTable(rs.getString("nameTable"));
+                Status s = getStatusById(rs.getInt("sid"));
+                tb.setSid(s);
                 list.add(tb);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return list;
     }
@@ -40,11 +43,14 @@ public class OrderDAO extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()){
-                Table t = new Table(rs.getInt("id"), rs.getString("nameTable"));
-                
-                return t;
+                Table tb = new Table();
+                tb.setId(rs.getInt("id"));
+                tb.setNameTable(rs.getString("nameTable"));
+                Status s = getStatusById(rs.getInt("sid"));
+                tb.setSid(s);
+                return tb;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return null;
     }
