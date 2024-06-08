@@ -17,7 +17,8 @@ import model.Status;
  *
  * @author Admin
  */
-public class ProductsDAO extends AccountDAO{
+public class ProductsDAO extends AccountDAO {
+
     public List<Category> getAllCategory() {
         List<Category> list = new ArrayList<>();
         String sql = "select * from Categories";
@@ -279,9 +280,8 @@ public class ProductsDAO extends AccountDAO{
         }
         return list;
     }
-    
-    
-public void addProduct(String name, int quantity, double price, String describe, String image, int cid) {
+
+    public void addProduct(String name, int quantity, double price, String describe, String image, int cid) {
         String sql = """
                      INSERT INTO [dbo].[Products]
                                 ([name]
@@ -346,5 +346,5 @@ public void addProduct(String name, int quantity, double price, String describe,
         } catch (SQLException e) {
         }
     }
-    
+
 }
