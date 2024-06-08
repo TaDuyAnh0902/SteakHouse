@@ -221,7 +221,7 @@
                 </c:if>
                 <!--                Table-->
 
-              <c:if test="${requestScope.tableManagement!=null}">
+                <c:if test="${requestScope.tableManagement!=null}">
                     <form action="tableAction">
                         <input type="submit" value="add" class="add" name="action">
                     </form>
@@ -295,6 +295,10 @@
 
 
         <script>
+            function ac(id) {
+                window.location.href = "manageOption?check=" + id;
+            }
+        
             function confirmDeleteProduct(id) {
                 var confirmation = confirm("Are you sure you want to delete your Product?");
                 if (confirmation === true) {
