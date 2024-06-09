@@ -20,7 +20,7 @@
             }
 
             .selling {
-                margin: 30px 0;
+                margin-top: 32px;
                 padding: 0 15%;
             }
 
@@ -43,6 +43,7 @@
             }
             
             .newProducts img {
+                border-radius: 8px;
                 width: 100%;
                 height: 70%;
             }
@@ -66,22 +67,14 @@
                 border-left: 1px solid rgb(192, 192, 192);
                 border-right: 1px solid rgb(192, 192, 192);
             }
-            .banner img {
-                transition: opacity 0.3s ease-in-out;
-                opacity: 1;
-            }
-
-            .fade-out {
-                opacity: 0;
-            }
+            
         </style>
     </head>
-    
     <body>
         <c:set var="main" value="${requestScope.main}"/>
         <div class="main">
             <div class="banner">
-                <img id="img" src="images/banner.jpg" alt="images" onclick="changeImage()" width="80%" height="700px">
+                <img id="img" src="images/bannerr.jpg" alt="images" onclick="changeImage()" width=" 80%" height="700px">
             </div>
             <div class="selling">
                 <div class="hot-selling-title">
@@ -91,11 +84,14 @@
                 </div>
                 <div class="hot-selling">
                     <c:forEach items="${sessionScope.getNewProduct}" var="p">
-                        <div class="newProducts">
-                            <img src="${p.image}" alt="${p.image}"/>
-                            <p>${p.category.name}</p>
-                            <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; ">${p.name}</a>
-                        </div>
+                        <c:if test="${p.sid.id==1}">
+                                <div class="newProducts">
+                                <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; "><img src="${p.image}" alt="${p.image}"/></a>
+                                <p>${p.category.name}</p>
+                                <p>${p.name}</p>
+                            </div>
+                        </c:if>
+                        
                     </c:forEach>
                 </div>
             </div>
@@ -127,7 +123,6 @@
             </div>
         </div>
     </body>
-    
     <script>
         var index = 1;
         var imgs = ["images/banner.jpg",  "images/banner12.jpg","images/banner10.jpg"];
