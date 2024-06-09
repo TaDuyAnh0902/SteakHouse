@@ -84,10 +84,6 @@
             <%@include file="header.jsp" %>
             
             <c:if test="${requestScope.main!=null}"> <%@include file="option/main.jsp" %> </c:if>
-                <c:if test="${requestScope.profile!=null}"> <%@include file="user/profile.jsp" %> </c:if>
-                <c:if test="${requestScope.profileChange!=null}"> <%@include file="user/profileChange.jsp" %> </c:if>
-
-                <c:if test="${requestScope.ListOrderLine!=null}"> <%@include file="option/ListOrderLine.jsp" %></c:if>
             
             <c:if test="${requestScope.store!=null}"> <%@include file="option/store.jsp" %> </c:if>
                 <c:if test="${requestScope.productInfo!=null}"> <%@include file="option/productInfo.jsp" %> </c:if>
@@ -97,16 +93,11 @@
                 <c:if test="${requestScope.sourceBlog!=null}"> <jsp:include page="${requestScope.sourceBlog}" /> </c:if> 
                 
                 
-            <c:if test="${requestScope.introduction!=null}"> <%@include file="option/introduction.jsp" %> </c:if>
-            
-            
-            <c:if test="${requestScope.contact!=null}"> <%@include file="option/contact.jsp" %> </c:if>
-            
+            <c:if test="${requestScope.introduction!=null}"> <%@include file="option/introduction.jsp" %> </c:if>                        
+         
             
             <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
-            
-            
-            <c:if test="${requestScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %></c:if>
+                        
             <%@include file="footer.jsp" %>
         </div>
     </body>
