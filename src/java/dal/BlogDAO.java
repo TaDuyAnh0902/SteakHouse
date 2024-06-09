@@ -97,10 +97,10 @@ public class BlogDAO extends AccountDAO{
         }
     }
     
-    public void updateBlog(String title, String image, String source, int id){
+    public void updateBlog(String title, String image, String source, int id) {
         String sql = """
                      UPDATE [dbo].[Blog]
-                        SET [title] = ?
+                            SET [title] = ?
                            ,[image] = ?
                            ,[source] = ?
                       WHERE id = ?""";
@@ -116,4 +116,3 @@ public class BlogDAO extends AccountDAO{
         }
     }
 }
-
