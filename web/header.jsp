@@ -84,10 +84,12 @@
             .header-right i {
                 color: var(--green-color);
             }
+
             .cart {
                 display: none;
             }
-            @media only screen and (max-width: 600px) {
+
+            @media only screen and (max-width: 500px) {
                 body{
                     position: relative;
                     height: 100vh;
@@ -96,7 +98,8 @@
                     background-size: 100% 100vh;
                 }
                 .header {
-                    display: inline;
+                    display: flex;
+                    box-shadow: none;
                 }
                 .logo {
                     display: none;
@@ -114,7 +117,7 @@
                 .header-right {
                     display: none;
                 }
-                .nav ul li:nth-child(2) {
+.nav ul li:nth-child(2) {
                     border: 1px solid black;
                     border-radius: 20px;
                     background-color: #E2D9BC;
@@ -133,45 +136,44 @@
     <body>
         <div class="header">
             <div class="logo">
-                <c:if test="${sessionScope.tableNumber != null}">
-                    <h2 style="color: red;margin-right: 20px;">Bàn <c:out value="${sessionScope.tableNumber}"/></h2>
-                </c:if>
                 <a href="home" title="Livehealthy - Sức khỏe mạnh bắt đầu từ chọn lựa">
-                    <img src="images/logo.jpg" alt="images"></a>
+                    <img src="images/logoo.jpg" alt="images"></a>
             </div>
             <nav class="nav">
                 <ul>
-                    <li onclick="action('main')">TRANG CHỦ</li>
-                    <li onclick="action('store')">MENU</li>
-                    <li onclick="action('blog')">BLOG</li>
-                    <li onclick="action('introduction')">GIỚI THIỆU</li>
+                    <c:if test="${sessionScope.role != 1 && sessionScope.role != 2}">
+                        <li onclick="action('main')">TRANG CHỦ</li>
+                        <li onclick="action('store')">MENU</li>
+                        <li onclick="action('blog')">BLOG</li>
+                        <li onclick="action('introduction')">GIỚI THIỆU</li>
+                        <li onclick="action('contact')">LIÊN HỆ</li>
+                    </c:if>
+                    
 
                     <c:if test="${sessionScope.role == 1}">
                         <li onclick="action('manage')">QUẢN LÝ</li>
                         </c:if>
-                        <c:if test="${sessionScope.role == 2}">
-                        <li onclick="action('contact')">QUẢN LÝ ORDER</li>
-                        </c:if>
-                        <c:if test="${sessionScope.role == 3}">
-                        <li onclick="action('contact')">LIÊN HỆ</li>
-                        </c:if>
+                    <c:if test="${sessionScope.role == 2}">
+                        <li onclick="action('manageOrder')">QUẢN LÝ ORDER</li>
+                    </c:if>
                 </ul>
             </nav>
             <div class="header-right">
                 <ul>
-                    <li><a href="Action?check=ListOrderLine" title="shopping cart"><i class="fas fa-shopping-cart"></i></a></li>
-                            <c:set var="a" value="${sessionScope.success}"/>
-                            <c:if test="${a==null}">
-                        <li><a href="LogInLogOut?check=logIn" title="Log In"><i class="fas fa-sign-in-alt"></i></a></li>
+                    <li class="cart">
+                        <a href="Action?check=ListOrderLine" title="shopping cart">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </li>
+                    <c:set var="a" value="${sessionScope.success}"/>
+                    <c:if test="${a==null}">
+                        <li><a href="logInLogOut?check=logIn" title="Log In"><i class="fas fa-sign-in-alt"></i></a></li>
                             </c:if>
 
                     <c:if test="${a!=null}">
                         <c:set var="user" value="${sessionScope.user}"/>
                         <li>
-                            <a href="LogInLogOut?check=logOut" title="Log Out"><i class="fas fa-sign-out-alt"></i></a>
-                        </li>
-                        <li>
-                            <a href="Profile?user=${user}" class="name"><i class="fas fa-user"></i></a>
+                            <a href="logInLogOut?check=logOut" title="Log Out"><i class="fas fa-sign-out-alt"></i></a>
                         </li>
                     </c:if>
                 </ul>
