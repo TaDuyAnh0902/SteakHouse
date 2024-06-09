@@ -6,11 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
@@ -27,14 +27,22 @@
             body {
                 width: 100%;
                 min-width: 1200px;
-                position: relative;
+                background: url(images/background.jpg);
             }
-            .footer {
-                position: absolute;
-                width: 100%;
-                top: 100%;
+            
+            .headerPhone {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #E2D9BC;
+                padding: 0 10%;
+                color: brown;
             }
-            @media only screen and (max-width: 600px) {
+            .headerPhone a {
+                color: brown;
+            }
+            
+            @media only screen and (max-width: 500px) {
                 body {
                     min-width: 100vw;
                     background: none;
@@ -48,40 +56,58 @@
                 .selling {
                     display: none;
                 }
-                .header {
-                    height: 0vh;
-                    width: 0vw;
-                }
+                
             }
         </style>
     </head>
     <body>
         <div class="wrapper">
+            
+            
+            <c:if test="${sessionScope.tableNumber!=null}">
+                <div class="headerPhone">
+                    <div>
+                        <a href="Action?check=store">
+                            <i class="fab fa-elementor"></i>
+                        </a>
+                    </div>
+                    <div>
+                        <h2>Bàn <c:out value="${sessionScope.tableNumber}"/></h2>
+                    </div>
+                    <div>
+                        <a href="Action?check=ListOrderLine" title="shopping cart">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </div>
+                </div>
+            </c:if>
             <%@include file="header.jsp" %>
             
-            
             <c:if test="${requestScope.main!=null}"> <%@include file="option/main.jsp" %> </c:if>
-            
-            <c:if test="${requestScope.introduction!=null}"> <%@include file="option/introduction.jsp" %> </c:if>
+                <c:if test="${requestScope.profile!=null}"> <%@include file="user/profile.jsp" %> </c:if>
+                <c:if test="${requestScope.profileChange!=null}"> <%@include file="user/profileChange.jsp" %> </c:if>
+
+                <c:if test="${requestScope.ListOrderLine!=null}"> <%@include file="option/ListOrderLine.jsp" %></c:if>
             
             <c:if test="${requestScope.store!=null}"> <%@include file="option/store.jsp" %> </c:if>
                 <c:if test="${requestScope.productInfo!=null}"> <%@include file="option/productInfo.jsp" %> </c:if>
-                
+            
+            
             <c:if test="${requestScope.blogList!=null}"> <%@include file="option/blog.jsp" %> </c:if>    
                 <c:if test="${requestScope.sourceBlog!=null}"> <jsp:include page="${requestScope.sourceBlog}" /> </c:if> 
+                
+                
+            <c:if test="${requestScope.introduction!=null}"> <%@include file="option/introduction.jsp" %> </c:if>
             
-            <c:if test="${sessionScope.manageOption!=null}"> <%@include file="option/manageOption.jsp" %> </c:if>
-                <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
-                <c:if test="${sessionScope.productAdd!=null}"> <%@include file="option/productAdd.jsp" %> </c:if>
-                <c:if test="${requestScope.productUpdate!=null}"> <%@include file="option/productUpdate.jsp" %> </c:if>
-                
-                <c:if test="${requestScope.tableAdd!=null}"> <%@include file="option/tableAdd.jsp" %> </c:if>
-                <c:if test="${requestScope.tableUpdate!=null}"> <%@include file="option/tableUpdate.jsp" %> </c:if>
-                
-                <c:if test="${requestScope.blogAdd!=null}"> <%@include file="option/blogAdd.jsp" %> </c:if>
-                <c:if test="${requestScope.blogUpdate!=null}"> <%@include file="option/blogUpdate.jsp" %> </c:if>
+            
+            <c:if test="${requestScope.contact!=null}"> <%@include file="option/contact.jsp" %> </c:if>
+            
+            
+            <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
+            
+            
+            <c:if test="${requestScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %></c:if>
             <%@include file="footer.jsp" %>
         </div>
-        
     </body>
 </html>
