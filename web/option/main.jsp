@@ -74,7 +74,7 @@
         <c:set var="main" value="${requestScope.main}"/>
         <div class="main">
             <div class="banner">
-                <img id="img" src="images/bannerr.jpg" alt="images" onclick="changeImage()" width=" 80%" height="700px">
+                <img id="img" src="images/banner.jpg" alt="images" onclick="changeImage()" width=" 80%" height="700px">
             </div>
             <div class="selling">
                 <div class="hot-selling-title">
