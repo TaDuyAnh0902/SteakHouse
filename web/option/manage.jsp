@@ -282,6 +282,7 @@
                                     <th>Title</th>
                                     <th>image</th>
                                     <th>source</th>
+                                    <th>Status</th>
                                     <th colspan="2">Action</th>
                                 </tr>
 
@@ -289,18 +290,24 @@
                                     <tr>
                                         <td>${b.id}</td>
                                         <td>${b.title}</td>
-                                        <td><img src="${b.image}" alt="${p.image}" width="80px" height="80px"/></td>
+                                        <td><img src="${b.image}" alt="${p.image}" class="imgProduct"/></td>
                                         <td><a href="${b.source}">${b.source}</a></td>
+                                        <td>${b.sid.nameStatus}</td>
                                         <td><a href="blogAction?action=edit&id=${b.id}">Edit</a></td>
-                                        <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteBlog(${b.id});">Delete</a></td>
-                                    </tr>
+                                        <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteTable(${t.id});">Delete</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>
                         </div>
                     </div>
-                </c:if>                
+                </c:if>
 
+                <c:if test="${requestScope.blogAdd!=null}"> 
+                    <%@include file="blogAdd.jsp" %> 
+                </c:if>
+                <c:if test="${requestScope.blogUpdate!=null}"> 
+                    <%@include file="blogUpdate.jsp" %> 
+                </c:if>
             </div>
         </div>
 
