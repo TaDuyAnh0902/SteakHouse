@@ -173,7 +173,7 @@
                     <c:if test="${a!=null}">
                         <c:set var="user" value="${sessionScope.user}"/>
                         <li>
-                            <a href="logInLogOut?check=logOut" title="Log Out"><i class="fas fa-sign-out-alt"></i></a>
+                            <a href="LogInLogOut?check=logOut" title="Log Out"><i class="fas fa-sign-out-alt"></i></a>
                         </li>
                     </c:if>
                 </ul>
