@@ -205,32 +205,33 @@
                 <!--                Account-->
 
                 <c:if test="${requestScope.accountManagement!=null}">
+    <div>
+        <h2>Danh Sách Tài Khoản</h2>
+        <div class="content">
+            <table border="1">
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+                <c:forEach items="${sessionScope.accountManage}" var="a">
+                    <tr>
+                        <td>${a.username}</td>
+                        <td>
+                            <input type="password" value="${a.passWord}" id="password-${a.username}" readonly>
+                            <button type="button" onclick="togglePassword('${a.username}')">Show</button>
+                        </td>
+                        <td>${a.role}</td>
+                        <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');">Delete</a></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
+</c:if>
 
-                    <div>
-                        <h2>Danh Sách Tài Khoản</h2>
-                        <div class="content">
-                            <table border="1">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Password</th>
-                                    <th>role</th>
-                                    <th>Action</th>
-                                    <!--<th colspan="2">Action</th>-->
-                                </tr>
 
-                                <c:forEach items="${sessionScope.accountManage}" var="a">
-                                    <tr>
-                                        <td>${a.username}</td>
-                                        <td>${a.passWord}</td>
-                                        <td>${a.role}</td>
-    <!--                                    <td><a href="accountAction?action=edit&user=${a.username}">Edit</a></td>-->
-                                        <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');">Delete</a></td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </div>
-                    </div>
-                </c:if>
                 <!--                Table-->
 
                 <c:if test="${requestScope.tableManagement!=null}">
@@ -314,6 +315,18 @@
 
 
         <script>
+            function togglePassword(username) {
+        var passwordField = document.getElementById("password-" + username);
+        var showButton = passwordField.nextElementSibling;
+        
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            showButton.textContent = "Hide";
+        } else {
+            passwordField.type = "password";
+            showButton.textContent = "Show";
+        }
+    }
             function ac(id) {
                 window.location.href = "manageOption?check=" + id;
             }
