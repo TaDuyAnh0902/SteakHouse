@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script src="option/Validate.js"></script>
         <style>
             :root {
                 --green-color: rgb(139, 197, 63);
@@ -58,7 +59,7 @@
             <h1>Update Product</h1>
             <c:set var="x" value="${requestScope.productUpdate}"/>
             <c:set var="cid" value="${requestScope.cid}"/>
-            <form action="productAction" method="post">
+            <form action="productAction" method="post" name="productUpdate" onsubmit="return validateProductUpdate()">
                 Id: <input type="text" name="id" value="${x.id}"  readonly><br>
                 Name: <input type="text" name="name" value="${x.name}" required><br>
                 Quantity: <input type="number" name="quantity" value="${x.quantity}" required><br>
