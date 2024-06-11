@@ -57,11 +57,12 @@
         <div class="tableUpdate">
             <h1>Update Table</h1>
             <c:set var="t" value="${requestScope.tableUpdate}"/>
-            <form action="tableAction" method="post">
+            <form action="tableAction" method="post" name="tableUpdateForm" onsubmit="return validateUpdateTable()">
                 <input type="hidden" name="id" value="${t.id}">
                 Table Name: <input type="text" name="tableUpdate" value="${t.nameTable}" required><br>
                 <input type="submit" value="Update">
             </form>
+                <script src="option/Validate.js"></script>
         </div>
 
     </body>
