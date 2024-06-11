@@ -51,7 +51,7 @@
         <div class="blogUpdate">
             <h1>Update Blog</h1>
             <c:set var="b" value="${requestScope.blogUpdate}"/>
-            <form action="blogAction" method="post">
+            <form action="blogAction" method="post" name="blogUpdate" onsubmit="return validateBlogUpdate()">
                 <input type="hidden" name="id" value="${b.id}">
                 Title: <input type="text" name="newTitle" value="${b.title}" required><br>
                 Image: <input type="text" name="newImage" value="${b.image}" required><br>
@@ -59,6 +59,7 @@
                 
                 <input type="submit" value="Update">
             </form>
+                 <script src="option/Validate.js"></script>
         </div>
 
     </body>
