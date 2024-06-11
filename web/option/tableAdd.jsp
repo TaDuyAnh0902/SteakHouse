@@ -53,14 +53,17 @@
                 background-color: var(--green-color);
             }
         </style>
+        
     </head>
     <body>
-        <div class="tableAdd">
-            <h1>Add Table</h1>
-            <form action="tableAction" method="post">
-                Name: <input type="text" name="name" required><br>
-                <input type="submit" value="Add">
-            </form>
-        </div>
-    </body>
+    <div class="tableAdd">
+        <h1>Add Table</h1>
+        <form name="addTableForm" action="tableAction" method="post" onsubmit="return validateTable()">
+            Name: <input type="text" name="name" required><br>
+            <input type="submit" value="Add">
+        </form>
+    </div>
+    <script src="option/Validate.js"></script>
+</body>
+
 </html>
