@@ -119,4 +119,81 @@ function validateProductUpdate() {
 
     return true;
 }
+function validateTable() {
+    // Lấy giá trị từ trường nhập liệu
+    var name = document.forms["addTableForm"]["name"].value;
+
+    // Kiểm tra chuỗi không có quá nhiều khoảng cách liên tiếp
+    if (/ {2,}/.test(name)) {
+        alert("Name cannot contain multiple consecutive spaces");
+        return false;
+    }
+
+    // Kiểm tra chuỗi chỉ chứa chữ cái, số và khoảng cách, ít nhất một ký tự không phải khoảng cách
+    if (!/^[a-zA-Z0-9\sÀ-Ỹà-ỹẠ-Ỷạ-ỵĂ-Ắă-ắẰ-Ỳằ-ỳẠ-Ỵạ-ỵÂ-Ậâ-ậẦ-Ỷầ-ỷẠ-Ỵạ-ỵĐđĨĩƠ-ớơ-ớỠ-Ỷỡ-ỷỌ-Ựọ-ựỜ-Ỹờ-ỹỘ-Ỷộ-ỷỢ-Ựợ-ựÚú]+$/u.test(name)) {
+        alert("Tên chỉ được chứa chữ cái, số, khoảng trắng, và các ký tự tiếng Việt");
+        return false;
+    }
+
+    
+    return true;
+}
+
+
+function validateUpdateTable() {
+    var form = document.forms["tableUpdateForm"];
+    var tableName = form["tableUpdate"].value;
+
+  
+
+    // Kiểm tra xem tên bàn có chứa khoảng trắng ở đầu hoặc cuối không
+    if (/^\s|\s$/.test(tableName)) {
+        alert("Table name cannot have leading or trailing spaces");
+        return false;
+    }
+
+    return true;
+}
+function validateBlog() {
+    // Lấy giá trị từ trường nhập liệu
+    var title = document.forms["blogAdd"]["title"].value;
+
+    // Kiểm tra chuỗi không có quá nhiều khoảng cách liên tiếp
+    if (/ {2,}/.test(title)) {
+        alert("Title cannot contain multiple consecutive spaces");
+        return false;
+    }
+
+
+
+    // Nếu tất cả các kiểm tra đều đúng, cho phép form được submit
+    return true;
+}
+function validateBlogUpdate() {
+    var form = document.forms["blogUpdate"];
+    var title = form["newTitle"].value;
+    var image = form["newImage"].value;
+    var source = form["newSource"].value;
+
+    if (/ {2,}/.test(title)) {
+        alert("Title cannot contain multiple consecutive spaces");
+        return false;
+    }
+
+    if (/\s/.test(image)) {
+        alert("Image cannot contain any spaces");
+        return false;
+    }
+
+   
+
+    if (/\s/.test(source)) {
+        alert("Source cannot contain any spaces");
+        return false;
+    }
+    // Kiểm tra các điều kiện cho Image
+
+
+    return true;
+}
 
