@@ -51,12 +51,13 @@
     <body>
         <div class="blogAdd">
             <h1>Add Blog</h1>
-            <form action="blogAction" method="post">
+            <form action="blogAction" method="post" name="blogAdd" onsubmit="return validateBlog()" >
                 Title: <input type="text" name="title" required><br>
                 Image: <input type="file" name="image" required><br>
                 Source: <input type="file" name="source" required><br>
                 <input type="submit" value="Add">
             </form>
+            <script src="option/Validate.js"></script>
         </div>
     </body>
 </html>
