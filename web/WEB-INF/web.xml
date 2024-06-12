@@ -76,6 +76,14 @@
         <servlet-name>accountAction</servlet-name>
         <servlet-class>controller.manage.accountAction</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BuyProduct</servlet-name>
+        <servlet-class>Order.BuyProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfirmOrder</servlet-name>
+        <servlet-class>Order.ConfirmOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -151,5 +159,13 @@
     <servlet-mapping>
         <servlet-name>accountAction</servlet-name>
         <url-pattern>/accountAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyProduct</servlet-name>
+        <url-pattern>/BuyProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmOrder</servlet-name>
+        <url-pattern>/ConfirmOrder</url-pattern>
     </servlet-mapping>
 </web-app>
