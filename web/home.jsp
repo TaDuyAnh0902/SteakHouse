@@ -108,6 +108,8 @@
 
             <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
 
+            <c:if test="${requestScope.ListOrderLine!=null}"> <%@include file="option/ListOrderLine.jsp" %> </c:if>
+            
             <%@include file="footer.jsp" %>
         </div>
     </body>
