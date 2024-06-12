@@ -90,46 +90,49 @@
             }
 
             @media only screen and (max-width: 500px) {
-                body{
-                    position: relative;
-                    height: 100vh;
-                    background: url(images/loginPhone2.jpg);
-                    background-repeat: no-repeat;
-                    background-size: 100% 100vh;
-                }
-                .header {
-                    display: flex;
-                    box-shadow: none;
-                }
-                .logo {
+                .header{
                     display: none;
                 }
-                .banner {
-                    display: none;
-                }
-                .nav {
-                    width: 100%;
-                    margin: 0 auto;
-                }
-                .nav ul li {
-                    display: none;
-                }
-                .header-right {
-                    display: none;
-                }
-.nav ul li:nth-child(2) {
-                    border: 1px solid black;
-                    border-radius: 20px;
-                    background-color: #E2D9BC;
-                    padding: 50px 50px;
-                    display: inline;
-                    position: absolute;
-                    top: 35%;
-                    color: brown;
-                }
-                .header-right ul li:nth-child(1) {
-                    display: inline;
-                }
+                /*                body{
+                                    position: relative;
+                                    height: 100vh;
+                                    background: url(images/loginPhone2.jpg);
+                                    background-repeat: no-repeat;
+                                    background-size: 100% 100vh;
+                                }
+                                .header {
+                                    display: flex;
+                                    box-shadow: none;
+                                }
+                                .logo {
+                                    display: none;
+                                }
+                                .banner {
+                                    display: none;
+                                }
+                                .nav {
+                                    width: 100%;
+                                    margin: 0 auto;
+                                }
+                                .nav ul li {
+                                    display: none;
+                                }
+                                .header-right {
+                                    display: none;
+                                }
+                .nav ul li:nth-child(2) {
+                                    border: 1px solid black;
+                                    border-radius: 20px;
+                                    background-color: #E2D9BC;
+                                    padding: 50px 50px;
+                                    display: inline;
+                                    position: absolute;
+                                    top: 35%;
+                                    color: brown;
+                                }
+                                .header-right ul li:nth-child(1) {
+                                    display: inline;
+                                }*/
             }
         </style>
     </head>
@@ -147,15 +150,15 @@
                         <li onclick="action('blog')">BLOG</li>
                         <li onclick="action('introduction')">GIỚI THIỆU</li>
                         <li onclick="action('contact')">LIÊN HỆ</li>
-                    </c:if>
-                    
+                        </c:if>
+
 
                     <c:if test="${sessionScope.role == 1}">
                         <li onclick="action('manage')">QUẢN LÝ</li>
                         </c:if>
-                    <c:if test="${sessionScope.role == 2}">
+                        <c:if test="${sessionScope.role == 2}">
                         <li onclick="action('manageOrder')">QUẢN LÝ ORDER</li>
-                    </c:if>
+                        </c:if>
                 </ul>
             </nav>
             <div class="header-right">
