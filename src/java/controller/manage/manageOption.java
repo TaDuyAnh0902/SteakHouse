@@ -79,21 +79,20 @@ public class manageOption extends HttpServlet {
 
             }
             case "accountManagement" ->{
-                request.setAttribute("accountManagement", "success");
+                session.setAttribute("accountManagement", "success");
                 List<Account> list = acDAO.getAllAccount();
                 session.setAttribute("accountManage", list);
             }
                 
                 
             case "blogManagement" -> {
-                request.setAttribute("blogManagement", "success");
+                session.setAttribute("blogManagement", "success");
                 List<Blog> list = blDAO.getAllBlog();
                 session.setAttribute("blogManage", list);
             }
-            case "billManagement" ->
-                request.setAttribute("billManagement", "success");
+            
             case "tableManagement" ->{
-                request.setAttribute("tableManagement", "success");
+                session.setAttribute("tableManagement", "success");
                 List<Table> list = odDAO.getAllTable();
                 session.setAttribute("tableManage", list);
             }
@@ -103,7 +102,16 @@ public class manageOption extends HttpServlet {
         }
         if (!check.equals("productsManagement")) {
             session.removeAttribute("productsManagement");
+            session.removeAttribute("data");
         }
+        if(!check.equals("accountManagement")) 
+            session.removeAttribute("accountManagement");
+        if(!check.equals("blogManagement")) 
+            session.removeAttribute("blogManagement");
+        if(!check.equals("statistics")) 
+            session.removeAttribute("statistics");
+        if(!check.equals("tableManagement")) 
+            session.removeAttribute("tableManagement");
         session.setAttribute("manage", "success");
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
