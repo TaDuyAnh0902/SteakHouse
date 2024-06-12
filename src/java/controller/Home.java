@@ -9,7 +9,6 @@ import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -78,7 +77,7 @@ public class Home extends HttpServlet {
                 String randomString = generateRandomString(10);
                 session.setAttribute("userByMobile", randomString);
                 acDAO.addUserPhone(randomString, 4);
-
+                request.setAttribute("homeMobile", "success");
             } catch (NumberFormatException e) {
             }
         }
