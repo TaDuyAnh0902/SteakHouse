@@ -25,8 +25,8 @@
             }
 
             .productInfo img {
-                width: 90%;
-                height: 100%;
+                width: 80%;
+                height: 90%;
             }
 
             .productByCid{
@@ -73,6 +73,10 @@
                     font-size: 16px;
                     font-weight: bold;
                 }
+                .productInfo img,
+                .productByCid img{
+                    border-radius: 8px;
+                }
                 .productByCid > div {
                     width: calc(50% - 40px);
                     margin: 20px;
@@ -92,8 +96,29 @@
                 }
                 .actions {
                     position: absolute;
-                    left: 80px;
+                    left: 120px;
                     top: 0;
+                }
+                .note {
+                    font-size: 20px;
+                    position: absolute;
+                    top: 60px;
+                }
+                .actions input {
+                    width: 50px;
+                    height: 30px;
+                    border-radius: 8px;
+                    background-color: #FF0;
+                    color: white;
+                }
+                .actions input:active {
+                    background-color: rgb(170, 170, 0);
+                }
+                button {
+                    border: 1px solid black;
+                    border-radius: 50%;
+                    height: 28px;
+                    width: 28px;
                 }
             }
         </style>
@@ -107,7 +132,6 @@
                 </div>
                 <div>
                     <h2>${p.name}</h2>
-                    <p>${p.describe}</p>
                     <h3>${p.price}00 vnđ</h3><br><br>
                     <c:if test="${sessionScope.tableNumber!=null}">
                         <div class="BuyProduct">
@@ -137,15 +161,22 @@
                                 <c:if test="${p.quantity == 0}">
                                     <h3 style="color: red">Hết hàng</h3>
                                 </c:if>
-
+                            
+                                    <div class="note">
+                                        <input tyle="text" placeholder="vd: giảm cay"/>
+                                    </div>
 
                             </form> 
                         </div>
                     </c:if>
+                    
                 </div>
                 
             </div>
-
+            <div>
+                <p>${p.describe}</p>
+            </div>
+            
             <h3>Sản Phẩm Tương Tự<h3>
 
             <div class="productByCid">
