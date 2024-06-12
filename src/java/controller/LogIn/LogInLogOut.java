@@ -61,6 +61,9 @@ public class LogInLogOut extends HttpServlet {
         if(check.equals("logOut")){
             session.removeAttribute("role");
             session.removeAttribute("success");
+            session.removeAttribute("manage");
+            session.removeAttribute("manageOrder");
+            session.removeAttribute("productsManagement");
             response.sendRedirect("home");
         }else if(check.equals("logIn")){
             response.sendRedirect("login");
