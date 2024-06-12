@@ -29,25 +29,18 @@
                 min-width: 1200px;
                 background: url(images/background.jpg);
             }
-            
-            .headerPhone {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                background-color: #E2D9BC;
-                padding: 0 10%;
-                color: brown;
-            }
-            .headerPhone a {
-                color: brown;
-            }
-            
+
+
+
             @media only screen and (max-width: 500px) {
                 body {
                     min-width: 100vw;
-                    background: none;
+                    background: url(images/background.jpg);
                 }
                 .footer {
+                    display: none;
+                }
+                .main{
                     display: none;
                 }
                 #container {
@@ -56,49 +49,65 @@
                 .selling {
                     display: none;
                 }
-                
+                .headerPhone1 {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: #E2D9BC;
+                    padding: 0 10%;
+                    color: brown;
+                }
+                .headerPhone1 a {
+                    color: brown;
+                }
+
             }
         </style>
     </head>
     <body>
         <div class="wrapper">
-            
-            
-            <c:if test="${sessionScope.tableNumber!=null}">
-                <div class="headerPhone">
-                    <div>
-                        <a href="Action?check=store">
-                            <i class="fab fa-elementor"></i>
-                        </a>
+
+
+            <c:if test="${sessionScope.tableNumber!=null && requestScope.homeMobile==null}">
+                <div class="mobile">
+                    <div class="headerPhone1">
+                        <div>
+                            <a href="Action?check=store">
+                                <i class="fab fa-elementor"></i>
+                            </a>
+                        </div>
+                        <div>
+                            <h2>Bàn <c:out value="${sessionScope.tableNumber}"/></h2>
+                        </div>
+                        <div>
+                            <a href="Action?check=ListOrderLine" title="shopping cart">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <h2>Bàn <c:out value="${sessionScope.tableNumber}"/></h2>
-                    </div>
-                    <div>
-                        <a href="Action?check=ListOrderLine" title="shopping cart">
-                            <i class="fas fa-shopping-cart"></i>
-                        </a>
-                    </div>
+
                 </div>
             </c:if>
+
+            <c:if test="${requestScope.homeMobile!=null}"> <%@include file="homeMobile.jsp" %></c:if>
             <%@include file="header.jsp" %>
-            
+
             <c:if test="${requestScope.main!=null}"> <%@include file="option/main.jsp" %> </c:if>
-            
+
             <c:if test="${requestScope.store!=null}"> <%@include file="option/store.jsp" %> </c:if>
-                <c:if test="${requestScope.productInfo!=null}"> <%@include file="option/productInfo.jsp" %> </c:if>
-            
-            
+            <c:if test="${requestScope.productInfo!=null}"> <%@include file="option/productInfo.jsp" %> </c:if>
+
+
             <c:if test="${requestScope.blogList!=null}"> <%@include file="option/blog.jsp" %> </c:if>    
-                <c:if test="${requestScope.sourceBlog!=null}"> <jsp:include page="${requestScope.sourceBlog}" /> </c:if> 
-                
-                
+            <c:if test="${requestScope.sourceBlog!=null}"> <jsp:include page="${requestScope.sourceBlog}" /> </c:if> 
+
+
             <c:if test="${requestScope.introduction!=null}"> <%@include file="option/introduction.jsp" %> </c:if>                        
-         
+
             <c:if test="${requestScope.contact!=null}"> <%@include file="option/contact.jsp" %> </c:if> 
-            
+
             <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
-                        
+
             <%@include file="footer.jsp" %>
         </div>
     </body>
