@@ -95,6 +95,7 @@
                 
             <c:if test="${requestScope.introduction!=null}"> <%@include file="option/introduction.jsp" %> </c:if>                        
          
+            <c:if test="${requestScope.contact!=null}"> <%@include file="option/contact.jsp" %> </c:if> 
             
             <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
                         
