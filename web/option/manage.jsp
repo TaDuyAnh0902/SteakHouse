@@ -204,37 +204,37 @@
                 </c:if>
                 <!--                Account-->
 
-                <c:if test="${requestScope.accountManagement!=null}">
-    <div>
-        <h2>Danh Sách Tài Khoản</h2>
-        <div class="content">
-            <table border="1">
-                <tr>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                </tr>
-                <c:forEach items="${sessionScope.accountManage}" var="a">
-                    <tr>
-                        <td>${a.username}</td>
-                        <td>
-                            <input type="password" value="${a.passWord}" id="password-${a.username}" readonly>
-                            <button type="button" onclick="togglePassword('${a.username}')">Show</button>
-                        </td>
-                        <td>${a.role}</td>
-                        <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');">Delete</a></td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </div>
-    </div>
-</c:if>
+                <c:if test="${sessionScope.accountManagement!=null}">
+                    <div>
+                        <h2>Danh Sách Tài Khoản</h2>
+                        <div class="content">
+                            <table border="1">
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Role</th>
+                                    <th>Action</th>
+                                </tr>
+                                <c:forEach items="${sessionScope.accountManage}" var="a">
+                                    <tr>
+                                        <td>${a.username}</td>
+                                        <td>
+                                            <input type="password" value="${a.passWord}" id="password-${a.username}" readonly>
+                                            <button type="button" onclick="togglePassword('${a.username}')">Show</button>
+                                        </td>
+                                        <td>${a.role}</td>
+                                        <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');">Delete</a></td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                </c:if>
 
 
                 <!--                Table-->
 
-                <c:if test="${requestScope.tableManagement!=null}">
+                <c:if test="${sessionScope.tableManagement!=null}">
                     <form action="tableAction">
                         <input type="submit" value="add" class="add" name="action">
                     </form>
@@ -245,6 +245,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
+                                    <th>QR code</th>
                                     <th>Status</th>
                                     <th colspan="2">Action</th>
                                 </tr>
@@ -253,6 +254,7 @@
                                     <tr>
                                         <td>${t.id}</td>
                                         <td>${t.nameTable}</td>
+                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.104:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank">View</a></td>
                                         <td>${t.sid.nameStatus}</td>
                                         <td><a href="tableAction?action=edit&id=${t.id}">Edit</a></td>
                                         <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});">Delete</a></td>
@@ -270,7 +272,7 @@
                     <%@include file="tableUpdate.jsp" %> 
                 </c:if>
                 <!--                // Blog-->
-                <c:if test="${requestScope.blogManagement!=null}">
+                <c:if test="${sessionScope.blogManagement!=null}">
                     <form action="blogAction">
                         <input type="submit" value="add" class="add" name="action">
                     </form>
@@ -316,17 +318,17 @@
 
         <script>
             function togglePassword(username) {
-        var passwordField = document.getElementById("password-" + username);
-        var showButton = passwordField.nextElementSibling;
-        
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-            showButton.textContent = "Hide";
-        } else {
-            passwordField.type = "password";
-            showButton.textContent = "Show";
-        }
-    }
+                var passwordField = document.getElementById("password-" + username);
+                var showButton = passwordField.nextElementSibling;
+
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    showButton.textContent = "Hide";
+                } else {
+                    passwordField.type = "password";
+                    showButton.textContent = "Show";
+                }
+            }
             function ac(id) {
                 window.location.href = "manageOption?check=" + id;
             }
