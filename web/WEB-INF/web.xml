@@ -84,6 +84,14 @@
         <servlet-name>ConfirmOrder</servlet-name>
         <servlet-class>Order.ConfirmOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewTable</servlet-name>
+        <servlet-class>Order.ViewTable</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>manageOrderAction</servlet-name>
+        <servlet-class>controller.manage.manageOrderAction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -167,5 +175,13 @@
     <servlet-mapping>
         <servlet-name>ConfirmOrder</servlet-name>
         <url-pattern>/ConfirmOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewTable</servlet-name>
+        <url-pattern>/ViewTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageOrderAction</servlet-name>
+        <url-pattern>/manageOrderAction</url-pattern>
     </servlet-mapping>
 </web-app>
