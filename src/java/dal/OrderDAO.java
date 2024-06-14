@@ -123,6 +123,42 @@ public class OrderDAO extends ProductsDAO {
         }
     }
 
+    public List<OrderLine> getAllListOrderLine() {
+        String sql = """
+                    SELECT pid, aid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                    FROM orderline
+                    GROUP BY pid, aid, tid, sid, dateOrderline
+                    ORDER BY dateOrderline desc
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                Account ac = check(rs.getString("aid"));
+                ol.setAid(ac);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+
     public List<OrderLine> getListOrderLine(String user) {
         String sql = """
                     SELECT pid, aid, tid, sid, MAX(quantity) AS max_quantity
@@ -139,6 +175,42 @@ public class OrderDAO extends ProductsDAO {
                 OrderLine ol = new OrderLine();
                 // Since the `id` column is not part of the grouped result, you might need to handle it differently
 // ol.setId(rs.getInt("id"));
+
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                Account ac = check(rs.getString("aid"));
+                ol.setAid(ac);
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+
+    public List<OrderLine> getListOrderLineByIdTable(int idTable) {
+        String sql = """
+                    SELECT pid, aid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                    FROM orderline
+                    GROUP BY pid, aid, tid, sid, dateOrderline
+                    HAVING tid = ?
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, idTable);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
 
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -203,4 +275,5 @@ public class OrderDAO extends ProductsDAO {
 
         return total;
     }
+
 }
