@@ -5,6 +5,7 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.OrderDAO;
 import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Random;
 import model.Category;
+import model.OrderLine;
 import model.Product;
 
 /**
@@ -65,6 +67,7 @@ public class Home extends HttpServlet {
         HttpSession session = request.getSession();
         ProductsDAO PdDAO = new ProductsDAO();
         AccountDAO acDAO = new AccountDAO();
+        OrderDAO odDAO = new OrderDAO();
         String idTable = request.getParameter("idTable");
         if (session.getAttribute("role") == null) {
             session.setAttribute("role", 3);
@@ -88,8 +91,12 @@ public class Home extends HttpServlet {
                 List<Category> c = PdDAO.getAllCategory();
                 session.setAttribute("data", c);
             }
-            case 2 ->
-                request.setAttribute("manageOrder", "success");
+            case 2 -> {
+                session.setAttribute("manageOrder", "success");
+                List<OrderLine> list = odDAO.getAllListOrderLine();
+                session.setAttribute("allListOrderLine", list);
+            }
+
             default -> {
                 request.setAttribute("main", "success");
                 List<Product> list = PdDAO.getNewProduct();
