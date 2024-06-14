@@ -101,7 +101,7 @@ public class Action extends HttpServlet {
                 session.setAttribute("data", c);
             }
             case "manageOrder" -> {
-                request.setAttribute("manageOrder", "success");
+                session.setAttribute("manageOrder", "success");
             }
             case "main" -> {
                 request.setAttribute("main", "success");
