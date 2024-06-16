@@ -125,9 +125,9 @@ public class OrderDAO extends ProductsDAO {
 
     public List<OrderLine> getAllListOrderLine() {
         String sql = """
-                    SELECT pid, aid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                    SELECT id, pid, aid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
                     FROM orderline
-                    GROUP BY pid, aid, tid, sid, dateOrderline
+                    GROUP BY id, pid, aid, tid, sid, dateOrderline
                     ORDER BY dateOrderline desc
                  """;
         List<OrderLine> list = new ArrayList<>();
@@ -137,7 +137,7 @@ public class OrderDAO extends ProductsDAO {
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
                 // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
 
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -231,6 +231,19 @@ public class OrderDAO extends ProductsDAO {
         return list;
     }
 
+    public void confirmOrder(String id){
+        String sql = """
+                     UPDATE [dbo].[OrderLine]
+                      SET [sid] = 3
+                      WHERE [id] = ? 
+                      """;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
     public void buy(String user) {
         String sql = """
                      UPDATE [dbo].[OrderLine]
