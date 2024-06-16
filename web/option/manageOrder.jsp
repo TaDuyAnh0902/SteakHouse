@@ -116,14 +116,21 @@
                             </tr>
                         </thead>
                         <c:forEach items="${requestScope.orderDetail}" var="o">
-                            <c:if test="${o.sid.id==2}">
+                            <c:if test="${o.sid.id!=1}">
                                 <tbody>
                                 <td>${o.pid.name}</td>
                                 <td>${o.quantity}</td>
                                 <td>lskdfjlskdf</td>
                                 <td>${o.dateOrderline}</td>
                                 <td>${o.tid.nameTable}</td>
-                                <td><a href="">Confirm</a></td>
+                                <td>
+                                    <c:if test="${o.sid.id==2}">
+                                        <a href="ConfirmOrderByCashier?id=${o.id}">Confirm</a>
+                                    </c:if>
+                                    <c:if test="${o.sid.id==3}">
+                                        Done
+                                    </c:if>
+                                </td>
                                 </tbody>
                             </c:if>
                         </c:forEach>
