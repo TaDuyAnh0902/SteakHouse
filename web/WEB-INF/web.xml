@@ -96,6 +96,10 @@
         <servlet-name>ConfirmOrderByCashier</servlet-name>
         <servlet-class>Order.ConfirmOrderByCashier</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>homeMobile</servlet-name>
+        <servlet-class>controller.homeMobile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -191,5 +195,9 @@
     <servlet-mapping>
         <servlet-name>ConfirmOrderByCashier</servlet-name>
         <url-pattern>/ConfirmOrderByCashier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>homeMobile</servlet-name>
+        <url-pattern>/homeMobile</url-pattern>
     </servlet-mapping>
 </web-app>

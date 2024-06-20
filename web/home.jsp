@@ -88,8 +88,8 @@
                 <div class="mobile">
                     <div class="headerPhone1">
                         <div>
-                            <a href="Action?check=store">
-                                <i class="fab fa-elementor"></i>
+                            <a href="homeMobile">
+                                <i class="fas fa-home"></i>
                             </a>
                         </div>
                         <div>

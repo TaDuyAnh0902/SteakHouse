@@ -129,7 +129,7 @@
                 padding: 0 10px;
             }
 
-            @media only screen and (max-width: 500px) {
+            @media only screen and (max-width: 500px), only screen and (max-height: 400px) {
                 body {
                     min-width: 100vw;
                     background: none;
@@ -244,7 +244,7 @@
                                 <h5 style="font-weight: bold;">${p.price}00 vnđ</h5>
                                 <c:if test="${sessionScope.tableNumber!=null}">
                                     <div class="BuyProduct">
-                                        <form action="BuyProduct">
+                                        <!--<form action="BuyProduct">-->
 
     <!--                                        <div class="buttonShop">
                                                 <button type="button" onclick="decrement()">-</button>
@@ -252,24 +252,25 @@
                                                 <button type="button" onclick="increment()">+</button><br>
                                             </div>-->
 
-                                            <input type="hidden" value="1" name="quantity">
+<!--                                            <input type="hidden" value="1" name="quantity">
                                             <h3 style="color: red"><c:out value="${requestScope.quantityFail}"/></h3>
                                             <input type="hidden" value="${sessionScope.tableNumber}" name="tableNumber">
                                             <input type="hidden" value="${sessionScope.userByMobile}" name="userByMobile">
-                                            <input type="hidden" name="id" value="${p.id}">     
+                                            <input type="hidden" name="id" value="${p.id}">     -->
                                             <c:set var="q" value="${param.quantity}"/>
 
                                             <c:if test="${p.quantity > 0}">
-                                                <div class="actions">
+<!--                                                <div class="actions">
                                                     <div class="action">
                                                         <input type="submit" value="🛒">
                                                     </div>
-                                                </div>
+                                                </div>-->
+                                                <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; ">🛒</a>
                                             </c:if>
                                             <c:if test="${p.quantity == 0}">
-                                                <h3 style="color: red">Hết hàng</h3>
+                                                <!--<h3 style="color: red">Hết hàng</h3>-->
                                             </c:if>
-                                        </form> 
+                                        <!--</form>--> 
                                     </div>
                                 </c:if>
                             </div>
