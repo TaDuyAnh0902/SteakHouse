@@ -9,21 +9,20 @@ package model;
  * @author ADMIN
  */
 public class OrderLine {
-    private int id;
+private int id;
     private Product pid;
     private int quantity;
-    private Account aid;
     private String dateOrderline;
     private Table tid;
     private Status sid;
+
     public OrderLine() {
     }
 
-    public OrderLine(int id, Product pid, int quantity, Account aid, String dateOrderline, Table tid, Status sid) {
+    public OrderLine(int id, Product pid, int quantity, String dateOrderline, Table tid, Status sid) {
         this.id = id;
         this.pid = pid;
         this.quantity = quantity;
-        this.aid = aid;
         this.dateOrderline = dateOrderline;
         this.tid = tid;
         this.sid = sid;
@@ -51,14 +50,6 @@ public class OrderLine {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public Account getAid() {
-        return aid;
-    }
-
-    public void setAid(Account aid) {
-        this.aid = aid;
     }
 
     public String getDateOrderline() {
