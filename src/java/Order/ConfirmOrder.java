@@ -13,7 +13,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.OrderLine;
 import model.Product;
 
 /**
@@ -57,13 +59,31 @@ public class ConfirmOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        OrderDAO odDAO = new OrderDAO();
+        HttpSession session = request.getSession();
         ProductsDAO PdDAO = new ProductsDAO();
-        String action = request.getParameter("action");
-        String user = request.getParameter("user");
-        if("buy".equals(action)){
-            odDAO.buy(user);
+        OrderDAO od = new OrderDAO();
+        String idProduct = request.getParameter("id");
+        String quantity = request.getParameter("quantity");
+//        String note = request.getParameter("note");
+        var tableNumber = (int) session.getAttribute("tableNumber");
+//        String userByMobile = request.getParameter("userByMobile");
+        
+        int idProduct_int, quantity_int;
+        try {
+            idProduct_int = Integer.parseInt(idProduct);
+            quantity_int = Integer.parseInt(quantity);
+//            od.addOrderLine(idProduct_int, quantity_int, userByMobile, tableNumber);
+            od.addOrderLine(idProduct_int, quantity_int, tableNumber);
+//            List<OrderLine> list = od.getListOrderLine(userByMobile);
+            List<OrderLine> list = od.getListOrderLine(tableNumber);
+            session.setAttribute("OrderLine", list);
+//            double totalMoney = od.totalMoney(userByMobile);
+//            session.setAttribute("totalMoney", totalMoney);
+            double totalMoney = od.totalMoney(tableNumber);
+            session.setAttribute("totalMoney", totalMoney);
+        } catch (NumberFormatException e) {
         }
+        
         request.setAttribute("store", "success");
         List<Product> listProduct = PdDAO.getproductByCid(0);
         request.setAttribute("products", listProduct);
