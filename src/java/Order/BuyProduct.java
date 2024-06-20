@@ -78,6 +78,8 @@ public class BuyProduct extends HttpServlet {
             session.setAttribute("OrderLine", list);
             double totalMoney = od.totalMoney(tableNumber);
             session.setAttribute("totalMoney", totalMoney);
+            int totalProductByTable = od.totalProductByTable(tableNumber);
+            session.setAttribute("totalProductByTable", totalProductByTable);
         } catch (NumberFormatException e) {
         }
         
