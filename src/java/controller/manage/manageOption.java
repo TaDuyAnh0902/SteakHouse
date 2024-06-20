@@ -6,6 +6,7 @@ package controller.manage;
 
 import dal.AccountDAO;
 import dal.BlogDAO;
+import dal.ManageDAO;
 import dal.OrderDAO;
 import dal.ProductsDAO;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 import model.Account;
 import model.Blog;
 import model.Product;
@@ -71,6 +73,7 @@ public class manageOption extends HttpServlet {
         BlogDAO blDAO = new BlogDAO();
         AccountDAO acDAO =new AccountDAO();
         ProductsDAO PdDAO = new ProductsDAO();
+        ManageDAO mnDAO = new ManageDAO();
         switch (check) {
             case "productsManagement" -> {
                 session.setAttribute("productsManagement", "success");
@@ -95,6 +98,27 @@ public class manageOption extends HttpServlet {
                 session.setAttribute("tableManagement", "success");
                 List<Table> list = odDAO.getAllTable();
                 session.setAttribute("tableManage", list);
+            }
+            
+            case "statistics" -> {
+                session.setAttribute("statistics", "success");
+                String type = "cate";
+                request.setAttribute("admin", "success");
+                Map<String, Integer> data = mnDAO.getDataProductsCategories();
+                request.setAttribute("chart", data);
+                request.setAttribute("type", type);
+                Map<String, Integer> dataOrder = mnDAO.getDataOrderManage();
+                request.setAttribute("graph", dataOrder);
+                Map<String, Double> dataMoney = mnDAO.getDataRevenue();
+                request.setAttribute("money", dataMoney);
+                int totalCategory = mnDAO.totalCategory();
+                request.setAttribute("totalCategory", totalCategory);
+                int totalProduct = mnDAO.totalProduct();
+                request.setAttribute("totalProduct", totalProduct);
+                int totalUser = mnDAO.totalUser();
+                request.setAttribute("totalUser", totalUser);
+                int totalOrder = mnDAO.totalOrder();
+                request.setAttribute("totalOrder", totalOrder);
             }
                 
             default -> {
