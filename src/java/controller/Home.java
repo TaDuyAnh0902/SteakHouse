@@ -5,6 +5,7 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.ManageDAO;
 import dal.OrderDAO;
 import dal.ProductsDAO;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import model.Category;
 import model.OrderLine;
@@ -68,6 +70,7 @@ public class Home extends HttpServlet {
         ProductsDAO PdDAO = new ProductsDAO();
         AccountDAO acDAO = new AccountDAO();
         OrderDAO odDAO = new OrderDAO();
+        ManageDAO mnDAO = new ManageDAO();
         String idTable = request.getParameter("idTable");
         if (session.getAttribute("role") == null) {
             session.setAttribute("role", 3);
@@ -88,10 +91,31 @@ public class Home extends HttpServlet {
         }
         switch ((int) session.getAttribute("role")) {
             case 1 -> {
+                String type = "cate";
                 session.setAttribute("manage", "success");
-                request.setAttribute("statistics", "success");
-                List<Category> c = PdDAO.getAllCategory();
-                session.setAttribute("data", c);
+                request.setAttribute("admin", "success");
+                session.setAttribute("statistics", "success");
+                Map<String, Integer> data = mnDAO.getDataProductsCategories();
+                Map<String, Integer> dataOrder = mnDAO.getDataOrderManage();
+                Map<String, Double> dataMoney = mnDAO.getDataRevenue();
+
+                request.setAttribute("chart", data);
+                request.setAttribute("graph", dataOrder);
+                request.setAttribute("money", dataMoney);
+                request.setAttribute("type", type);
+
+                int totalCategory = mnDAO.totalCategory();
+                request.setAttribute("totalCategory", totalCategory);
+
+                int totalProduct = mnDAO.totalProduct();
+                request.setAttribute("totalProduct", totalProduct);
+
+                int totalUser = mnDAO.totalUser();
+                request.setAttribute("totalUser", totalUser);
+
+                int totalOrder = mnDAO.totalOrder();
+                request.setAttribute("totalOrder", totalOrder);
+
             }
             case 2 -> {
                 session.setAttribute("manageOrder", "success");
@@ -122,7 +146,6 @@ public class Home extends HttpServlet {
 //
 //        return sb.toString();
 //    }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
