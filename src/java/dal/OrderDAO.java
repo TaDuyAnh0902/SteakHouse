@@ -287,15 +287,11 @@ public class OrderDAO extends ProductsDAO {
         }
     }
 
-<<<<<<< HEAD
+
     public double totalMoney(int idTable) {
         String sql = """
-                    SELECT pid,tid,sid,MAX(quantity) AS max_quantity
-=======
-   public double totalMoney(int idTable) {
-        String sql = """
                     SELECT pid, tid, sid, MAX(quantity) AS max_quantity
->>>>>>> a0e8cd69d2287b2e2fbb7d8d6dcb3198e083c6a3
+
                     FROM orderline
                     GROUP BY pid, tid, sid
                     HAVING tid = ?
