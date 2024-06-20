@@ -77,9 +77,9 @@ public class Home extends HttpServlet {
                 int idTable_int = Integer.parseInt(idTable);
                 session.setAttribute("tableNumber", idTable_int);
 
-                String randomString = generateRandomString(10);
-                session.setAttribute("userByMobile", randomString);
-                acDAO.addUserPhone(randomString, 4);
+//                String randomString = generateRandomString(10);
+//                session.setAttribute("userByMobile", randomString);
+//                acDAO.addUserPhone(randomString, 4);
                 request.setAttribute("homeMobile", "success");
             } catch (NumberFormatException e) {
             }
@@ -108,18 +108,18 @@ public class Home extends HttpServlet {
 
     }
 
-    public static String generateRandomString(int length) {
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder(length);
-
-        for (int i = 0; i < length; i++) {
-            int index = random.nextInt(characters.length());
-            sb.append(characters.charAt(index));
-        }
-
-        return sb.toString();
-    }
+//    public static String generateRandomString(int length) {
+//        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+//        Random random = new Random();
+//        StringBuilder sb = new StringBuilder(length);
+//
+//        for (int i = 0; i < length; i++) {
+//            int index = random.nextInt(characters.length());
+//            sb.append(characters.charAt(index));
+//        }
+//
+//        return sb.toString();
+//    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
