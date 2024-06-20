@@ -159,9 +159,9 @@ public class OrderDAO extends ProductsDAO {
 
     public List<OrderLine> getAllListOrderLine() {
         String sql = """
-                    SELECT id, pid, aid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                    SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
                     FROM orderline
-                    GROUP BY id, pid, aid, tid, sid, dateOrderline
+                    GROUP BY id, pid, tid, sid, dateOrderline
                     ORDER BY dateOrderline desc
                  """;
         List<OrderLine> list = new ArrayList<>();
@@ -171,12 +171,10 @@ public class OrderDAO extends ProductsDAO {
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
                 // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
-
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
-                Account ac = check(rs.getString("aid"));
-                ol.setAid(ac);
                 ol.setDateOrderline(rs.getString("dateOrderline"));
                 Table t = getTableById(rs.getInt("tid"));
                 ol.setTid(t);
@@ -226,11 +224,11 @@ public class OrderDAO extends ProductsDAO {
         return list;
     }
 
-    public List<OrderLine> getListOrderLineByIdTable(int idTable) {
+   public List<OrderLine> getListOrderLineByIdTable(int idTable) {
         String sql = """
-                    SELECT pid, aid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                    SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
                     FROM orderline
-                    GROUP BY pid, aid, tid, sid, dateOrderline
+                    GROUP BY id, pid, tid, sid, dateOrderline
                     HAVING tid = ?
                  """;
         List<OrderLine> list = new ArrayList<>();
@@ -242,12 +240,11 @@ public class OrderDAO extends ProductsDAO {
                 OrderLine ol = new OrderLine();
                 // Since the `id` column is not part of the grouped result, you might need to handle it differently
                 // ol.setId(rs.getInt("id"));
-
+                ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
-                Account ac = check(rs.getString("aid"));
-                ol.setAid(ac);
                 Table t = getTableById(rs.getInt("tid"));
+                ol.setDateOrderline(rs.getString("dateOrderline"));
                 ol.setTid(t);
                 Status s = getStatusById(rs.getInt("sid"));
                 ol.setSid(s);
@@ -290,8 +287,8 @@ public class OrderDAO extends ProductsDAO {
         }
     }
 
-    public double totalMoney(int idTable){
-        String sql ="""
+    public double totalMoney(int idTable) {
+        String sql = """
                     SELECT pid,tid,sid,MAX(quantity) AS max_quantity
                     FROM orderline
                     GROUP BY pid,tid,sid
@@ -302,11 +299,11 @@ public class OrderDAO extends ProductsDAO {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, idTable);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 OrderLine ol = new OrderLine();
                 Product p = getProductById("pid");
                 ol.setQuantity(rs.getInt("max_quantity"));
-                
+
                 total += p.getPrice() * ol.getQuantity();
             }
             st.executeUpdate();
@@ -315,4 +312,23 @@ public class OrderDAO extends ProductsDAO {
         return total;
     }
 
+    public void pay(int idTable, double totalMoney) {
+        String sql = """
+                    INSERT INTO [dbo].[OrderManage]
+                               ([date]
+                               ,[tid]
+                               ,[totalmoney])
+                         VALUES
+                               (CURRENT_TIMESTAMP,?,?)
+                    
+                    delete orderline where tid = ?""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, idTable);
+            st.setDouble(2, totalMoney);
+            st.setInt(3, idTable);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
 }
