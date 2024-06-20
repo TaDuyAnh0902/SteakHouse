@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import model.Account;
 import model.Blog;
+import model.Category;
 import model.Product;
 import model.Table;
 
@@ -77,6 +78,8 @@ public class manageOption extends HttpServlet {
         switch (check) {
             case "productsManagement" -> {
                 session.setAttribute("productsManagement", "success");
+                List<Category> c = PdDAO.getAllCategory();
+                session.setAttribute("data", c);
                 List<Product> list = PdDAO.getproductByCid(1);
                 request.setAttribute("products", list);
 
