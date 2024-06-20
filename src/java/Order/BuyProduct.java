@@ -72,11 +72,11 @@ public class BuyProduct extends HttpServlet {
         try {
             idProduct_int = Integer.parseInt(idProduct);
             quantity_int = Integer.parseInt(quantity);
-            od.addOrderLine(idProduct_int, quantity_int, userByMobile, tableNumber);
+            od.addOrderLine(idProduct_int, quantity_int, tableNumber);
             
-            List<OrderLine> list = od.getListOrderLine(userByMobile);
+            List<OrderLine> list = od.getListOrderLine(tableNumber);
             session.setAttribute("OrderLine", list);
-            double totalMoney = od.totalMoney(userByMobile);
+            double totalMoney = od.totalMoney(tableNumber);
             session.setAttribute("totalMoney", totalMoney);
         } catch (NumberFormatException e) {
         }
