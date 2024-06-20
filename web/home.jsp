@@ -60,6 +60,13 @@
                 .headerPhone1 a {
                     color: brown;
                 }
+                #back {
+                    color: gray;
+                    padding: 5px 10px;
+                    background-color: white;
+                    border-radius: 16px;
+                    margin-left: -30px;
+                }
 
             }
         </style>
@@ -88,6 +95,7 @@
                 <div class="mobile">
                     <div class="headerPhone1">
                         <div>
+                            <i class="fas fa-chevron-left" onclick="goBack()" id="back"></i>
                             <a href="homeMobile">
                                 <i class="fas fa-home"></i>
                             </a>
@@ -131,4 +139,28 @@
             <%@include file="footer.jsp" %>
         </div>
     </body>
+        <script>
+            var quantity = 1;
+
+            function increment() {
+                quantity++;
+                updateQuantity();
+            }
+
+            function decrement() {
+                if (quantity > 1) {
+                    quantity--;
+                    updateQuantity();
+                }
+            }
+
+            function updateQuantity() {
+                document.getElementById("quantity").value = quantity;
+            }
+
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+
 </html>
