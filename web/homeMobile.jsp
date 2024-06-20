@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-            @media only screen and (max-width: 500px) {
+            @media only screen and (max-width: 500px), only screen and (max-height: 400px) {
                 .headerPhone1 {
                     display: none;
                 }
