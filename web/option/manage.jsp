@@ -139,6 +139,9 @@
             </div>
 
             <div id="wrapperrr">
+                <c:if test="${sessionScope.statistics!=null}">
+                    <%@include file="admin.jsp" %>
+                </c:if>
                 <c:if test="${sessionScope.productsManagement!=null}">
 
                     <div id="menu_tab">
