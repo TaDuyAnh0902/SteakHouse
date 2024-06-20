@@ -58,7 +58,7 @@ public class manageOrderAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
+       HttpSession session = request.getSession();
         OrderDAO odDAO = new OrderDAO();
         String check = request.getParameter("check");
         if("viewOrder".equals(check)){
