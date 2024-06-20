@@ -238,9 +238,11 @@
                 <!--                Table-->
 
                 <c:if test="${sessionScope.tableManagement!=null}">
-                    <form action="tableAction">
-                        <input type="submit" value="add" class="add" name="action">
-                    </form>
+                    <c:if test="${requestScope.tableAdd==null && requestScope.tableUpdate==null}">
+                        <form action="tableAction">
+                            <input type="submit" value="add" class="add" name="action">
+                        </form>
+                    </c:if>
                     <div>
                         <h2>Danh Sách Bàn</h2>
                         <div class="content">
