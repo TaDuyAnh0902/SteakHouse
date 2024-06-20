@@ -290,28 +290,29 @@ public class OrderDAO extends ProductsDAO {
         }
     }
 
-    public double totalMoney(int idTable){
-        String sql ="""
-                    SELECT pid,tid,sid,MAX(quantity) AS max_quantity
+   public double totalMoney(int idTable) {
+        String sql = """
+                    SELECT pid, tid, sid, MAX(quantity) AS max_quantity
                     FROM orderline
-                    GROUP BY pid,tid,sid
-                    HAVING tid=?
-                    """;
+                    GROUP BY pid, tid, sid
+                    HAVING tid = ?
+                 """;
         double total = 0;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, idTable);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                Product p = getProductById("pid");
+                Product p = getProductById(rs.getString("pid"));
                 ol.setQuantity(rs.getInt("max_quantity"));
-                
+
                 total += p.getPrice() * ol.getQuantity();
             }
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
+
         return total;
     }
 
