@@ -97,7 +97,7 @@
                         </div>
                         <div>
                             <a href="Action?check=ListOrderLine" title="shopping cart">
-                                <i class="fas fa-shopping-cart"></i>
+                                <i class="fas fa-shopping-cart"></i>(${sessionScope.totalProductByTable})
                             </a>
                         </div>
                     </div>
