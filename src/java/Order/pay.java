@@ -5,12 +5,16 @@
 
 package Order;
 
+import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.OrderLine;
 
 /**
  *
@@ -53,7 +57,23 @@ public class pay extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        OrderDAO odDAO = new OrderDAO();
+        String idTable = request.getParameter("idTable");
+        String totalMoney = request.getParameter("totalMoney");
+        
+        int idTable_int;
+        double totalMoney_double;
+        try {
+            idTable_int = Integer.parseInt(idTable);
+            totalMoney_double = Double.parseDouble(totalMoney);
+            odDAO.pay(idTable_int, totalMoney_double);
+        } catch (Exception e) {
+        }
+        session.removeAttribute("allListTable");
+        List<OrderLine> list = odDAO.getAllListOrderLine();
+        session.setAttribute("allListOrderLine", list);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
     /** 
