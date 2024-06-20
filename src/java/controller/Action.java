@@ -4,7 +4,9 @@
  */
 package controller;
 
+import controller.LogIn.test;
 import dal.BlogDAO;
+import dal.OrderDAO;
 import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Blog;
 import model.Category;
+import model.OrderLine;
 import model.Product;
 
 /**
@@ -106,8 +109,13 @@ public class Action extends HttpServlet {
             case "main" -> {
                 request.setAttribute("main", "success");
             }
-            case "ListOrderLine" ->
-                request.setAttribute("ListOrderLine", "success");
+            case "ListOrderLine" -> {
+                OrderDAO od = new OrderDAO();
+                    var tableNumber = (int) session.getAttribute("tableNumber");
+                    request.setAttribute("ListOrderLine", "success");
+                    List<OrderLine> list= od.getListOrderLine(tableNumber);
+                    session.setAttribute("OrderLine", list);
+            }
 
             default -> {
             }
