@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-            @media only screen and (max-width: 500px) {
+            @media only screen and (max-width: 500px), only screen and (max-height: 400px) {
                 .header {
                     display: none;
                 }
@@ -74,12 +74,26 @@
                 <th>Giá</th>
                 </thead>
                 <c:forEach var="order" items="${sessionScope.OrderLine}">
-                    <c:set var="user" value="${order.aid.username}"/>
-                    <tbody>
-                        <td>${order.pid.name}</td>
-                        <td>${order.quantity}</td>
-                        <td>${order.pid.price}</td>
-                    </tbody>
+                    <c:if test="${order.sid.id==2}">
+                        <tbody>
+                            <td>
+                                ${order.pid.name}
+                                <p style="color: #F90;">(đã đặt)</p>
+                            </td>
+                            <td>${order.quantity}</td>
+                            <td>${order.pid.price}</td>
+                        </tbody>
+                    </c:if>
+                    <c:if test="${order.sid.id==1}">
+                        <tbody>
+                            <td>
+                                ${order.pid.name}
+<p style="color: green;">(món mới)</p>
+                            </td>
+                            <td>${order.quantity}</td>
+                            <td>${order.pid.price}</td>
+                        </tbody>
+                    </c:if>
                 </c:forEach>
             </table>
             <div>
@@ -90,7 +104,8 @@
                     <p><c:out value="${sessionScope.totalMoney}"/></p>
                 </div>
             </div>
-                <a href="ConfirmOrder?action=buy&user=${user}">Đặt</a>
+                    <a href="ConfirmOrder?action=buy&idTable=${sessionScope.tableNumber}">Đặt</a>
         </div>
     </body>
 </html>
+
