@@ -224,7 +224,25 @@ public class OrderDAO extends ProductsDAO {
         return list;
     }
 
-   public List<OrderLine> getListOrderLineByIdTable(int idTable) {
+    public int totalProductByTable(int idTable) {
+        String sql = """
+                    SELECT SUM(quantity) as total_product
+                    FROM Orderline
+                    WHERE tid = ?""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, idTable);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+        }
+        return 0;
+    }
+
+    public List<OrderLine> getListOrderLineByIdTable(int idTable) {
         String sql = """
                     SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
                     FROM orderline
@@ -286,7 +304,6 @@ public class OrderDAO extends ProductsDAO {
         } catch (SQLException e) {
         }
     }
-
 
     public double totalMoney(int idTable) {
         String sql = """
