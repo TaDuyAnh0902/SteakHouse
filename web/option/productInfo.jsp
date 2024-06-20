@@ -47,7 +47,7 @@
                 height: 60%;
             }
 
-            @media only screen and (max-width: 500px) {
+            @media only screen and (max-width: 500px), only screen and (max-height: 400px) {
                 body {
                     background: none;
                 }
@@ -91,18 +91,19 @@
                 }
                 .buttonShop {
                     position: absolute;
-                    left: 10px;
+                    left: 0;
                     top: 0;
                 }
                 .actions {
                     position: absolute;
-                    left: 120px;
+                    left: 100px;
                     top: 0;
                 }
                 .note {
                     font-size: 20px;
                     position: absolute;
                     top: 60px;
+                    left: -90%;
                 }
                 .actions input {
                     width: 50px;
@@ -148,7 +149,7 @@
                                 
                                 <input type="hidden" name="id" value="${p.id}">     
                                 <input type="hidden" value="${sessionScope.tableNumber}" name="tableNumber">
-                                <input type="hidden" value="${sessionScope.userByMobile}" name="userByMobile">
+                                <!--<input type="hidden" value="${sessionScope.userByMobile}" name="userByMobile">-->
                                 <c:set var="q" value="${param.quantity}"/>
 
                                 <c:if test="${p.quantity > 0}">
@@ -162,9 +163,10 @@
                                     <h3 style="color: red">Hết hàng</h3>
                                 </c:if>
                             
-                                    <div class="note">
-                                        <input tyle="text" placeholder="vd: giảm cay"/>
-                                    </div>
+<!--                                    <div class="note">
+                                        <p style="margin: 0; font-weight: bold;">Ghi chú:</p>
+                                        <input tyle="text" placeholder="vd: giảm cay" name="note"/>
+                                    </div>-->
 
                             </form> 
                         </div>
@@ -173,7 +175,7 @@
                 </div>
                 
             </div>
-            <div>
+            <div style="margin-top: 80px;">
                 <p>${p.describe}</p>
             </div>
             
