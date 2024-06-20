@@ -86,6 +86,7 @@
                 <ul>
                     <li onclick="manageOrderAction('viewOrder')" id="refreshBtn">View Order</li>
                     <li onclick="manageOrderAction('viewTable')" id="clearBtn">View Table</li>
+                    <li><a href="https://dashboard.kommunicate.io/dashboard/conversation-overview" target=_blank style="text-decoration: none; color: black">View Chat</a></li>
                 </ul>
             </div>
             <div class="manageOrder-right">
@@ -96,7 +97,7 @@
                 </c:if>
                 <c:if test="${sessionScope.allListTable!=null}">
                     <div class="allListTable">
-<ul>
+                        <ul>
                             <c:forEach items="${sessionScope.allListTable}" var="t">
                                 <li><a href="ViewTable?idTable=${t.id}">${t.nameTable}</a></li>
                                 </c:forEach>
@@ -134,11 +135,11 @@
                             </c:if>
                         </c:forEach>
                         <tbody>
-                            <td colspan="4">Tổng tiền</td>
-                            <td style="color: #F90;">${requestScope.totalMoney}00</td>
+                        <td colspan="4">Tổng tiền</td>
+                        <td style="color: #F90;">${requestScope.totalMoney}00</td>
                         </tbody>
                         <tfoot>
-                            <td colspan="5" ><a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" style="color: red;display: inline; float: right; padding-right: 30px;">Thanh Toán</a></td>
+                        <td colspan="5" ><a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" style="color: red;display: inline; float: right; padding-right: 30px;">Thanh Toán</a></td>
                         </tfoot>
                     </table>
                 </c:if>
@@ -149,6 +150,6 @@
     <script>
         function manageOrderAction(ac) {
             window.location.href = "manageOrderAction?check=" + ac;
-        }     
+        }
     </script>
 </html>
