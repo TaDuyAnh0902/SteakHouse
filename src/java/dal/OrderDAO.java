@@ -123,6 +123,40 @@ public class OrderDAO extends ProductsDAO {
         }
     }
 
+    public void addOrderLine(int productId, int quantity, int tableNumber) {
+
+        String sql = """
+                    DECLARE @NewData TABLE (
+                            pid INT,
+                            quantity INT,
+                            dateOrderline DATETIME,
+                            tid INT,
+                            sid INT
+                        );
+                        
+                        -- Chèn các giá trị mới vào bảng tạm
+                        INSERT INTO @NewData (pid, quantity, dateOrderline, tid, sid)
+                        VALUES (?, ?, CURRENT_TIMESTAMP, ?, 1);
+                        
+                        -- Sử dụng MERGE để cập nhật hoặc chèn vào OrderLine
+                        MERGE [dbo].[OrderLine] AS target
+                        USING @NewData AS source
+                        ON (target.pid = source.pid AND target.tid = source.tid AND target.sid = 1)
+                        WHEN MATCHED THEN 
+                            UPDATE SET target.quantity = target.quantity + source.quantity
+                        WHEN NOT MATCHED THEN
+                            INSERT (pid, quantity, dateOrderline, tid, sid)
+                            VALUES (source.pid, source.quantity, source.dateOrderline, source.tid, source.sid);""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, productId);
+            st.setInt(2, quantity);
+            st.setInt(3, tableNumber);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
     public List<OrderLine> getAllListOrderLine() {
         String sql = """
                     SELECT id, pid, aid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
@@ -159,33 +193,30 @@ public class OrderDAO extends ProductsDAO {
         return list;
     }
 
-    public List<OrderLine> getListOrderLine(String user) {
+    public List<OrderLine> getListOrderLine(int idTable) {
         String sql = """
-                    SELECT pid, aid, tid, sid, MAX(quantity) AS max_quantity
+                    SELECT pid, tid, sid, quantity
                     FROM orderline
-                    GROUP BY pid, aid, tid, sid
-                    HAVING aid = ?
+                    where tid = ?
                  """;
         List<OrderLine> list = new ArrayList<>();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, user);
+            st.setInt(1, idTable);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                OrderLine ol = new OrderLine();
+                OrderLine olt = new OrderLine();
                 // Since the `id` column is not part of the grouped result, you might need to handle it differently
-// ol.setId(rs.getInt("id"));
+                // ol.setId(rs.getInt("id"));
 
                 Product p = getProductById(rs.getString("pid"));
-                ol.setPid(p);
-                Account ac = check(rs.getString("aid"));
-                ol.setAid(ac);
+                olt.setPid(p);
                 Table t = getTableById(rs.getInt("tid"));
-                ol.setTid(t);
+                olt.setTid(t);
                 Status s = getStatusById(rs.getInt("sid"));
-                ol.setSid(s);
-                ol.setQuantity(rs.getInt("max_quantity"));
-                list.add(ol);
+                olt.setSid(s);
+                olt.setQuantity(rs.getInt("quantity"));
+                list.add(olt);
             }
         } catch (SQLException e) {
             // Better to log the exception
@@ -231,7 +262,7 @@ public class OrderDAO extends ProductsDAO {
         return list;
     }
 
-    public void confirmOrder(String id){
+    public void confirmOrder(String id) {
         String sql = """
                      UPDATE [dbo].[OrderLine]
                       SET [sid] = 3
@@ -244,48 +275,43 @@ public class OrderDAO extends ProductsDAO {
         } catch (SQLException e) {
         }
     }
-    public void buy(String user) {
+
+    public void buy(int idTable) {
         String sql = """
                      UPDATE [dbo].[OrderLine]
-                      SET [sid] = 2
-                      WHERE [aid] = ? 
-                      AND [quantity] = (
-                          SELECT MAX([quantity])
-                          FROM [dbo].[OrderLine]
-                          WHERE [aid] = ?
-                      );""";
+                    SET [sid] = 2
+                    WHERE [tid] = ?
+                      """;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, user);
-            st.setString(2, user);
+            st.setInt(1, idTable);
             st.executeUpdate();
         } catch (SQLException e) {
         }
     }
 
-    public double totalMoney(String user) {
-        String sql = """
-                    SELECT pid, aid, tid, sid, MAX(quantity) AS max_quantity
+    public double totalMoney(int idTable){
+        String sql ="""
+                    SELECT pid,tid,sid,MAX(quantity) AS max_quantity
                     FROM orderline
-                    GROUP BY pid, aid, tid, sid
-                    HAVING aid = ?
-                 """;
+                    GROUP BY pid,tid,sid
+                    HAVING tid=?
+                    """;
         double total = 0;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, user);
+            st.setInt(1, idTable);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {
+            while (rs.next()) {                
                 OrderLine ol = new OrderLine();
-                Product p = getProductById(rs.getString("pid"));
+                Product p = getProductById("pid");
                 ol.setQuantity(rs.getInt("max_quantity"));
-
+                
                 total += p.getPrice() * ol.getQuantity();
             }
             st.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
         }
-
         return total;
     }
 
