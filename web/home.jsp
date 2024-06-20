@@ -65,7 +65,7 @@
         </style>
         <script>
             function refreshTable() {
-                
+
                 const xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -125,9 +125,9 @@
             <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
 
             <c:if test="${requestScope.ListOrderLine!=null}"> <%@include file="option/ListOrderLine.jsp" %> </c:if>
-            
+
             <c:if test="${sessionScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %> </c:if>
-            
+
             <%@include file="footer.jsp" %>
         </div>
     </body>
