@@ -81,6 +81,8 @@ public class Home extends HttpServlet {
 //                session.setAttribute("userByMobile", randomString);
 //                acDAO.addUserPhone(randomString, 4);
                 request.setAttribute("homeMobile", "success");
+                int totalProductByTable = odDAO.totalProductByTable(idTable_int);
+                session.setAttribute("totalProductByTable", totalProductByTable);
             } catch (NumberFormatException e) {
             }
         }
