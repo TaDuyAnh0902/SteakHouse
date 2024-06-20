@@ -287,13 +287,19 @@ public class OrderDAO extends ProductsDAO {
         }
     }
 
+<<<<<<< HEAD
     public double totalMoney(int idTable) {
         String sql = """
                     SELECT pid,tid,sid,MAX(quantity) AS max_quantity
+=======
+   public double totalMoney(int idTable) {
+        String sql = """
+                    SELECT pid, tid, sid, MAX(quantity) AS max_quantity
+>>>>>>> a0e8cd69d2287b2e2fbb7d8d6dcb3198e083c6a3
                     FROM orderline
-                    GROUP BY pid,tid,sid
-                    HAVING tid=?
-                    """;
+                    GROUP BY pid, tid, sid
+                    HAVING tid = ?
+                 """;
         double total = 0;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -301,14 +307,15 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                Product p = getProductById("pid");
+                Product p = getProductById(rs.getString("pid"));
                 ol.setQuantity(rs.getInt("max_quantity"));
 
                 total += p.getPrice() * ol.getQuantity();
             }
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
+
         return total;
     }
 
