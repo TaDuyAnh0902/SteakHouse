@@ -78,7 +78,7 @@
                         Xem Menu - Gọi món
                     </a>
                 </div>
-                <script type="text/javascript">
+               <script type="text/javascript">
                     (function (d, m) {
                         var kommunicateSettings =
                                 {"appId": "318166b3922cf64a7a043ecb1d952dc72", "popupWidget": true, "automaticChatOpenOnNavigation": true};
