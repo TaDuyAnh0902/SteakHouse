@@ -162,4 +162,56 @@ function validateBlogUpdate() {
     }
     return true;
 }
+function validateContact() {
+    var form = document.forms["Contact"];
+    var name = form["name"].value;
+    var title = form["title"].value;
+    var phone = form["phone"].value;
+    var message = form["message"].value;
+
+    if (name === "") {
+        alert("Name is required.");
+        return false;
+    }
+    if (/^\s|\s$/.test(name) || / {2,}/.test(name)) {
+        alert("Name cannot have leading or trailing spaces and cannot contain multiple consecutive spaces");
+        return false;
+    }
+
+    if (title === "") {
+        alert("Title is required.");
+        return false;
+    }
+    if (/^\s|\s$/.test(title) || / {2,}/.test(title)) {
+        alert("Title cannot have leading or trailing spaces and cannot contain multiple consecutive spaces");
+        return false;
+    }
+
+    if (phone === "") {
+        alert("Phone number is required.");
+        return false;
+    }
+    if (!/^\d{10}$/.test(phone)) {
+        alert("Phone number must be exactly 10 digits and cannot contain spaces");
+        return false;
+    }
+
+    if (message === "") {
+        alert("Message is required.");
+        return false;
+    }
+    if (/^\s|\s$/.test(message) || / {2,}/.test(message)) {
+        alert("Message cannot have leading or trailing spaces and cannot contain multiple consecutive spaces");
+        return false;
+    }
+
+    return true;
+}
+
+function validateContactAndSendFeedback() {
+    if (validateContact()) {
+        sendFeedback();
+    }
+    return false; 
+}
 
