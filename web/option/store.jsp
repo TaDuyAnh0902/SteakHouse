@@ -82,9 +82,6 @@
                 height: auto;
                 transition: transform 0.3s;
             }
-            .product img:hover {
-                transform: scale(1.1);
-            }
             .product-details {
                 padding: 10px 0;
             }
@@ -167,7 +164,7 @@
                     flex-wrap: wrap;
                 }
                 .right-store > div {
-                    gap: 20px;
+                    margin: 10px;
                     width: calc(50% - 20px);
                     height: 300px;
                 }
@@ -185,6 +182,12 @@
                     display: flex;
                     text-align: center;
                 }
+                #productName {
+                    position: absolute;
+                    top: -50px;
+                    left: 0;
+                    right: 0;
+                }
                 .header {
                     display: none;
                 }
@@ -192,7 +195,7 @@
                     width: 50%;
                 }
                 .menu a {
-                    font-size: 15px;
+                    font-size: 12px;
                 }
                 .nav ul li:nth-child(2) {
                     display: none;
@@ -214,9 +217,10 @@
                     top: 0;
                 }
                 .actions {
-                    position: absolute;
+/*                    position: absolute;
                     right: 50%;
-                    left: 50%;
+                    left: 50%;*/
+                    display: none;
                 }
                 button {
                     border: 1px solid black;
@@ -254,11 +258,12 @@
                 <c:forEach items="${requestScope.products}" var="p">
                     <c:if test="${p.sid.id==1}">
                         <c:set var="quan" value="${p.id}"/>
-                        <div class="product">
-                            <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; "><img src="${p.image}" alt="${p.image}"/></a>
+                        <c:set var="cid" value="${p.category.id}"/>
+                        <div class="product" onclick="productInfo('${quan}','${cid}')">
+                            <img src="${p.image}" alt="${p.image}"/>
                             <div class="product-details">
                                 <p class="categoryName">${p.category.name}</p>
-                                <p>${p.name}</p>
+                                <p id="productName">${p.name}</p>
                                 <div>
                                     <h5>${p.price}00 vnđ</h5>
                                     <c:if test="${sessionScope.tableNumber!=null}">
@@ -304,6 +309,9 @@
                 quantity--;
                 document.getElementById('quantity-' + id).value = quantity;
             }
+        }
+        function productInfo(id, cid) {
+            window.location.href = "productInfo?id=" + id + "&cid=" + cid;
         }
     </script>
 </body>
