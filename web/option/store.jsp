@@ -88,6 +88,13 @@
             .product-details h5 {
                 font-weight: bold;
                 color: red;
+                position: absolute;
+                bottom: 0px;
+            }
+            .categoryName,
+            #productName
+            {
+                text-align: center;
             }
             .actions {
                 display: flex;
