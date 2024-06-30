@@ -28,12 +28,20 @@
                 width: 80%;
                 height: 90%;
             }
+            
+            .productInfo h3{
+                color: red;
+            }
 
             .productByCid{
                 display: flex;
                 flex-wrap: wrap;
             }
-
+            
+            .productByCid h6{
+                color: red;
+            }
+            
             .productByCid > div {
                 width: calc(33.33% - 40px);
                 margin: 20px;
@@ -186,7 +194,7 @@
                     <c:if test="${p.sid.id==1}">
                         <div class="product">
                             <a href="productInfo?id=${p.id}&cid=${p.category.id}"><img src="${p.image}" alt="${p.image}"/></a>
-                            <h6>${p.name}</h6>
+                            <h5>${p.name}</h5>
                             <h6 style="font-weight: bold;">${p.price}00 vnđ</h6>
                         </div>
                     </c:if>
