@@ -18,6 +18,7 @@
               crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <style>
             * {
                 margin: 0;
@@ -30,7 +31,24 @@
                 background: url(images/background.jpg);
             }
 
+            #backToTopBtn {
+                display: none; /* Ẩn nút ban đầu */
+                position: fixed; /* Định vị nút cố định */
+                bottom: 20px; /* Cách mép dưới 20px */
+                right: 20px; /* Cách mép phải 20px */
+                z-index: 99; /* Đảm bảo nút ở phía trên các phần tử khác */
+                border: none; /* Bỏ viền */
+                outline: none; /* Bỏ viền khi focus */
+                background-color: #555; /* Màu nền */
+                color: white; /* Màu chữ */
+                cursor: pointer; /* Con trỏ chuột khi hover */
+                padding: 15px; /* Đệm trong */
+                border-radius: 10px; /* Bo góc */
+            }
 
+            #backToTopBtn:hover {
+                background-color: #000; /* Màu nền khi hover */
+            }
 
             @media only screen and (max-width: 500px) {
                 body {
@@ -138,28 +156,52 @@
 
             <%@include file="footer.jsp" %>
         </div>
+        <button id="backToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
     </body>
-        <script>
-            var quantity = 1;
+    <script>
+        var quantity = 1;
 
-            function increment() {
-                quantity++;
+        function increment() {
+            quantity++;
+            updateQuantity();
+        }
+
+        function decrement() {
+            if (quantity > 1) {
+                quantity--;
                 updateQuantity();
             }
+        }
 
-            function decrement() {
-                if (quantity > 1) {
-                    quantity--;
-                    updateQuantity();
-                }
-            }
+        function updateQuantity() {
+            document.getElementById("quantity").value = quantity;
+        }
 
-            function updateQuantity() {
-                document.getElementById("quantity").value = quantity;
-            }
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
-            function goBack() {
-                window.history.back();
+    <script>
+        // Lấy phần tử nút
+        let mybutton = document.getElementById("backToTopBtn");
+
+        // Khi người dùng cuộn xuống 20px từ đầu tài liệu, hiển thị nút
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
             }
-        </script>
+        }
+
+        // Khi người dùng nhấp vào nút, cuộn lên đầu tài liệu với hiệu ứng mượt mà
+        mybutton.onclick = function () {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
 </html>
