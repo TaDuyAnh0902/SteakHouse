@@ -10,119 +10,220 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <title>JSP Page</title>
-        <style>
+       <style>
             :root {
-                --green-color: rgb(139, 197, 63);
-                --dark-green-color: rgb(19, 149, 79);
+                --primary-color: #28a745;
+                --secondary-color: #155724;
+                --background-color: #f8f9fa;
+                --text-color: #212529;
+                --hover-color: #218838;
+                --danger-color: #dc3545;
+                --warning-color: #ffc107;
             }
+
+            body {
+                font-family: Arial, sans-serif;
+                background-color: var(--background-color);
+                color: var(--text-color);
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
             .manageContent {
                 display: flex;
                 justify-content: center;
-                height: 100%;
-                margin-bottom: -50px;
+                /*min-height: 100vh;*/
+                margin: 0 auto;
+                padding: 20px;
             }
+
             .manageOption {
                 width: 15%;
                 font-size: 20px;
                 min-height: 500px;
             }
+
             .manageOption > ul {
                 list-style: none;
                 display: block;
-                height: 100%;
+                /*height: 100%;*/
                 background: #E2D9BC;
+                padding: 0;
+                margin: 0;
+                border-radius: 5px;
+                overflow: hidden;
             }
+
             .manageOption ul li {
                 cursor: pointer;
                 padding: 16px;
                 padding-left: 16%;
                 border-bottom: 1px solid rgb(179, 179, 179);
+                transition: background-color 0.3s ease, color 0.3s ease;
             }
+
             .manageOption ul li:hover {
-                color: gray;
+                color: var(--hover-color);
+                background-color: var(--background-color);
             }
-            #wrapperrr{
-                width: 85%;
-                font-family: arial;
+
+            #wrapperrr {
+                width: 80%;
+                font-family: Arial, sans-serif;
                 margin-bottom: 100px;
+                background-color: white;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                padding: 20px;
             }
 
             .imgProduct {
                 width: 80px;
                 height: 80px;
+                object-fit: cover;
             }
+
             .clr {
                 clear: both;
             }
+
             #menu_tab {
                 width: 100%;
+                margin-bottom: 20px;
             }
-            ul.menu{
-                float: left;
-                background-color: var(--dark-green-color);
+
+            ul.menu {
+                display: flex;
+                background-color: var(--secondary-color);
                 list-style-type: none;
                 font-weight: bold;
+                padding: 0;
+                margin: 0;
                 height: 50px;
-                padding: 12px;
-                width: 100%;
+                align-items: center;
             }
+
             ul.menu li {
-                display: inline;
-                font-size: 14px;
-                padding-top: 15px;
+                flex: 1;
                 text-align: center;
-                line-height: 30px;
+                line-height: 50px;
                 color: #E2D9BC;
             }
+
             ul.menu li a {
-                margin: 30px;
-                padding-left: 0px;
                 text-decoration: none;
-                text-align: center;
                 color: #E2D9BC;
-                position: relative;
+                display: block;
+                width: 100%;
+                height: 100%;
+                transition: color 0.3s ease;
             }
-            ul.menu li a img {
-                float: left;
-                margin-left: 10px;
-            }
+
             ul.menu li a:hover {
-                color: #F90;
+                color: var(--hover-color);
             }
-            ul.menu li a:active {
-                color:#FF0;
-            }
-            ul.meny li a:focus {
-                color: #96F;
-            }
-            .content{
+
+            .content {
                 margin: 0 30px;
             }
-            table{
+
+            table {
+                width: 100%;
                 border-collapse: collapse;
+                margin-bottom: 20px;
             }
-            td{
+
+            th, td {
+                padding: 12px;
+                border: 1px solid #ddd;
                 text-align: center;
+                vertical-align: middle;
             }
+
+            th {
+                background-color: var(--primary-color);
+                color: white;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            tr:hover {
+                background-color: #ddd;
+            }
+
             a {
                 text-decoration: none;
-                color: var(--green-color);
+                color: var(--primary-color);
                 font-weight: bold;
+                transition: color 0.3s ease;
             }
+
+            a:hover {
+                color: var(--hover-color);
+            }
+
             .add {
-                background-color: var(--dark-green-color);
+                background-color: var(--primary-color);
                 color: white;
                 margin: 10px;
                 height: 40px;
                 border-radius: 4px;
+                border: none;
+                padding: 0 20px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
             }
 
             .add:hover {
-                background-color: var(--green-color);
+                background-color: var(--hover-color);
             }
-            #wrapperrr table {
-                width: 100%;
+
+            .confirmation-dialog {
+                display: none;
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .confirmation-dialog p {
+                margin: 0 0 20px 0;
+            }
+
+            .confirmation-dialog button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .confirmation-dialog .confirm {
+                background-color: var(--danger-color);
+                color: white;
+            }
+
+            .confirmation-dialog .confirm:hover {
+                background-color: #c82333;
+            }
+
+            .confirmation-dialog .cancel {
+                background-color: var(--warning-color);
+                color: black;
+            }
+
+            .confirmation-dialog .cancel:hover {
+                background-color: #e0a800;
             }
         </style>
     </head>
@@ -181,8 +282,9 @@
                                     <td>${p.describe}</td>
                                     <td>${p.category.name}</td>
                                     <td>${p.sid.nameStatus}</td>
-                                    <td><a href="productAction?action=edit&id=${p.id}&cid=${p.category.id}">Edit</a></td>
-                                    <td><a href="productAction?action=delete&id=${p.id}" onclick="return confirmDeleteProduct(${p.id});">Delete</a></td>
+                                    <td><a href="productAction?action=edit&id=${p.id}&cid=${p.category.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
+
+                                    <td><a href="productAction?action=delete&id=${p.id}" onclick="return confirmDeleteProduct(${p.id});"><i class="fa-solid fa-trash"></i></a></td>
                                 </tr>
                             </c:forEach>
                             <c:if test="${cid!=null}">
@@ -226,7 +328,7 @@
                                             <button type="button" onclick="togglePassword('${a.username}')">Show</button>
                                         </td>
                                         <td>${a.role}</td>
-                                        <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');">Delete</a></td>
+                                        <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');"><i class="fa-solid fa-trash"></i></a></td>
                                     </tr>
                                 </c:forEach>
                             </table>
@@ -259,10 +361,10 @@
                                     <tr>
                                         <td>${t.id}</td>
                                         <td>${t.nameTable}</td>
-                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.104:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank">View</a></td>
+                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.104:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank"><i class="fa-regular fa-eye"></i></a></td>
                                         <td>${t.sid.nameStatus}</td>
-                                        <td><a href="tableAction?action=edit&id=${t.id}">Edit</a></td>
-                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});">Delete</a></td>
+                                        <td><a href="tableAction?action=edit&id=${t.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
+                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});"><i class="fa-solid fa-trash"></i></a></td>
                                     </tr>
                                 </c:forEach>
                             </table>
@@ -299,10 +401,10 @@
                                         <td>${b.id}</td>
                                         <td>${b.title}</td>
                                         <td><img src="${b.image}" alt="${p.image}" class="imgProduct"/></td>
-                                        <td><a href="${b.source}">${b.source}</a></td>
+                                        <td><a href="${b.source}"><i class="fa-solid fa-link"></i></a></td>
                                         <td>${b.sid.nameStatus}</td>
-                                        <td><a href="blogAction?action=edit&id=${b.id}">Edit</a></td>
-                                        <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteTable(${t.id});">Delete</a></td>
+                                        <td><a href="blogAction?action=edit&id=${b.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
+                                        <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteTable(${t.id});"><i class="fa-solid fa-trash"></i></a></td>
                                     </tr>
                                 </c:forEach>
                             </table>
