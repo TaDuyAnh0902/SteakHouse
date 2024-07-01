@@ -5,6 +5,7 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.HomeMobileRequestDAO;
 import dal.ManageDAO;
 import dal.OrderDAO;
 import dal.ProductsDAO;
@@ -20,6 +21,7 @@ import java.util.Map;
 import java.util.Random;
 import model.Category;
 import model.OrderLine;
+import model.PaymentRequest;
 import model.Product;
 
 /**
@@ -71,6 +73,7 @@ public class Home extends HttpServlet {
         AccountDAO acDAO = new AccountDAO();
         OrderDAO odDAO = new OrderDAO();
         ManageDAO mnDAO = new ManageDAO();
+        HomeMobileRequestDAO hmDAO = new HomeMobileRequestDAO();
         String idTable = request.getParameter("idTable");
         if (session.getAttribute("role") == null) {
             session.setAttribute("role", 3);
@@ -118,9 +121,13 @@ public class Home extends HttpServlet {
 
             }
             case 2 -> {
-                session.setAttribute("manageOrder", "success");
+               session.setAttribute("manageOrder", "success");
                 List<OrderLine> list = odDAO.getAllListOrderLine();
                 session.setAttribute("allListOrderLine", list);
+                List<PaymentRequest> list2 = hmDAO.getAllPaymentRequest();
+                session.setAttribute("listPaymentRequest", list2);
+                response.sendRedirect("manageOrderAction?check=viewOrder");
+                return;
             }
 
             default -> {
