@@ -76,7 +76,7 @@ public class BuyProduct extends HttpServlet {
             
             List<OrderLine> list = od.getListOrderLine(tableNumber);
             session.setAttribute("OrderLine", list);
-            double totalMoney = od.totalMoney(tableNumber);
+            String totalMoney = od.totalMoney(tableNumber);
             session.setAttribute("totalMoney", totalMoney);
             int totalProductByTable = od.totalProductByTable(tableNumber);
             session.setAttribute("totalProductByTable", totalProductByTable);
