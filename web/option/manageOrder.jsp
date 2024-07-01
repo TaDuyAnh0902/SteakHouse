@@ -14,134 +14,285 @@
         <style>
             .manageOrder {
                 display: flex;
-                height: 100%;
-                margin-bottom: -50px;
+                height: 100vh;
             }
             .manageOrder-left {
-                width: 15%;
+                width: 20%;
                 font-size: 20px;
-                min-height: 500px;
+                border-right: 1px solid gray;
             }
             .manageOrder-left > ul {
                 list-style: none;
                 display: block;
                 height: 100%;
-                background: #E2D9BC;
             }
             .manageOrder-left ul li {
                 cursor: pointer;
                 padding: 16px;
-                padding-left: 16%;
+                text-align: center;
                 border-bottom: 1px solid rgb(179, 179, 179);
             }
             .manageOrder-left ul li:hover {
-                color: gray;
+                background-color: #E2D9BC;
             }
             .manageOrder-right {
-                width: 85%;
-                text-align: center;
+                width: 80%;
                 margin-top: 20px;
             }
-            .manageOrder-right table {
+            .manageOrder-right-content {
+                display: flex;
+            }
+            #table-container {
+                width: 70%;
+                padding: 0 10px;
+            }
+            #table-container table {
                 display: inline-block;
-                width: 80%;
+                width: 100%;
                 border-collapse: collapse;
             }
-            .manageOrder-right table th:nth-child(1),
-            .manageOrder-right table th:nth-child(3)
-            {
-                width: 30%;
+            #table-container th,
+            #table-container td {
+                padding: 5px;
             }
-            .manageOrder-right table th:nth-child(4),
-            .manageOrder-right table th:nth-child(5)
+            #table-container thead {
+                width: 100%;
+            }
+            #table-container table th {
+                text-align: center;
+            }
+            #table-container table thead:nth-child(1) {
+                border-top-left-radius: 16px;
+            }
+            #table-container th:nth-child(1),
+            #table-container th:nth-child(3)
+            {
+                width: 40%;
+            }
+            #table-container th:nth-child(4),
+            #table-container th:nth-child(5)
             {
                 width: 15%;
             }
-            .manageOrder-right table th:nth-child(2),
-            .manageOrder-right table th:nth-child(6)
+            #table-container th:nth-child(2)
             {
-                width: 5%;
+                width: 10%;
             }
-            .allListTable ul{
-                list-style: none;
+            .allListTable {
                 display: flex;
-                padding: 0 20px;
-            }
-            .allListTable ul li{
+                flex-wrap: wrap;
                 font-size: 24px;
-                margin: 0 20px;
             }
-            .allListTable ul li a {
+            .allListTable > div {
+                width: calc(20% - 40px);
+                margin: 20px;
+                display: flex;
+            }
+            .allListTable a {
                 color: black;
-                border: 1px solid gray;
                 padding: 10px;
+                border: 1px solid gray;
+                height: 120px;
+                width: 300px;
+                border-radius: 40%;
                 text-decoration: none;
+                padding-top: 40px;
+            }
+            .manageOrder-right-content {
+                display: flex;
+            }
+            .ListOrderbyTable {
+                text-align: center;
+            }
+            .ListOrderbyTable td:nth-child(1){
+                text-align: start;
+            }
+            .ListOrderbyTable table th:nth-child(1)
+            {
+                width: 40%;
+            }
+            .ListOrderbyTable table th:nth-child(2),
+            .ListOrderbyTable table th:nth-child(3)
+            {
+                width: 30%;
+            }
+            .ListOrderbyTable table td:nth-child(3),
+            .totalMoney{
+                text-align: end;
+                padding-right: 10%;
+            }
+            #RequestPayment-content li{
+                width: 100%;
             }
         </style>
 
     </head>
     <body>
+        <h4 style="text-align: center; color: red;"><c:out value="${requestScope.payFail}"/></h4>
         <div class="manageOrder">
             <div class="manageOrder-left">
                 <ul>
-                    <li onclick="manageOrderAction('viewOrder')" id="refreshBtn">View Order</li>
-                    <li onclick="manageOrderAction('viewTable')" id="clearBtn">View Table</li>
-                    <li><a href="https://dashboard.kommunicate.io/dashboard/conversation-overview" target=_blank style="text-decoration: none; color: black">View Chat</a></li>
+                    <li onclick="manageOrderAction('viewOrder')" id="refreshBtn">Đơn hàng</li>
+
+                    <li onclick="manageOrderAction('viewTable')" id="clearBtn">Quản lý bàn</li>
                 </ul>
             </div>
+
             <div class="manageOrder-right">
                 <c:if test="${sessionScope.allListOrderLine!=null}">
-                    <div id="table-container">
-
-                    </div>
-                </c:if>
-                <c:if test="${sessionScope.allListTable!=null}">
-                    <div class="allListTable">
-                        <ul>
-                            <c:forEach items="${sessionScope.allListTable}" var="t">
-                                <li><a href="ViewTable?idTable=${t.id}">${t.nameTable}</a></li>
+                    <div class="manageOrder-right-content">
+                        <div id="table-container">
+                            <table border="1">
+                                <thead>
+                                    <tr>
+                                        <th>Tên món ăn</th>
+                                        <th>Số lượng</th>
+                                        <th>Thời gian</th>
+                                        <th>Bàn</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <c:forEach items="${sessionScope.allListOrderLine}" var="o">
+                                    <c:if test="${o.sid.id!=1}">
+                                        <tbody>
+                                        <td>
+                                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                <div>
+                                                    ${o.pid.name} 
+                                                </div>
+                                                <div>
+                                                    <img src="${o.pid.image}" width="50px" height="50px" alt="alt" style="border-radius: 16px;"/>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center;">${o.quantity}</td>
+                                        <td>${o.dateOrderline}</td>
+                                        <td style="text-align: center;">${o.tid.nameTable}</td>
+                                        <td style="text-align: center;">
+                                            <c:if test="${o.sid.id==2}">
+                                                <a href="ConfirmOrderByCashier?id=${o.id}&pid=${o.pid.id}&quantity=${o.quantity}">Confirm</a>
+                                            </c:if>
+                                            <c:if test="${o.sid.id==3}">
+                                                Done
+                                            </c:if>
+                                        </td>
+                                        </tbody>
+                                    </c:if>
                                 </c:forEach>
-                        </ul>
+                            </table>
+                        </div>
+                        <div id="RequestPayment-content">
+                            <h3>Thông báo </h3>
+                            <ul style="list-style: none;">
+                                <c:forEach items="${sessionScope.listPaymentRequest}" var="l">
+                                    <c:set var="type" value="${l.type}"/>
+                                    <li>
+                                        <div style="display: flex; justify-content: space-between;
+                                             align-items: center; width: 100%; height: 50px;
+                                             color: brown; background-color: white;
+                                             padding: 5px; border-radius: 8px; margin-bottom: 5px;">
+                                            <div>
+                                                <c:if test="${type==1}">
+                                                    <span>Tiền mặt</span>
+                                                </c:if>
+                                                <c:if test="${type==2}">
+                                                    <span>Thẻ ngân hàng</span>
+                                                </c:if>
+                                                <c:if test="${type==3}">
+                                                    <span>Ứng dụng điện thoại</span>
+                                                </c:if>
+                                            </div>
+                                            <div>
+                                                <span>Bàn ${l.tid.id}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </c:forEach>
+                                <c:forEach items="${sessionScope.listClientRequest}" var="cl">
+                                    <li>
+                                        <div style="display: flex; justify-content: space-between;
+                                             align-items: center; width: 100%; height: 50px;
+                                             color: orange; background-color: white;
+                                             padding: 5px; border-radius: 8px; margin-bottom: 5px;">
+                                            <div>
+                                                <span>${cl.content}</span>
+                                            </div>
+                                            <div>
+                                                <span>Bàn ${cl.tid.id}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+
+                        </div>
                     </div>
                 </c:if>
-                <c:if test="${requestScope.orderDetail!=null}">
-                    <table border="1">
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Quantity</th>
-                                <th>Time</th>
-                                <th>Table</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <c:forEach items="${requestScope.orderDetail}" var="o">
-                            <c:set var="table" value="${o.tid.id}"/>
-                            <c:if test="${o.sid.id!=1}">
-                                <tbody>
-                                <td>${o.pid.name}</td>
-                                <td>${o.quantity}</td>
-                                <td>${o.dateOrderline}</td>
-                                <td>${o.tid.nameTable}</td>
-                                <td>
-                                    <c:if test="${o.sid.id==2}">
-                                        <a href="ConfirmOrderByCashier?id=${o.id}">Confirm</a>
-                                    </c:if>
-                                    <c:if test="${o.sid.id==3}">
-                                        Done
-                                    </c:if>
-                                </td>
-                                </tbody>
-                            </c:if>
-                        </c:forEach>
-                        <tbody>
-                        <td colspan="4">Tổng tiền</td>
-                        <td style="color: #F90;">${requestScope.totalMoney}00</td>
-                        </tbody>
-                        <tfoot>
-                        <td colspan="5" ><a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" style="color: red;display: inline; float: right; padding-right: 30px;">Thanh Toán</a></td>
-                        </tfoot>
-                    </table>
+                <c:if test="${sessionScope.tableStatus!=null}">
+                    <div class="manageOrder-right-content">
+                        <div class="allListTable">
+
+                            <%--<c:forEach items="${sessionScope.allListTable}" var="t">--%>
+                                <!--<li><a href="ViewTable?idTable=${t.id}">${t.nameTable}</a></li>-->
+                            <%--</c:forEach>--%>
+                            <c:forEach var="entry" items="${sessionScope.tableStatus}">
+                                <c:set var="key" value="${entry.key}" />
+                                <c:set var="value" value="${entry.value}" />
+
+                                <c:if test="${value==true}">
+                                    <div><a href="ViewTable?idTable=${key}" style="color: brown; background-color: #E2D9BC; text-align: center;">Bàn ${key}</a></div>
+                                </c:if>
+                                <c:if test="${value==false}">
+                                    <div><a href="ViewTable?idTable=${key}" style="text-align: center;">Bàn ${key}</a></div>
+                                </c:if>
+                            </c:forEach>
+
+                        </div>
+                        <c:if test="${requestScope.orderDetail!=null}">
+                            <div style="border: 1px solid gray; padding: 0 10px;" class="ListOrderbyTable">
+                                <h2>SteakHouse</h2>
+                                <h5>Ăn tại chỗ</h5>
+                                <hr>
+                                <c:forEach items="${requestScope.orderDetail}" var="o">
+                                    <c:set var="time" value="${o.dateOrderline}"/>
+                                </c:forEach>
+
+                                <c:if test="${time!=null}">
+                                    Thời gian đặt hàng: <c:out value="${time}"/>
+                                    <table style="width: 350px;">
+                                        <thead style="width: 100%; border-bottom: 1px solid gray;border-top: 1px solid gray;">
+                                            <tr>
+                                                <th>Tên</th>
+                                                <th>Số lượng</th>
+                                                <th>Giá</th>
+                                            </tr>
+                                        </thead>
+                                        <c:forEach items="${requestScope.orderDetail}" var="o">
+                                            <c:set var="table" value="${o.tid.id}"/>
+                                            <c:if test="${o.sid.id!=1}">
+                                                <tbody>
+                                                <td>${o.pid.name}</td>
+                                                <td>${o.quantity}</td>
+                                                <td>
+                                                    ${o.pid.price}00
+                                                </td>
+                                                </tbody>
+                                            </c:if>
+                                        </c:forEach>
+                                        <tbody style="border-bottom: 1px solid gray;border-top: 1px solid gray;">
+                                        <td colspan="2" style="color: brown;">Tổng tiền</td>
+                                        <td style="color: #F90;"class="totalMoney">${requestScope.totalMoney}</td>
+                                        </tbody>
+                                        <tfoot>
+                                        <td colspan="3" ><a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" style="color: red;font-size: 20px;
+                                                            text-decoration: none; display: block; text-align: center;">Hoàn tất</a></td>
+                                        </tfoot>
+                                    </table>
+                                </c:if>
+
+                            </div>
+                        </c:if>
+                    </div>
                 </c:if>
             </div>
         </div>
