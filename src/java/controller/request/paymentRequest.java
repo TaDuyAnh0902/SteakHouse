@@ -5,12 +5,17 @@
 
 package controller.request;
 
+import dal.HomeMobileRequestDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.ClientRequest;
+import model.PaymentRequest;
 
 /**
  *
@@ -53,7 +58,30 @@ public class paymentRequest extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        HomeMobileRequestDAO prDAO = new HomeMobileRequestDAO();
+        String ChoosePayment = request.getParameter("ChoosePayment");
+        String requestMobile = request.getParameter("request");
+        var tableNumber = (int) session.getAttribute("tableNumber");
+        
+        
+        if(ChoosePayment==null){
+            prDAO.addClientRequest(requestMobile, tableNumber);
+            List<ClientRequest> list = prDAO.getAllClientRequest();
+            session.setAttribute("listClientRequest", list);
+        }else{
+            try {
+            int choosePayment_int = Integer.parseInt(ChoosePayment);
+            prDAO.addPaymentRequest(choosePayment_int, tableNumber);
+            List<PaymentRequest> list = prDAO.getAllPaymentRequest();
+            session.setAttribute("listPaymentRequest", list);
+        } catch (NumberFormatException e) {
+        }
+        
+        }
+        
+        request.setAttribute("homeMobile", "success");
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
     /** 
