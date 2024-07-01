@@ -10,6 +10,9 @@ import model.Table;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 import model.Account;
 import model.OrderLine;
 import model.Product;
@@ -100,6 +103,45 @@ public class OrderDAO extends ProductsDAO {
 
         } catch (SQLException e) {
         }
+    }
+    public List<Integer> getAllTableId() {
+        String sql = "select distinct [id] from [table]";
+        List<Integer> list = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    public boolean getStatusByTable(int idTable) {
+        String sql = """
+                     select * from orderline where tid = ?
+                     """;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1,idTable);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    public Map<Integer, Boolean> getTableStatus() {
+        Map<Integer, Boolean> data = new HashMap<>();
+        List<Integer> list = getAllTableId();
+        for (Integer x : list) {
+            boolean check = getStatusByTable(x);
+            data.put(x, check);
+        }
+        return data;
     }
 
     public void addOrderLine(int productId, int quantity, String user, int tableNumber) {
@@ -305,10 +347,9 @@ public class OrderDAO extends ProductsDAO {
         }
     }
 
-    public double totalMoney(int idTable) {
+    public String totalMoney(int idTable) {
         String sql = """
                     SELECT pid, tid, sid, MAX(quantity) AS max_quantity
-
                     FROM orderline
                     GROUP BY pid, tid, sid
                     HAVING tid = ?
@@ -328,11 +369,12 @@ public class OrderDAO extends ProductsDAO {
             st.executeUpdate();
         } catch (SQLException e) {
         }
-
-        return total;
+        DecimalFormat decimalFormat = new DecimalFormat("#,###,000");
+        String formattedString = decimalFormat.format(total * 1000);
+        return formattedString;
     }
 
-    public void pay(int idTable, double totalMoney) {
+    public void pay(int idTable, String totalMoney) {
         String sql = """
                     INSERT INTO [dbo].[OrderManage]
                                ([date]
@@ -345,7 +387,7 @@ public class OrderDAO extends ProductsDAO {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, idTable);
-            st.setDouble(2, totalMoney);
+            st.setString(2, totalMoney);
             st.setInt(3, idTable);
             st.executeUpdate();
         } catch (SQLException e) {
