@@ -88,22 +88,6 @@
 
             }
         </style>
-        <script>
-            function refreshTable() {
-
-                const xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        document.getElementById("table-container").innerHTML = xhr.responseText;
-                    }
-                };
-                xhr.open("GET", "option/tableOrder.jsp", true);
-                xhr.send();
-            }
-
-            setInterval(refreshTable, 3000); // Refresh every 10 seconds
-            window.onload = refreshTable; // Load table content when the page loads
-        </script>
     </head>
     <body>
         <div class="wrapper">
@@ -203,5 +187,27 @@
         mybutton.onclick = function () {
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function() {
+            function updateContent() {
+                var currentUrl = window.location.href;
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
+                var baseUrlConfirmOrder = "http://localhost:9999/SWP391-SteakHouse/ConfirmOrderByCashier?id=";
+
+                if (currentUrl === baseUrlHome || currentUrl.startsWith(baseUrlConfirmOrder)) {
+                    $.ajax({
+                        url: currentUrl,
+                        success: function(data) {
+                            $('#table-container').html($(data).find('#table-container').html());
+                            $('#RequestPayment-content').html($(data).find('#RequestPayment-content').html());
+                        }
+                    });
+                }
+            }
+
+            setInterval(updateContent, 5000);
+        });
     </script>
 </html>
