@@ -63,6 +63,8 @@ public class ViewTable extends HttpServlet {
             idTable_int = Integer.parseInt(idTable);
             List<OrderLine> list = odDAO.getListOrderLineByIdTable(idTable_int);
             request.setAttribute("orderDetail", list);
+            String totalMoney = odDAO.totalMoney(idTable_int);
+            request.setAttribute("totalMoney", totalMoney);
         } catch (NumberFormatException e) {
         }
         
