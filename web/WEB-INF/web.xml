@@ -104,6 +104,10 @@
         <servlet-name>pay</servlet-name>
         <servlet-class>Order.pay</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>paymentRequest</servlet-name>
+        <servlet-class>controller.request.paymentRequest</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -207,5 +211,9 @@
     <servlet-mapping>
         <servlet-name>pay</servlet-name>
         <url-pattern>/pay</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>paymentRequest</servlet-name>
+        <url-pattern>/paymentRequest</url-pattern>
     </servlet-mapping>
 </web-app>
