@@ -50,6 +50,32 @@
                 background-color: #000; /* Màu nền khi hover */
             }
 
+            .float-contact {
+                position: fixed;
+                bottom: 200px;
+                right: 20px;
+                z-index: 9999;
+            }
+            .chat-zalo, .chat-facebook {
+                display: block;
+                margin-bottom: 10px;
+                line-height: 0;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+            .chat-zalo:hover, .chat-facebook:hover {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+            
+            .chat-facebook img{
+                width: 90px;
+                height: 90px;
+            }
+            .chat-zalo img{
+                width: 90px;
+                height: 90px;
+            }
+
             @media only screen and (max-width: 500px) {
                 body {
                     min-width: 100vw;
@@ -84,6 +110,10 @@
                     background-color: white;
                     border-radius: 16px;
                     margin-left: -30px;
+                }
+                
+                .float-contact{
+                    display: none;
                 }
 
             }
@@ -140,7 +170,18 @@
 
             <%@include file="footer.jsp" %>
         </div>
+
+        <div class="float-contact">
+            <div class="chat-zalo">
+                <a href="https://zalo.me/0979735203" target="_blank"><img title="Chat Zalo" src="images/zalo3.jpg" alt="zalo-icon" width="40" height="40" /></a>
+            </div>
+            <div class="chat-facebook">
+                <a href="https://www.facebook.com/messages/t/366526929875352" target="_blank"><img title="Chat Facebook" src="images/mess.png" alt="facebook-icon" width="40" height="40" /></a>
+            </div>
+        </div>
+
         <button id="backToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+
     </body>
     <script>
         var quantity = 1;
@@ -189,8 +230,8 @@
         }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-        $(document).ready(function() {
+    <script>
+        $(document).ready(function () {
             function updateContent() {
                 var currentUrl = window.location.href;
                 var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
@@ -199,7 +240,7 @@
                 if (currentUrl === baseUrlHome || currentUrl.startsWith(baseUrlConfirmOrder)) {
                     $.ajax({
                         url: currentUrl,
-                        success: function(data) {
+                        success: function (data) {
                             $('#table-container').html($(data).find('#table-container').html());
                             $('#RequestPayment-content').html($(data).find('#RequestPayment-content').html());
                         }
