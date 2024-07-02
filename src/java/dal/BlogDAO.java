@@ -65,7 +65,7 @@ public class BlogDAO extends AccountDAO{
     }
     
     public Blog deleteBlogById(int id){
-        String sql = "delete [Blog] where id = ?";
+        String sql = "Update [Blog] set sid = 2 where id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
@@ -83,9 +83,10 @@ public class BlogDAO extends AccountDAO{
                                 ,[image]
                                 ,[source]
                                 ,[date]
-                                ,[aid])
+                                ,[aid]
+                                ,[sid])
                           VALUES
-                                (?,?,?,CURRENT_TIMESTAMP,'admin')""";
+                                (?,?,?,CURRENT_TIMESTAMP,'admin',1)""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, title);
