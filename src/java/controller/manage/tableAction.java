@@ -57,7 +57,7 @@ public class tableAction extends HttpServlet {
     throws ServletException, IOException {
        String action = request.getParameter("action");
 
-        if ("add".equals(action)) {
+        if ("Add new table".equals(action)) {
             request.setAttribute("tableAdd", "success");
         } else {
             String id = request.getParameter("id");
@@ -67,7 +67,8 @@ public class tableAction extends HttpServlet {
                 id_int = Integer.parseInt(id);
                 if ("delete".equals(action)) {
                     db.deleteTableById(id_int);
-
+                    response.sendRedirect("manageOption?check=tableManagement");
+                    return;
                 } else if ("edit".equals(action)) {
                     Table tableUpdate = db.getTableById(id_int);
                     request.setAttribute("tableUpdate", tableUpdate);
@@ -75,7 +76,7 @@ public class tableAction extends HttpServlet {
                 }
             } catch (NumberFormatException e) {
             }
-
+            
         }
 
         request.getRequestDispatcher("home.jsp").forward(request, response);
@@ -107,7 +108,7 @@ public class tableAction extends HttpServlet {
             }
         }
 
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        response.sendRedirect("manageOption?check=tableManagement");
     }
 
     /** 
