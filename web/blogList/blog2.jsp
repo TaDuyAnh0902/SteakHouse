@@ -32,10 +32,10 @@
                 box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
             }
             img {
-                width: 100%;
+                width: 40%;
                 height: auto;
                 display: block;
-                margin: 20px 0;
+                margin: 20px auto; /* Căn giữa theo chiều ngang */
                 border-radius: 10px;
             }
             h2 {
