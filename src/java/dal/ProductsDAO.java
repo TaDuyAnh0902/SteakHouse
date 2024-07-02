@@ -291,9 +291,10 @@ public class ProductsDAO extends AccountDAO {
                                 ,[describe]
                                 ,[image]
                                 ,[cid]
-                                ,[sid])
+                                ,[sid]
+                                ,[quantitywaitting])
                           VALUES
-                                (?,?,?,CURRENT_TIMESTAMP,?,?,?,1)""";
+                                (?,?,?,CURRENT_TIMESTAMP,?,?,?,1,0)""";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
