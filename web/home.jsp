@@ -52,7 +52,7 @@
 
             .float-contact {
                 position: fixed;
-                bottom: 200px;
+                bottom: 80px;
                 right: 20px;
                 z-index: 9999;
             }
@@ -65,15 +65,6 @@
             .chat-zalo:hover, .chat-facebook:hover {
                 transform: scale(1.2);
                 opacity: 0.8;
-            }
-            
-            .chat-facebook img{
-                width: 90px;
-                height: 90px;
-            }
-            .chat-zalo img{
-                width: 90px;
-                height: 90px;
             }
 
             @media only screen and (max-width: 500px) {
@@ -111,7 +102,7 @@
                     border-radius: 16px;
                     margin-left: -30px;
                 }
-                
+
                 .float-contact{
                     display: none;
                 }
@@ -168,17 +159,21 @@
 
             <c:if test="${sessionScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %> </c:if>
 
-            <%@include file="footer.jsp" %>
+            <c:if test="${sessionScope.manageOrder==null && sessionScope.manage==null}">
+                <%@include file="footer.jsp" %>
+            </c:if>
         </div>
 
-        <div class="float-contact">
-            <div class="chat-zalo">
-                <a href="https://zalo.me/0979735203" target="_blank"><img title="Chat Zalo" src="images/zalo3.jpg" alt="zalo-icon" width="40" height="40" /></a>
+        <c:if test="${sessionScope.manageOrder==null && sessionScope.manage==null}">
+            <div class="float-contact">
+                <div class="chat-zalo">
+                    <a href="https://zalo.me/0979735203" target="_blank"><img title="Chat Zalo" src="images/zalo3.jpg" alt="zalo-icon" style="width: 80px; height: 80px;" /></a>
+                </div>
+                <div class="chat-facebook">
+                    <a href="https://www.facebook.com/messages/t/366526929875352" target="_blank"><img title="Chat Facebook" src="images/mess.png" alt="facebook-icon" style="width: 75px; height: 60px;"/></a>
+                </div>
             </div>
-            <div class="chat-facebook">
-                <a href="https://www.facebook.com/messages/t/366526929875352" target="_blank"><img title="Chat Facebook" src="images/mess.png" alt="facebook-icon" width="40" height="40" /></a>
-            </div>
-        </div>
+        </c:if>
 
         <button id="backToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
 
