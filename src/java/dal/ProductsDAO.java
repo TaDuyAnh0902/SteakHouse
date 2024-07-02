@@ -106,7 +106,7 @@ public class ProductsDAO extends AccountDAO {
     public List<Product> getNewProduct() {
         List<Product> list = new ArrayList<>();
         String sql = """
-                     SELECT top 3 * from [Products]
+                     SELECT top 3 * from [Products] where sid = 1
                      order by dateproduct desc""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
