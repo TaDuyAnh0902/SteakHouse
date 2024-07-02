@@ -37,11 +37,10 @@
                 justify-content: center;
                 /*min-height: 100vh;*/
                 margin: 0 auto;
-                padding: 20px;
             }
 
             .manageOption {
-                width: 15%;
+                width: 20%;
                 font-size: 20px;
                 min-height: 500px;
             }
@@ -49,6 +48,8 @@
             .manageOption > ul {
                 list-style: none;
                 display: block;
+                height: 100%;
+                min-height: 100vh;
                 /*height: 100%;*/
                 background: #E2D9BC;
                 padding: 0;
@@ -124,10 +125,6 @@
 
             ul.menu li a:hover {
                 color: var(--hover-color);
-            }
-
-            .content {
-                margin: 0 30px;
             }
 
             table {
@@ -257,7 +254,6 @@
                         <table border="1">
                             <c:if test="${requestScope.products!=null}">
                                 <tr>
-                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Image</th>
                                     <th>Quantity</th>
@@ -274,7 +270,6 @@
                             <c:forEach items="${requestScope.products}" var="p">
                                 <c:set var="cid" value="${p.category.id}"/>
                                 <tr>
-                                    <td>${p.id}</td>
                                     <td>${p.name}</td>
                                     <td><img src="${p.image}" alt="${p.image}" class="imgProduct"/></td>
                                     <td>${p.quantity}</td>
@@ -291,7 +286,7 @@
                                 <div>
                                     <form action="checkAdd">
                                         <input type="hidden" name="cid" value="${cid}">
-                                        <input type="submit" value="+ Thêm sản phẩm" class="add">
+                                        <input type="submit" value="Add new products" class="add">
                                     </form>
                                 </div>
                             </c:if>
@@ -342,15 +337,17 @@
                 <c:if test="${sessionScope.tableManagement!=null}">
                     <c:if test="${requestScope.tableAdd==null && requestScope.tableUpdate==null}">
                         <form action="tableAction">
-                            <input type="submit" value="add" class="add" name="action">
+                            <input type="submit" value="Add new table" class="add" name="action">
                         </form>
                     </c:if>
                     <div>
                         <h2>Danh Sách Bàn</h2>
+                        <c:if test="${requestScope.tableAdd!=null}"> 
+                            <%@include file="tableAdd.jsp" %> 
+                        </c:if>
                         <div class="content">
                             <table border="1">
                                 <tr>
-                                    <th>Id</th>
                                     <th>Name</th>
                                     <th>QR code</th>
                                     <th>Status</th>
@@ -359,12 +356,11 @@
 
                                 <c:forEach items="${sessionScope.tableManage}" var="t">
                                     <tr>
-                                        <td>${t.id}</td>
                                         <td>${t.nameTable}</td>
-                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.104:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank"><i class="fa-regular fa-eye"></i></a></td>
+                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.103:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank"><i class="fa-regular fa-eye"></i></a></td>
                                         <td>${t.sid.nameStatus}</td>
                                         <td><a href="tableAction?action=edit&id=${t.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
-                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});"><i class="fa-solid fa-trash"></i></a></td>
+                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteTable(${b.id});"><i class="fa-solid fa-trash"></i></a></td>
                                     </tr>
                                 </c:forEach>
                             </table>
@@ -372,23 +368,25 @@
                     </div>
                 </c:if>
 
-                <c:if test="${requestScope.tableAdd!=null}"> 
-                    <%@include file="tableAdd.jsp" %> 
-                </c:if>
+                
                 <c:if test="${requestScope.tableUpdate!=null}"> 
                     <%@include file="tableUpdate.jsp" %> 
                 </c:if>
                 <!--                // Blog-->
                 <c:if test="${sessionScope.blogManagement!=null}">
-                    <form action="blogAction">
-                        <input type="submit" value="add" class="add" name="action">
-                    </form>
+                    <c:if test="${requestScope.blogAdd==null && requestScope.blogUpdate==null}">
+                        <form action="blogAction">
+                            <input type="submit" value="Add new blog" class="add" name="action">
+                        </form>
+                    </c:if>
                     <div>
                         <h2>Danh Sách Blog</h2>
+                        <c:if test="${requestScope.blogAdd!=null}"> 
+                            <%@include file="blogAdd.jsp" %> 
+                        </c:if>
                         <div class="content">
                             <table border="1">
                                 <tr>
-                                    <th>Id</th>
                                     <th>Title</th>
                                     <th>image</th>
                                     <th>source</th>
@@ -398,13 +396,12 @@
 
                                 <c:forEach items="${sessionScope.blogManage}" var="b">
                                     <tr>
-                                        <td>${b.id}</td>
                                         <td>${b.title}</td>
                                         <td><img src="${b.image}" alt="${p.image}" class="imgProduct"/></td>
                                         <td><a href="${b.source}"><i class="fa-solid fa-link"></i></a></td>
                                         <td>${b.sid.nameStatus}</td>
                                         <td><a href="blogAction?action=edit&id=${b.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
-                                        <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteTable(${t.id});"><i class="fa-solid fa-trash"></i></a></td>
+                                        <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteBlog(${t.id});"><i class="fa-solid fa-trash"></i></a></td>
                                     </tr>
                                 </c:forEach>
                             </table>
@@ -412,9 +409,6 @@
                     </div>
                 </c:if>
 
-                <c:if test="${requestScope.blogAdd!=null}"> 
-                    <%@include file="blogAdd.jsp" %> 
-                </c:if>
                 <c:if test="${requestScope.blogUpdate!=null}"> 
                     <%@include file="blogUpdate.jsp" %> 
                 </c:if>
@@ -471,7 +465,7 @@
             }
 
             function confirmDeleteTable(id) {
-                var confirmation = confirm("Are you sure you want to delete Table ");
+                var confirmation = confirm("Are you sure you want to delete Table?");
                 if (confirmation === true) {
                     return true;
                 } else {
