@@ -89,7 +89,7 @@ public class checkAdd extends HttpServlet {
         } catch (NumberFormatException e) {
 
         }
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        response.sendRedirect("manageOption?check=productsManagement");
     }
 
     /** 
