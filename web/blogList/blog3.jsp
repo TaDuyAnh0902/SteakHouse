@@ -32,10 +32,10 @@
                 box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
             }
             img {
-                width: 100%;
+                width: 40%;
                 height: auto;
                 display: block;
-                margin: 20px 0;
+                margin: 20px auto; /* Căn giữa theo chiều ngang */
                 border-radius: 10px;
             }
             h2 {
@@ -98,6 +98,7 @@
     <body>
         <div class="container">
             <h2>Bread Steak (Steak Bánh Mì) Là Gì? – Bạn Muốn Thử Không?</h2>
+            <h4>Bread Steak (Steak Bánh Mì) Là Gì? – Bạn Muốn Thử Không?</h4>
             <p>
                 Beefsteak với bộ sậu miếng thịt bò áp chảo thơm thơm, sực sực áo với nước sốt dậy lên hương vị nồng nàn khó cưỡng, 
                 dùng kèm với khoai chiên giòn giòn, bánh mì mềm mềm và salad thanh thanh, mát mát đã quá quen thuộc, không cần phải bàn!
