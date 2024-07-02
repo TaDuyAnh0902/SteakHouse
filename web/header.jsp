@@ -69,7 +69,6 @@
             .header-right ul {
                 list-style: none;
                 display: flex;
-                /*align-items: center;*/
                 padding-top: 16%;
             }
 
@@ -93,46 +92,6 @@
                 .header{
                     display: none;
                 }
-                /*                body{
-                                    position: relative;
-                                    height: 100vh;
-                                    background: url(images/loginPhone2.jpg);
-                                    background-repeat: no-repeat;
-                                    background-size: 100% 100vh;
-                                }
-                                .header {
-                                    display: flex;
-                                    box-shadow: none;
-                                }
-                                .logo {
-                                    display: none;
-                                }
-                                .banner {
-                                    display: none;
-                                }
-                                .nav {
-                                    width: 100%;
-                                    margin: 0 auto;
-                                }
-                                .nav ul li {
-                                    display: none;
-                                }
-                                .header-right {
-                                    display: none;
-                                }
-                .nav ul li:nth-child(2) {
-                                    border: 1px solid black;
-                                    border-radius: 20px;
-                                    background-color: #E2D9BC;
-                                    padding: 50px 50px;
-                                    display: inline;
-                                    position: absolute;
-                                    top: 35%;
-                                    color: brown;
-                                }
-                                .header-right ul li:nth-child(1) {
-                                    display: inline;
-                                }*/
             }
         </style>
     </head>
@@ -154,10 +113,10 @@
 
 
                     <c:if test="${sessionScope.role == 1}">
-                        <li onclick="action('manage')">QUẢN LÝ</li>
+                        <li>STEAKHOUSE</li>
                         </c:if>
                         <c:if test="${sessionScope.role == 2}">
-                        <li onclick="action('manageOrder')">QUẢN LÝ ORDER</li>
+                        <li>QUẢN LÝ ĐƠN HÀNG</li>
                         </c:if>
                 </ul>
             </nav>
