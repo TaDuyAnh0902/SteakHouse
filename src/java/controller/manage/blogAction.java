@@ -59,7 +59,7 @@ public class blogAction extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if ("add".equals(action)) {
+        if ("Add new blog".equals(action)) {
             request.setAttribute("blogAdd", "success");
         } else {
             String id = request.getParameter("id");
@@ -69,7 +69,8 @@ public class blogAction extends HttpServlet {
                 id_int = Integer.parseInt(id);
                 if ("delete".equals(action)) {
                     db.deleteBlogById(id_int);
-
+                    response.sendRedirect("manageOption?check=blogManagement");
+                    return;
                 } else if ("edit".equals(action)) {
                     Blog blogUpdate = db.getBlogById(id_int);
                     request.setAttribute("blogUpdate", blogUpdate);
@@ -78,6 +79,7 @@ public class blogAction extends HttpServlet {
             } catch (NumberFormatException e) {
             }
 
+            
         }
 
         request.getRequestDispatcher("home.jsp").forward(request, response);
@@ -114,7 +116,7 @@ public class blogAction extends HttpServlet {
 
         }
 
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        response.sendRedirect("manageOption?check=blogManagement");
     }
 
     /**
