@@ -1,9 +1,3 @@
-<%-- 
-    Document   : store
-    Created on : May 25, 2024, 11:00:32 PM
-    Author     : Admin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -16,7 +10,7 @@
               crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        
+
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -24,7 +18,7 @@
                 color: #333;
             }
             .store {
-                padding: 2% 5%;
+                padding-left: 4%;
             }
             .menu {
                 padding: 0;
@@ -63,8 +57,8 @@
                 background-color: #fff;
                 border-radius: 8px;
                 box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                margin: 20px ;
-                width: calc(24% - 40px);
+                margin: 10px ;
+                width: calc(24% - 20px);
                 padding: 10px;
                 transition: transform 0.3s;
 
@@ -90,6 +84,7 @@
                 color: red;
                 position: absolute;
                 bottom: 0px;
+                left: 25%;
             }
             .categoryName,
             #productName
@@ -213,6 +208,7 @@
                 .product h5 {
                     font-weight: normal;
                     font-size: 16px;
+                    top: 10px;
                 }
                 .BuyProduct {
                     position: relative;
@@ -224,9 +220,9 @@
                     top: 0;
                 }
                 .actions {
-/*                    position: absolute;
-                    right: 50%;
-                    left: 50%;*/
+                    /*                    position: absolute;
+                                        right: 50%;
+                                        left: 50%;*/
                     display: none;
                 }
                 button {
@@ -243,7 +239,7 @@
                 }
             }
         </style>
-        
+
     </head>
     <body>
         <c:if test="${sessionScope.tableNumber==null}">
@@ -266,11 +262,14 @@
                     <c:if test="${p.sid.id==1}">
                         <c:set var="quan" value="${p.id}"/>
                         <c:set var="cid" value="${p.category.id}"/>
-                        <div class="product" onclick="productInfo('${quan}','${cid}')">
+                        <div class="product" onclick="productInfo('${quan}', '${cid}')">
                             <img src="${p.image}" alt="${p.image}"/>
                             <div class="product-details">
                                 <p class="categoryName">${p.category.name}</p>
                                 <p id="productName">${p.name}</p>
+                                <c:if test="${sessionScope.tableNumber!=null}">
+                                    <p style="margin: 0; color: red;">(đang đợi: ${p.quantityWaitting})</p>
+                                </c:if>
                                 <div>
                                     <h5>${p.price}00 vnđ</h5>
                                     <c:if test="${sessionScope.tableNumber!=null}">
