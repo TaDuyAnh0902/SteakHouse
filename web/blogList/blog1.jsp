@@ -32,10 +32,10 @@
                 box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
             }
             img {
-                width: 100%;
+                width: 40%;
                 height: auto;
                 display: block;
-                margin: 20px 0;
+                margin: 20px auto; /* Căn giữa theo chiều ngang */
                 border-radius: 10px;
             }
             h2 {
@@ -98,6 +98,7 @@
     <body>
         <div class="container">
             <h2>Cách Chọn Thịt Bò Mỹ Ngon Và Chuẩn</h2>
+            <h4>Cách Chọn Thịt Bò Mỹ Ngon Và Chuẩn</h4>
             <p>
                 Bò Mỹ được yêu thích bởi chất lượng thịt tuyệt vời, được các nhà hàng nổi tiếng lựa chọn. Đa dạng các phần thịt theo nhu cầu của khách hàng.
                 Thịt Bò Mỹ được xem là một loại thịt hảo hạng, thịt bò không chỉ có hương vị thơm ngon mà còn rất bổ dưỡng bởi thành phần chứa nhiều chất sắt, 
