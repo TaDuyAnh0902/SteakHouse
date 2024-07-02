@@ -69,7 +69,7 @@ public class productAction extends HttpServlet {
             request.setAttribute("productUpdate", productUpdate);
 
         }
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        response.sendRedirect("manageOption?check=productsManagement");
     }
 
     /**
