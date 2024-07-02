@@ -140,7 +140,7 @@
         <div class="header">
             <div class="logo">
                 <a href="home" title="Livehealthy - Sức khỏe mạnh bắt đầu từ chọn lựa">
-                    <img src="images/logo.jpg" alt="images"></a>
+                    <img src="images/unnamed.png" alt="images"></a>
             </div>
             <nav class="nav">
                 <ul>
