@@ -1,3 +1,9 @@
+<%-- 
+    Document   : productInfo
+    Created on : Apr 6, 2024, 9:09:53 AM
+    Author     : Admin
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -14,7 +20,6 @@
             .productInfo {
                 display: flex;
                 justify-content: center;
-                margin-bottom: 50px;
             }
 
             .productInfo p {
@@ -25,23 +30,16 @@
             }
 
             .productInfo img {
+                border-radius: 8px;
                 width: 80%;
                 height: 90%;
-            }
-            
-            .productInfo h3{
-                color: red;
             }
 
             .productByCid{
                 display: flex;
                 flex-wrap: wrap;
             }
-            
-            .productByCid h6{
-                color: red;
-            }
-            
+
             .productByCid > div {
                 width: calc(33.33% - 40px);
                 margin: 20px;
@@ -51,6 +49,7 @@
                 color: black;
             }
             .product img {
+                border-radius: 8px;
                 width: 100%;
                 height: 60%;
             }
@@ -66,7 +65,7 @@
                     display: none;
                 }
                 .productById {
-                    padding: 5% 5% 0 5%; 
+                    padding: 5% 5% 0 5%;
                     margin: 0;
                 }
                 .productInfo h2 {
@@ -117,8 +116,7 @@
                     width: 50px;
                     height: 30px;
                     border-radius: 8px;
-                    background-color: #FF0;
-                    color: white;
+                    background-color: rgb(226, 217, 188);
                 }
                 .actions input:active {
                     background-color: rgb(170, 170, 0);
@@ -154,7 +152,7 @@
 
 
                                 <h3 style="color: red"><c:out value="${requestScope.quantityFail}"/></h3>
-                                
+
                                 <input type="hidden" name="id" value="${p.id}">     
                                 <input type="hidden" value="${sessionScope.tableNumber}" name="tableNumber">
                                 <!--<input type="hidden" value="${sessionScope.userByMobile}" name="userByMobile">-->
@@ -170,31 +168,25 @@
                                 <c:if test="${p.quantity == 0}">
                                     <h3 style="color: red">Hết hàng</h3>
                                 </c:if>
-                            
-<!--                                    <div class="note">
-                                        <p style="margin: 0; font-weight: bold;">Ghi chú:</p>
-                                        <input tyle="text" placeholder="vd: giảm cay" name="note"/>
-                                    </div>-->
-
                             </form> 
                         </div>
                     </c:if>
-                    
-                </div>
-                
-            </div>
-            <div style="margin-top: 80px;">
-                <p>${p.describe}</p>
-            </div>
-            
-            <h3>Sản Phẩm Tương Tự<h3>
 
+                </div>
+
+            </div>
+            <c:if test="${sessionScope.tableNumber==null}">
+                <div>
+                    <p>${p.describe}</p>
+                </div>
+            </c:if>
+            <h3>Sản Phẩm Tương Tự<h3>
             <div class="productByCid">
                 <c:forEach items="${requestScope.productByCid}" var="p">
                     <c:if test="${p.sid.id==1}">
                         <div class="product">
                             <a href="productInfo?id=${p.id}&cid=${p.category.id}"><img src="${p.image}" alt="${p.image}"/></a>
-                            <h5>${p.name}</h5>
+                            <h6>${p.name}</h6>
                             <h6 style="font-weight: bold;">${p.price}00 vnđ</h6>
                         </div>
                     </c:if>
