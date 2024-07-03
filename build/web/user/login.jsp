@@ -77,13 +77,14 @@
                 border-radius: 7px;
                 font-size: 14px;
                 -webkit-transition: all 0.3 ease;
-                transition: all 0.3 ease;
+                transition: all 0.3s ease;
                 cursor: pointer;
             }
 
             .form button:hover,
             .form button:active,
-            .form button:focus {
+            .form button:focus
+            {
                 background: var(--green-color);
             }
 
@@ -97,6 +98,14 @@
                 color: #234666;
                 text-decoration: none;
             }
+
+            .rememberMe{
+                color: var(--dark-green-color);
+            }
+
+            .rememberMe:hover{
+                color: var(--green-color);
+            }
         </style>
     </head>
     <body>
@@ -105,9 +114,13 @@
                 <c:set var="cookie" value="${pageContext.request.cookies}"/>
                 <form action="login" class="login-form" method="post">
                     <h2><i class="fas fa-lock"></i> Login</h2>
-                    <input type="text" placeholder="Username *" name="username" value="${param.username}" required />
-                    <input type="password" placeholder="Password *" name="pass" required/>
+                    <input type="text" placeholder="Username *" name="username" value="${cookie.cuser.value}" required />
+                    <input type="password" placeholder="Password *" name="pass" value="${cookie.cpass.value}" required/>
                     <p style="color: red;"><c:out value="${requestScope.notSuccess}"/></p>
+                    <p style="color: green;"><c:out value="${requestScope.RegisterSuccess}"/></p>
+                    <span class="rememberMe">
+                        <input type="checkbox" ${cookie.crem!=null?'checked':''} name="remember" value="ON" style="width: auto;"> Remember me
+                    </span>
                     <button type="submit" name="send2">login</button>
                     <p class="message">Not registered? <a href="Register">Create an account</a></p>
                 </form>
