@@ -17,9 +17,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import model.Category;
 import model.OrderLine;
 import model.PaymentRequest;
 import model.Product;
@@ -82,10 +79,6 @@ public class Home extends HttpServlet {
             try {
                 int idTable_int = Integer.parseInt(idTable);
                 session.setAttribute("tableNumber", idTable_int);
-
-//                String randomString = generateRandomString(10);
-//                session.setAttribute("userByMobile", randomString);
-//                acDAO.addUserPhone(randomString, 4);
                 request.setAttribute("homeMobile", "success");
                 int totalProductByTable = odDAO.totalProductByTable(idTable_int);
                 session.setAttribute("totalProductByTable", totalProductByTable);
@@ -94,31 +87,8 @@ public class Home extends HttpServlet {
         }
         switch ((int) session.getAttribute("role")) {
             case 1 -> {
-                String type = "cate";
-                session.setAttribute("manage", "success");
-                request.setAttribute("admin", "success");
-                session.setAttribute("statistics", "success");
-                Map<String, Integer> data = mnDAO.getDataProductsCategories();
-                Map<String, Integer> dataOrder = mnDAO.getDataOrderManage();
-                Map<String, Double> dataMoney = mnDAO.getDataRevenue();
-
-                request.setAttribute("chart", data);
-                request.setAttribute("graph", dataOrder);
-                request.setAttribute("money", dataMoney);
-                request.setAttribute("type", type);
-
-                int totalCategory = mnDAO.totalCategory();
-                request.setAttribute("totalCategory", totalCategory);
-
-                int totalProduct = mnDAO.totalProduct();
-                request.setAttribute("totalProduct", totalProduct);
-
-                int totalUser = mnDAO.totalUser();
-                request.setAttribute("totalUser", totalUser);
-
-                int totalOrder = mnDAO.totalOrder();
-                request.setAttribute("totalOrder", totalOrder);
-
+                response.sendRedirect("manageOption?check=statistics");
+                return;
             }
             case 2 -> {
                session.setAttribute("manageOrder", "success");
@@ -141,18 +111,6 @@ public class Home extends HttpServlet {
 
     }
 
-//    public static String generateRandomString(int length) {
-//        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-//        Random random = new Random();
-//        StringBuilder sb = new StringBuilder(length);
-//
-//        for (int i = 0; i < length; i++) {
-//            int index = random.nextInt(characters.length());
-//            sb.append(characters.charAt(index));
-//        }
-//
-//        return sb.toString();
-//    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
