@@ -70,7 +70,8 @@
             <div class="content1">
                 <div>
                     <c:set var="labels" value="" />
-                    <c:set var="data" value="" />22:53/-strong/-heart:>:o:-((:-h<c:forEach var="entry" items="${requestScope.getStatisticsBestSellings}" varStatus="loop">
+                    <c:set var="data" value="" />
+                    <c:forEach var="entry" items="${requestScope.getStatisticsBestSellings}" varStatus="loop">
                         <c:set var="key" value="${entry.key}" />
                         <c:set var="value" value="${entry.value}" />
                         <c:set var="labels" value="${labels}'${key}'${not loop.last ? ',' : ''}" />
@@ -122,7 +123,8 @@
                             }
                         });
                     </script>
-                    <p style="text-align: center;">Order statistics</p>/-strong/-heart:>:o:-((:-h</div>
+                    <p style="text-align: center;">Order statistics</p>
+                </div>
             </div>
 
             <div class="content2">
@@ -181,7 +183,8 @@
                         var ctx = document.getElementById('myBarChart').getContext('2d');
                         var myChart = new Chart(ctx, config);
                     </script>
-                    <p style="text-align: center;">Revenue statistics</p>/-strong/-heart:>:o:-((:-h</div>
+                    <p style="text-align: center;">Revenue statistics</p>
+                </div>
                 <div class="revenue-details">
                     <h3 style="text-align: center;">Chi tiết doanh thu</h3>
                     <p>Thu nhập hôm nay: ${requestScope.totalMoneyToDay} vnđ</p>
