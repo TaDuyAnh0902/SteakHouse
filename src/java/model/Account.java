@@ -9,16 +9,29 @@ package model;
  * @author Admin
  */
 public class Account {
-private String username, passWord;
+
+    private String name, username, email, passWord, phoneNumber, code;
     private int role;
 
     public Account() {
     }
 
-    public Account(String username, String passWord, int role) {
+    public Account(String name, String username, String email, String passWord, String phoneNumber, String code, int role) {
+        this.name = name;
         this.username = username;
+        this.email = email;
         this.passWord = passWord;
+        this.phoneNumber = phoneNumber;
+        this.code = code;
         this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {
@@ -29,12 +42,36 @@ private String username, passWord;
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassWord() {
         return passWord;
     }
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public int getRole() {
