@@ -4,7 +4,9 @@
  */
 package controller.manage;
 
+import controller.Home;
 import dal.AccountDAO;
+import dal.BestSellingDAO;
 import dal.BlogDAO;
 import dal.ManageDAO;
 import dal.OrderDAO;
@@ -16,8 +18,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Account;
 import model.Blog;
 import model.Category;
@@ -75,6 +80,7 @@ public class manageOption extends HttpServlet {
         AccountDAO acDAO =new AccountDAO();
         ProductsDAO PdDAO = new ProductsDAO();
         ManageDAO mnDAO = new ManageDAO();
+        BestSellingDAO bsDAO = new BestSellingDAO();
         switch (check) {
             case "productsManagement" -> {
                 session.setAttribute("productsManagement", "success");
@@ -106,14 +112,54 @@ public class manageOption extends HttpServlet {
             case "statistics" -> {
                 session.setAttribute("statistics", "success");
                 String type = "cate";
+                session.setAttribute("manage", "success");
                 request.setAttribute("admin", "success");
+                session.setAttribute("statistics", "success");
                 Map<String, Integer> data = mnDAO.getDataProductsCategories();
-                request.setAttribute("chart", data);
-                request.setAttribute("type", type);
                 Map<String, Integer> dataOrder = mnDAO.getDataOrderManage();
-                request.setAttribute("graph", dataOrder);
                 Map<String, Double> dataMoney = mnDAO.getDataRevenue();
+                Map<String, Integer> dataBestSelling = bsDAO.getStatisticsBestSellings();
+                
+                String totalMoneyToDay = mnDAO.totalMoneyToday();
+                String totalMoneyThisWeek = mnDAO.totalMoneyThisWeek();
+                String totalMoneyThisMonth = mnDAO.totalMoneyThisMonth();
+                try {
+                    String compareTwoDates = mnDAO.CompareTwoDates();
+                    if(compareTwoDates.startsWith("-"))
+                    request.setAttribute("compareTwoDatesNegative", compareTwoDates);
+                    else{
+                        request.setAttribute("compareTwoDatesPositive", compareTwoDates);
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    String compareTwoWeek = mnDAO.CompareTwoWeek();
+                    if(compareTwoWeek.startsWith("-"))
+                    request.setAttribute("compareTwoWeeksNegative", compareTwoWeek);
+                    else{
+                        request.setAttribute("compareTwoWeeksPositive", compareTwoWeek);
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    String compareTwoMonth = mnDAO.CompareTwoMonth();
+                    if(compareTwoMonth.startsWith("-"))
+                    request.setAttribute("compareTwoMonthsNegative", compareTwoMonth);
+                    else{
+                        request.setAttribute("compareTwoMonthsPositive", compareTwoMonth);
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                request.setAttribute("chart", data);
+                request.setAttribute("graph", dataOrder);
                 request.setAttribute("money", dataMoney);
+                request.setAttribute("type", type);
+                request.setAttribute("getStatisticsBestSellings", dataBestSelling);
+                
                 int totalCategory = mnDAO.totalCategory();
                 request.setAttribute("totalCategory", totalCategory);
                 int totalProduct = mnDAO.totalProduct();
@@ -122,6 +168,10 @@ public class manageOption extends HttpServlet {
                 request.setAttribute("totalUser", totalUser);
                 int totalOrder = mnDAO.totalOrder();
                 request.setAttribute("totalOrder", totalOrder);
+
+                request.setAttribute("totalMoneyToDay", totalMoneyToDay);
+                request.setAttribute("totalMoneyThisWeek", totalMoneyThisWeek);
+                request.setAttribute("totalMoneyThisMonth", totalMoneyThisMonth);
             }
                 
             default -> {
