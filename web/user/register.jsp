@@ -31,10 +31,11 @@
                 background-size: 100% 100vh;
             }
 
-            .login-page {
+            .register-page {
                 width: 400px;
                 padding: 8% 0 0;
-                margin: auto;
+                margin: 0 auto;
+                margin-top: -50px;
             }
 
             .form {
@@ -42,7 +43,6 @@
                 z-index: 1;
                 background: #FFFFFF;
                 max-width: 400px;
-                margin: 50px auto 100px;
                 padding: 45px;
                 text-align: center;
                 border-radius: 15px;
@@ -75,7 +75,7 @@
                 border-radius: 7px;
                 font-size: 14px;
                 -webkit-transition: all 0.3 ease;
-                transition: all 0.3 ease;
+                transition: all 0.3s ease;
                 cursor: pointer;
             }
 
@@ -92,22 +92,25 @@
             }
 
             .form .message a {
-color: #234666;
+                color: #234666;
                 text-decoration: none;
             }
 
         </style>
     </head>
     <body>
-        <div class="login-page">
+        <div class="register-page">
             <div class="form">
                 <form action="Register" class="register-form" method="post">
                     <h2><i class="fas fa-lock"></i> Register</h2>
                     <!--<input type="text" placeholder="Full Name *" required />-->
+                    <input type="text" placeholder="Name *" name="name" value="${param.name}" required>
                     <input type="text" placeholder="Username *" name="username" value="${param.username}" required />
+                    <input type="email" placeholder="Email *" name="email" value="${param.email}" required/>
+                    <input type="hidden" name="phone"/>
                     <input type="password" placeholder="Password *" name="pass" value="${param.pass}" required />
                     <input type="password" placeholder="Confirm Password *" name="confirmPass" required />
-                     
+
                     <c:if test="${requestScope.usernameFail != null}">
                         <p style="color: red;"><c:out value="${requestScope.usernameFail}"/></p>
                     </c:if>  
@@ -120,12 +123,11 @@ color: #234666;
                     <c:if test="${requestScope.successfully != null}">
                         <p style="color: green;"><c:out value="${requestScope.successfully}"/></p>
                     </c:if>
-                    
+
                     <button type="submit">create</button>
                     <p class="message">Already registered? <a href="login">Sign In</a></p>
                 </form>
             </div>
         </div>
-
     </body>
 </html>
