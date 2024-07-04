@@ -140,10 +140,10 @@
             <%@include file="header.jsp" %>
 
             <c:if test="${requestScope.main!=null}"> <%@include file="option/main.jsp" %> </c:if>
-            
+
             <c:if test="${requestScope.profile!=null}"> <%@include file="user/profile.jsp" %> </c:if>
             <c:if test="${requestScope.profileChange!=null}"> <%@include file="user/profileChange.jsp" %> </c:if>
-            
+
             <c:if test="${requestScope.store!=null}"> <%@include file="option/store.jsp" %> </c:if>
             <c:if test="${requestScope.productInfo!=null}"> <%@include file="option/productInfo.jsp" %> </c:if>
 
@@ -234,8 +234,8 @@
                 var currentUrl = window.location.href;
                 var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
                 var baseUrlConfirmOrder = "http://localhost:9999/SWP391-SteakHouse/ConfirmOrderByCashier?id=";
-
-                if (currentUrl === baseUrlHome || currentUrl.startsWith(baseUrlConfirmOrder)) {
+                var baseUrlSort = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=";
+                if (currentUrl === baseUrlHome || currentUrl.startsWith(baseUrlConfirmOrder) || currentUrl.startsWith(baseUrlSort)) {
                     $.ajax({
                         url: currentUrl,
                         success: function (data) {
