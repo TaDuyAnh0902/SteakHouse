@@ -70,7 +70,7 @@
             .profile .choose div {
                 flex: 1;
                 text-align: center;
-            }
+            }   
 
             .profile .choose a {
                 display: inline-block;
