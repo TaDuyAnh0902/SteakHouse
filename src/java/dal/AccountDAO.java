@@ -174,6 +174,51 @@ public class AccountDAO extends StatusDAO {
 
         }
     }
+    
+    public void updateUser(String name, String user, String phone, String pass) {
+        String sql = """
+                     UPDATE [dbo].[Account]
+                                   SET [name] = ?
+                                      ,[password] = ?
+                                      ,[phoneNumber] = ?
+                                 WHERE username = ?""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.setString(2, pass);
+            st.setString(3, phone);
+            st.setString(4, user);
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+
+        }
+    }
+    
+    public void addAccount(Account ac) {
+        String sql = """
+                     INSERT INTO [dbo].[Account]
+                                           ([name]
+                                           ,[username]
+                                           ,[email]
+                                           ,[password]
+                                           ,[phoneNumber]
+                                           ,[code]
+                                           ,[role])
+                                     VALUES
+                                           (?,?,?,?,'','',3)""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, ac.getName());
+            st.setString(2, ac.getUsername());
+            st.setString(3, ac.getEmail());
+            st.setString(4, ac.getPassWord());
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+
+        }
+    }
 
     public Account getAccountByUser(String username) {
         String sql = """
