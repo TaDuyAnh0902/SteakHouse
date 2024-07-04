@@ -82,21 +82,19 @@ public class Register extends HttpServlet {
 
         SendEmail sm = new SendEmail();
         AccountDAO ad = new AccountDAO();
-        String code = sm.getRandom();
-        Account ac = new Account(name, user, email, pass, phone, code, 3);
-        boolean test = sm.sendEmail(ac);
 
         if (ad.checkUserName(user) != null) {
             request.setAttribute("duplicateUser", "duplicate user name");
             request.getRequestDispatcher("user/register.jsp").forward(request, response);
         }
         if (pass.equals(confirmPass)) {
-            ad.addUser(name, user, email, pass);
-            request.setAttribute("successfully", "Registered successfully");
+            String code = sm.getRandom();
+            Account ac = new Account(name, user, email, pass, phone, code, 3);
+            boolean test = sm.sendEmail(ac);
             if (test) {
                 HttpSession session = request.getSession();
                 session.setAttribute("authcode", ac);
-                response.sendRedirect("verify.jsp");
+                response.sendRedirect("verify");
             } else {
                 // Handle email sending failure
                 response.sendRedirect("register");
