@@ -101,7 +101,7 @@ public class Login extends HttpServlet {
         if (x != null) {
             session.setAttribute("role", x.getRole());
             session.setAttribute("success", x);
-            session.setAttribute("username", user);
+            session.setAttribute("user", x);
             response.sendRedirect("home");
         } else {
             request.setAttribute("notSuccess", "please enter again");
