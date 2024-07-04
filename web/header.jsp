@@ -137,6 +137,9 @@
                         <li>
                             <a href="LogInLogOut?check=logOut" title="Log Out"><i class="fas fa-sign-out-alt"></i></a>
                         </li>
+                        <li>
+                            <a href="Profile?user=${user.username}" class="name" title="Hi ${user.name}"><i class="fas fa-user"></i></a>
+                        </li>
                     </c:if>
                 </ul>
             </div>
