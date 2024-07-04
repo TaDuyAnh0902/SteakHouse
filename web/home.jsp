@@ -140,7 +140,10 @@
             <%@include file="header.jsp" %>
 
             <c:if test="${requestScope.main!=null}"> <%@include file="option/main.jsp" %> </c:if>
-
+            
+            <c:if test="${requestScope.profile!=null}"> <%@include file="user/profile.jsp" %> </c:if>
+            <c:if test="${requestScope.profileChange!=null}"> <%@include file="user/profileChange.jsp" %> </c:if>
+            
             <c:if test="${requestScope.store!=null}"> <%@include file="option/store.jsp" %> </c:if>
             <c:if test="${requestScope.productInfo!=null}"> <%@include file="option/productInfo.jsp" %> </c:if>
 
