@@ -145,11 +145,11 @@
                             <table border="1">
                                 <thead>
                                     <tr>
-                                        <th>Tên món ăn</th>
-                                        <th>Số lượng</th>
-                                        <th>Thời gian</th>
-                                        <th>Bàn</th>
-                                        <th>Trạng thái</th>
+                                        <th onclick="OrderSort('name')">Tên món ăn</th>
+                                        <th onclick="OrderSort('quantity')">Số lượng</th>
+                                        <th onclick="OrderSort('time')">Thời gian</th>
+                                        <th onclick="OrderSort('table')">Bàn</th>
+                                        <th onclick="OrderSort('status')">Trạng thái</th>
                                     </tr>
                                 </thead>
                                 <c:forEach items="${sessionScope.allListOrderLine}" var="o">
@@ -302,5 +302,49 @@
         function manageOrderAction(ac) {
             window.location.href = "manageOrderAction?check=" + ac;
         }
+        function OrderSort(id) {
+            var currentUrl = window.location.href;
+            if (id === "name") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=name&action=NameDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "orderSort?check=name&action=NameASC";
+                } else {
+                    window.location.href = "orderSort?check=name&action=NameDESC";
+                }
+            }
+            if (id === "quantity") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=quantity&action=QuantityDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "orderSort?check=quantity&action=QuantityASC";
+                } else {
+                    window.location.href = "orderSort?check=quantity&action=QuantityDESC";
+                }
+            }
+            if (id === "time") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=time&action=TimeDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "orderSort?check=time&action=TimeASC";
+                } else {
+                    window.location.href = "orderSort?check=time&action=TimeDESC";
+                }
+            }
+            if (id === "table") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=table&action=TableDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "orderSort?check=table&action=TableASC";
+                } else {
+                    window.location.href = "orderSort?check=table&action=TableDESC";
+                }
+            }
+            if (id === "status") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=status&action=StatusDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "orderSort?check=status&action=StatusASC";
+                } else {
+                    window.location.href = "orderSort?check=status&action=StatusDESC";
+                }
+            }
+        }
+
     </script>
 </html>
