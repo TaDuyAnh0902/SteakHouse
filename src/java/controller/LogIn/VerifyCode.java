@@ -5,6 +5,7 @@
 
 package controller.LogIn;
 
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -71,7 +72,9 @@ public class VerifyCode extends HttpServlet {
         HttpSession session = request.getSession(); 
         Account user= (Account) session.getAttribute ("authcode");
         String code = request.getParameter("authcode");
+        AccountDAO ac = new AccountDAO();
         if (code.equals(user.getCode())) {
+            ac.addAccount(user);
             request.setAttribute("RegisterSuccess", "Successfully registered");
             request.getRequestDispatcher("user/login.jsp").forward(request, response);
         }else{
