@@ -1,4 +1,4 @@
-/* 
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
@@ -6,42 +6,62 @@ function validateProductAdd() {
     var form = document.forms["productAdd"];
     var name = form["name"].value;
     var quantity = form["quantity"].value;
-    var price = form["price"].value.trim();
-    var describe = form["describe"].value.trim();
+    var price = form["price"].value;
+    var describe = form["describe"].value;
 
+    // Validate Name
     if (!/^[a-zA-Z0-9\sÀ-Ỹà-ỹẠ-Ỷạ-ỵĂ-Ắă-ắẰ-Ỳằ-ỳẠ-Ỵạ-ỵÂ-Ậâ-ậẦ-Ỷầ-ỷẠ-Ỵạ-ỵĐđĨĩƠ-ớơ-ớỠ-Ỷỡ-ỷỌ-Ựọ-ựỜ-Ỹờ-ỹỘ-Ỷộ-ỷỢ-Ựợ-ựÚú]+$/u.test(name)) {
-        alert("Name can only contain letters, numbers, spaces, and Vietnamese characters");
+        alert("Name can only contain letters, numbers, spaces, and Vietnamese characters.");
+        return false;
+    }
+    if (/^\s/.test(name)) {
+        alert("Name cannot have leading spaces.");
+        return false;
+    }
+    if (/\s$/.test(name)) {
+        alert("Name cannot have trailing spaces.");
         return false;
     }
     if (/\s{2,}/.test(name)) {
-        alert("Name cannot contain multiple consecutive spaces");
+        alert("Name cannot contain multiple consecutive spaces.");
         return false;
     }
 
+    // Validate Quantity
     if (quantity === "" || isNaN(quantity) || quantity <= 0) {
-        alert("Quantity must be a positive number");
+        alert("Quantity must be a positive number.");
         return false;
     }
 
+    // Validate Price
     if (price === "" || isNaN(price) || price <= 0) {
-        alert("Price must be a positive number and cannot contain any spaces");
+        alert("Price must be a positive number.");
         return false;
     }
-    if (/^\s|\s$/.test(price)) {
-        alert("Price cannot have leading or trailing spaces");
+    if (/^\s/.test(price)) {
+        alert("Price cannot have leading spaces.");
         return false;
     }
-    if (price.split(/\s+/).length > 1) {
-        alert("Price cannot contain multiple consecutive spaces");
+    if (/\s$/.test(price)) {
+        alert("Price cannot have trailing spaces.");
+        return false;
+    }
+    if (/\s{2,}/.test(price)) {
+        alert("Price cannot contain multiple consecutive spaces.");
         return false;
     }
 
-    if (!/^[a-zA-Z0-9\sÀ-Ỹà-ỹẠ-Ỷạ-ỵĂ-Ắă-ắẰ-Ỳằ-ỳẠ-Ỵạ-ỵÂ-Ậâ-ậẦ-Ỷầ-ỷẠ-Ỵạ-ỵĐđĨĩƠ-ớơ-ớỠ-Ỷỡ-ỷỌ-Ựọ-ựỜ-Ỹờ-ỹỘ-Ỷộ-ỷỢ-Ựợ-ựÚú]+$/u.test(describe)) {
-        alert("Describe can only contain letters, numbers, spaces, and Vietnamese characters");
+    // Validate Describe
+    if (/^\s/.test(describe)) {
+        alert("Describe cannot have leading spaces.");
+        return false;
+    }
+    if (/\s$/.test(describe)) {
+        alert("Describe cannot have trailing spaces.");
         return false;
     }
     if (/\s{2,}/.test(describe)) {
-        alert("Describe cannot contain multiple consecutive spaces");
+        alert("Describe cannot contain multiple consecutive spaces.");
         return false;
     }
 
@@ -56,64 +76,92 @@ function validateProductUpdate() {
     var describe = form["describe"].value;
     var image = form["image"].value;
 
-    if (/ {2,}/.test(name)) {
-        alert("Name cannot contain multiple consecutive spaces");
+    // Validate Name
+    if (/^\s/.test(name)) {
+        alert("Name cannot have leading spaces.");
         return false;
     }
-    if (!/^[a-zA-Z0-9\sÀ-Ỹà-ỹẠ-Ỷạ-ỵĂ-Ắă-ắẰ-Ỳằ-ỳẠ-Ỵạ-ỵÂ-Ậâ-ậẦ-Ỷầ-ỷẠ-Ỵạ-ỵĐđĨĩƠ-ớơ-ớỠ-Ỷỡ-ỷỌ-Ựọ-ựỜ-Ỹờ-ỹỘ-Ỷộ-ỷỢ-Ựợ-ựÚú]+$/u.test(name.trim())) {
-        alert("Name can only contain letters, numbers, spaces, and Vietnamese characters");
+    if (/\s$/.test(name)) {
+        alert("Name cannot have trailing spaces.");
         return false;
     }
-    if (/^\s|\s$/.test(name)) {
-        alert("Name cannot have leading or trailing spaces");
+    if (/\s{2,}/.test(name)) {
+        alert("Name cannot contain multiple consecutive spaces.");
+        return false;
+    }
+    if (!/^[a-zA-Z0-9\sÀ-Ỹà-ỹẠ-Ỷạ-ỵĂ-Ắă-ắẰ-Ỳằ-ỳẠ-Ỵạ-ỵÂ-Ậâ-ậẦ-Ỷầ-ỷẠ-Ỵạ-ỵĐđĨĩƠ-ớơ-ớỠ-Ỷỡ-ỷỌ-Ựọ-ựỜ-Ỹờ-ỹỘ-Ỷộ-ỷỢ-Ựợ-ựÚú]+$/u.test(name)) {
+        alert("Name can only contain letters, numbers, spaces, and Vietnamese characters.");
         return false;
     }
 
+    // Validate Quantity
     if (quantity === "" || isNaN(quantity) || quantity <= 0) {
-        alert("Quantity must be a positive number");
+        alert("Quantity must be a positive number.");
         return false;
     }
 
-    if (price.trim() === "" || isNaN(price) || price <= 0) {
-        alert("Price must be a positive number and cannot contain any spaces");
+    // Validate Price
+    if (price === "" || isNaN(price) || price <= 0) {
+        alert("Price must be a positive number.");
         return false;
     }
-    if (/ {2,}/.test(price)) {
-        alert("Price cannot contain multiple consecutive spaces");
+    if (/^\s/.test(price)) {
+        alert("Price cannot have leading spaces.");
         return false;
     }
-    if (/^\s|\s$/.test(price)) {
-        alert("Price cannot have leading or trailing spaces");
+    if (/\s$/.test(price)) {
+        alert("Price cannot have trailing spaces.");
+        return false;
+    }
+    if (/\s{2,}/.test(price)) {
+        alert("Price cannot contain multiple consecutive spaces.");
         return false;
     }
 
-    if (/ {2,}/.test(describe)) {
-        alert("Describe cannot contain multiple consecutive spaces");
+    // Validate Describe
+    if (/^\s/.test(describe)) {
+        alert("Describe cannot have leading spaces.");
         return false;
     }
-    if (/^\s|\s$/.test(describe)) {
-        alert("Describe cannot have leading or trailing spaces");
+    if (/\s$/.test(describe)) {
+        alert("Describe cannot have trailing spaces.");
         return false;
     }
+    if (/\s{2,}/.test(describe)) {
+        alert("Describe cannot contain multiple consecutive spaces.");
+        return false;
+    }
+//    if (!/^[a-zA-Z0-9\sÀ-Ỹà-ỹẠ-Ỷạ-ỵĂ-Ắă-ắẰ-Ỳằ-ỳẠ-Ỵạ-ỵÂ-Ậâ-ậẦ-Ỷầ-ỷẠ-Ỵạ-ỵĐđĨĩƠ-ớơ-ớỠ-Ỷỡ-ỷỌ-Ựọ-ựỜ-Ỹờ-ỹỘ-Ỷộ-ỷỢ-Ựợ-ựÚú]+$/u.test(describe)) {
+//        alert("Describe can only contain letters, numbers, spaces, and Vietnamese characters.");
+//        return false;
+//    }
 
     // Validate Image
     if (/\s/.test(image)) {
-        alert("Image cannot contain any spaces");
+        alert("Image cannot contain any spaces.");
         return false;
     }
 
     return true;
 }
+
 function validateTable() {
     var name = document.forms["addTableForm"]["name"].value;
 
-    if (/ {2,}/.test(name)) {
-        alert("Name cannot contain multiple consecutive spaces");
+    if (/^\s/.test(name)) {
+        alert("Name cannot have leading spaces.");
         return false;
     }
-
+    if (/\s$/.test(name)) {
+        alert("Name cannot have trailing spaces.");
+        return false;
+    }
+    if (/ {2,}/.test(name)) {
+        alert("Name cannot contain multiple consecutive spaces.");
+        return false;
+    }
     if (!/^[a-zA-Z0-9\sÀ-Ỹà-ỹẠ-Ỷạ-ỵĂ-Ắă-ắẰ-Ỳằ-ỳẠ-Ỵạ-ỵÂ-Ậâ-ậẦ-Ỷầ-ỷẠ-Ỵạ-ỵĐđĨĩƠ-ớơ-ớỠ-Ỷỡ-ỷỌ-Ựọ-ựỜ-Ỹờ-ỹỘ-Ỷộ-ỷỢ-Ựợ-ựÚú]+$/u.test(name)) {
-        alert("Tên chỉ được chứa chữ cái, số, khoảng trắng, và các ký tự tiếng Việt");
+        alert("Name can only contain letters, numbers, spaces, and Vietnamese characters.");
         return false;
     }
 
@@ -124,44 +172,77 @@ function validateUpdateTable() {
     var form = document.forms["tableUpdateForm"];
     var tableName = form["tableUpdate"].value;
 
-    if (/^\s|\s$/.test(tableName)) {
-        alert("Table name cannot have leading or trailing spaces");
+    if (/^\s/.test(tableName)) {
+        alert("Table name cannot have leading spaces.");
+        return false;
+    }
+    if (/\s$/.test(tableName)) {
+        alert("Table name cannot have trailing spaces.");
+        return false;
+    }
+
+    if (/ {2,}/.test(tableName)) {
+        alert("Table name cannot contain multiple consecutive spaces.");
+        return false;
+    }
+    if (!/^[a-zA-Z0-9\sÀ-Ỹà-ỹẠ-Ỷạ-ỵĂ-Ắă-ắẰ-Ỳằ-ỳẠ-Ỵạ-ỵÂ-Ậâ-ậẦ-Ỷầ-ỷẠ-Ỵạ-ỵĐđĨĩƠ-ớơ-ớỠ-Ỷỡ-ỷỌ-Ựọ-ựỜ-Ỹờ-ỹỘ-Ỷộ-ỷỢ-Ựợ-ựÚú]+$/u.test(tableName)) {
+        alert("Table name can only contain letters, numbers, spaces, and Vietnamese characters.");
         return false;
     }
 
     return true;
 }
+
 function validateBlog() {
     var title = document.forms["blogAdd"]["title"].value;
 
+    if (/^\s/.test(title)) {
+        alert("Title cannot have leading spaces.");
+        return false;
+    }
+    if (/\s$/.test(title)) {
+        alert("Title cannot have trailing spaces.");
+        return false;
+    }
     if (/ {2,}/.test(title)) {
-        alert("Title cannot contain multiple consecutive spaces");
+        alert("Title cannot contain multiple consecutive spaces.");
         return false;
     }
 
     return true;
 }
+
 function validateBlogUpdate() {
     var form = document.forms["blogUpdate"];
     var title = form["newTitle"].value;
     var image = form["newImage"].value;
     var source = form["newSource"].value;
 
+    if (/^\s/.test(title)) {
+        alert("Title cannot have leading spaces.");
+        return false;
+    }
+    if (/\s$/.test(title)) {
+        alert("Title cannot have trailing spaces.");
+        return false;
+    }
     if (/ {2,}/.test(title)) {
-        alert("Title cannot contain multiple consecutive spaces");
+        alert("Title cannot contain multiple consecutive spaces.");
         return false;
     }
 
     if (/\s/.test(image)) {
-        alert("Image cannot contain any spaces");
+        alert("Image cannot contain any spaces.");
         return false;
     }
     if (/\s/.test(source)) {
-        alert("Source cannot contain any spaces");
+        alert("Source cannot contain any spaces.");
         return false;
     }
+
     return true;
 }
+
 function validateContact() {
     var form = document.forms["Contact"];
     var name = form["name"].value;
@@ -169,39 +250,56 @@ function validateContact() {
     var phone = form["phone"].value;
     var message = form["message"].value;
 
-    if (name === "") {
-        alert("Name is required.");
+    // Validate Name
+    if (/^\s/.test(name)) {
+        alert("Name cannot have leading spaces.");
         return false;
     }
-    if (/^\s|\s$/.test(name) || / {2,}/.test(name)) {
-        alert("Name cannot have leading or trailing spaces and cannot contain multiple consecutive spaces");
+    if (/\s$/.test(name)) {
+        alert("Name cannot have trailing spaces.");
         return false;
     }
-
-    if (title === "") {
-        alert("Title is required.");
-        return false;
-    }
-    if (/^\s|\s$/.test(title) || / {2,}/.test(title)) {
-        alert("Title cannot have leading or trailing spaces and cannot contain multiple consecutive spaces");
+    if (/ {2,}/.test(name)) {
+        alert("Name cannot contain multiple consecutive spaces.");
         return false;
     }
 
+    // Validate Title
+    if (/^\s/.test(title)) {
+        alert("Title cannot have leading spaces.");
+        return false;
+    }
+    if (/\s$/.test(title)) {
+        alert("Title cannot have trailing spaces.");
+        return false;
+    }
+    if (/ {2,}/.test(title)) {
+        alert("Title cannot contain multiple consecutive spaces.");
+        return false;
+    }
+
+    // Validate Phone
     if (phone === "") {
         alert("Phone number is required.");
         return false;
     }
-    if (!/^\d{10}$/.test(phone)) {
-        alert("Phone number must be exactly 10 digits and cannot contain spaces");
+    var phonePattern = /^(09|03|07|08|05)\d{8}$/;
+    if (!phonePattern.test(phone)) {
+        alert("Invalid phone number format. Please enter a valid 10-digit number.");
         return false;
     }
 
-    if (message === "") {
-        alert("Message is required.");
+    // Validate Message
+    if (/^\s/.test(message)) {
+        alert("Message cannot have leading spaces.");
         return false;
     }
-    if (/^\s|\s$/.test(message) || / {2,}/.test(message)) {
-        alert("Message cannot have leading or trailing spaces and cannot contain multiple consecutive spaces");
+    if (/\s$/.test(message)) {
+        alert("Message cannot have trailing spaces.");
+        return false;
+    }
+    if (/ {2,}/.test(message)) {
+        alert("Message cannot contain multiple consecutive spaces.");
         return false;
     }
 
@@ -212,6 +310,5 @@ function validateContactAndSendFeedback() {
     if (validateContact()) {
         sendFeedback();
     }
-    return false; 
+    return false;
 }
-
