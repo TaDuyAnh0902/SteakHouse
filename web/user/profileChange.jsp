@@ -12,112 +12,124 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-            :root {
-                --green-color: rgb(139, 197, 63);
-                --dark-green-color: rgb(19, 149, 79);
-            }
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
 
-            .profileChange {
-                margin: 50px 0;
-                padding: 0 15%;
-            }
+        .wrapperr, .profileChange {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-            .profile {
-                margin-top: 50px;
-                display: flex;
-                justify-content: center;
-                font-size: 18px;
-            }
+        h2 {
+            text-align: center;
+            color: #4A148C;
+            margin-bottom: 20px;
+        }
 
-            .profile > div {
-                width: 33.33%;
-            }
+        .profile {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
 
-            img {
-                width: 50%;
-            }
+        .profile > div {
+            flex: 1;
+            margin: 10px;
+        }
 
-            input {
-                margin-bottom: 50px;
-                width: 90%;
-                height: 30px;
-                font-size: 16px;
-            }
+        .profile img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto;
+        }
 
-            .choose {
-                display: flex;
-            }
+        .profile input[type="text"],
+        .profile input[type="email"],
+        .profile input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-            .back {
-                width: auto;
-                height: 35px;
-                background-color: var(--dark-green-color);
-                margin: 0 10px;
-                padding: 0 10px;
-                padding-top: 5px;
-                border-radius: 4px;
-            }
+        .profile .choose {
+            display: flex;
+            justify-content: space-between;
+        }
 
-            .submit {
-                height:  auto;
-            }
+        .profile .choose div {
+            flex: 1;
+            text-align: center;
+        }   
 
-            .submit input{
-                color: white;
-                border: 0;
-                height: 35px;
-                padding: 0 15px 0 10px;
-                border-radius: 4px;
-                background-color: var(--dark-green-color);
-            }
-            .back:hover {
-                background-color: var(--green-color);
-            }
-            .submit input:hover {
-                cursor: pointer;
-                background-color: var(--green-color);
-            }
-            a {
-                color: white;
-                text-decoration: none;
-            }
-            a:hover {
-                color: white;
-                text-decoration: none;
-            }
+        .profile .choose a,
+        .profile .choose input[type="submit"] {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            text-decoration: none;
+            color: white;
+            background-color: #4A148C;
+            border-radius: 5px;
+        }
+
+        .profile .choose a:hover,
+        .profile .choose input[type="submit"]:hover {
+            background-color: #6A1B9A;
+        }
+
+        .profile h4 {
+            text-align: center;
+            color: red;
+        }
+
+        input[type="submit"] {
+            cursor: pointer;
+            border: none;
+        }
         </style>
     </head>
     <body>
-        <c:set var="profileNew" value="${requestScope.profileNew}"/>
-        <div class="profileChange">
-            <h2>PROFILE</h2>
-            <form action="changeProfile" method="post">
-                <div class="profile">
-                    <div>
-                        <img src="images/user.jpg" alt="image"/>
-                    </div>
-                    <div>
-                        Name: <input type="text" placeholder="Name *" name="name" value="${profileNew.name}" required />
-                        Email: <input type="email" placeholder="Email *" name="email" value="${profileNew.email}" required />
-                        Phone: <input type="text" placeholder="Phone" name="phoneNumber" value="${profileNew.phoneNumber}"/>
-                        <div class="choose">
-                            <div class="submit">
-                                <input type="submit" value="Save">
-                            </div>
-                            <div class="back">
-                                <a href="Profile?user=${profileNew.username}">Back</a>
-                            </div>
-
-                        </div>
-                        <h4 style="color: red;"><c:out value="${requestScope.passwordNotMatch}"/></h4>
-                    </div>
-                    <div>
-                        Username: <input type="text" placeholder="Username *" name="user" value="${profileNew.username}" readonly />
-                        Password: <input type="password" placeholder="Password *" name="pass" value="${profileNew.passWord}" required />
-                        Confirm Password: <input type="password" placeholder="Confirm Password *" name="confirmPass" required />
-                    </div>
+    <c:set var="profileNew" value="${requestScope.profileNew}"/>
+    <div class="profileChange">
+        <h2>PROFILE</h2>
+        <form action="changeProfile" method="post">
+            <div class="profile">
+                <div>
+                    <img src="images/user.jpg" alt="image"/>
                 </div>
-            </form>
-        </div>
-    </body>
+                <div>
+                    Name: <input type="text" placeholder="Name *" name="name" value="${profileNew.name}" required />
+                    Email: <input type="email" placeholder="Email *" name="email" value="${profileNew.email}" required />
+                    Phone: <input type="text" placeholder="Phone" name="phoneNumber" value="${profileNew.phoneNumber}"/>
+                    <div class="choose">
+                        <div class="submit">
+                            <input type="submit" value="Save">
+                        </div>
+                        <div class="back">
+                            <a href="Profile?user=${profileNew.username}">Back</a>
+                        </div>
+                    </div>
+                    <h4><c:out value="${requestScope.passwordNotMatch}"/></h4>
+                </div>
+                <div>
+                    Username: <input type="text" placeholder="Username *" name="user" value="${profileNew.username}" readonly />
+                    Password: <input type="password" placeholder="Password *" name="pass" value="${profileNew.passWord}" required />
+                    Confirm Password: <input type="password" placeholder="Confirm Password *" name="confirmPass" required />
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
 </html>
