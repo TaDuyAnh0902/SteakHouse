@@ -393,4 +393,381 @@ public class OrderDAO extends ProductsDAO {
         } catch (SQLException e) {
         }
     }
+    public List<OrderLine> sortNameOrdersASC() {
+        String sql = """
+                    SELECT 
+                        id, 
+                        pid, 
+                        dateOrderline, 
+                        tid, 
+                        sid, 
+                        max_quantity
+                    FROM 
+                        (SELECT 
+                            ol.id, 
+                            ol.pid, 
+                            ol.dateOrderline, 
+                            ol.tid, 
+                            ol.sid, 
+                            p.name,
+                            MAX(ol.quantity) OVER (PARTITION BY ol.id, ol.pid, ol.tid, ol.sid, ol.dateOrderline) AS max_quantity
+                        FROM 
+                            orderline ol
+                        JOIN 
+                            products p ON ol.pid = p.id
+                        ) AS subquery
+                    ORDER BY 
+                        name ASC;
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+    
+    public List<OrderLine> sortNameOrdersDESC() {
+        String sql = """
+                    SELECT 
+                        id, 
+                        pid, 
+                        dateOrderline, 
+                        tid, 
+                        sid, 
+                        max_quantity
+                    FROM 
+                        (SELECT 
+                            ol.id, 
+                            ol.pid, 
+                            ol.dateOrderline, 
+                            ol.tid, 
+                            ol.sid, 
+                            p.name,
+                            MAX(ol.quantity) OVER (PARTITION BY ol.id, ol.pid, ol.tid, ol.sid, ol.dateOrderline) AS max_quantity
+                        FROM 
+                            orderline ol
+                        JOIN 
+                            products p ON ol.pid = p.id
+                        ) AS subquery
+                    ORDER BY 
+                        name DESC;
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+    
+    public List<OrderLine> sortQuantityOrdersASC() {
+        String sql = """
+                    SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                                            FROM orderline
+                                            GROUP BY id, pid, tid, sid, dateOrderline
+                                            ORDER BY max_quantity asc
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+    
+    public List<OrderLine> sortQuantityOrdersDESC() {
+        String sql = """
+                    SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                                            FROM orderline
+                                            GROUP BY id, pid, tid, sid, dateOrderline
+                                            ORDER BY max_quantity desc
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+    
+    public List<OrderLine> sortTimeOrdersASC() {
+        String sql = """
+                    SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                                            FROM orderline
+                                            GROUP BY id, pid, tid, sid, dateOrderline
+                                            ORDER BY dateOrderline asc
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+    
+    public List<OrderLine> sortTimeOrdersDESC() {
+        String sql = """
+                    SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                                            FROM orderline
+                                            GROUP BY id, pid, tid, sid, dateOrderline
+                                            ORDER BY dateOrderline desc
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+    
+    public List<OrderLine> sortTableOrdersASC() {
+        String sql = """
+                    SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                                            FROM orderline
+                                            GROUP BY id, pid, tid, sid, dateOrderline
+                                            ORDER BY tid asc
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+    
+    public List<OrderLine> sortTableOrdersDESC() {
+        String sql = """
+                    SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                                            FROM orderline
+                                            GROUP BY id, pid, tid, sid, dateOrderline
+                                            ORDER BY tid desc
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+    
+    public List<OrderLine> sortStatusOrdersASC() {
+        String sql = """
+                    SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                                            FROM orderline
+                                            GROUP BY id, pid, tid, sid, dateOrderline
+                                            ORDER BY sid asc
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
+    
+    public List<OrderLine> sortStatusOrdersDESC() {
+        String sql = """
+                    SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+                                            FROM orderline
+                                            GROUP BY id, pid, tid, sid, dateOrderline
+                                            ORDER BY sid desc
+                 """;
+        List<OrderLine> list = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                OrderLine ol = new OrderLine();
+                // Since the `id` column is not part of the grouped result, you might need to handle it differently
+                // ol.setId(rs.getInt("id"));
+                ol.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                ol.setPid(p);
+                ol.setDateOrderline(rs.getString("dateOrderline"));
+                Table t = getTableById(rs.getInt("tid"));
+                ol.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                ol.setSid(s);
+                ol.setQuantity(rs.getInt("max_quantity"));
+                list.add(ol);
+            }
+        } catch (SQLException e) {
+            // Better to log the exception
+
+        }
+
+        return list;
+    }
 }

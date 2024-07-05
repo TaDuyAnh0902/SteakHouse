@@ -124,6 +124,10 @@
         <servlet-name>changeProfile</servlet-name>
         <servlet-class>controller.LogIn.changeProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>orderSort</servlet-name>
+        <servlet-class>controller.manage.orderSort</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -247,5 +251,9 @@
     <servlet-mapping>
         <servlet-name>changeProfile</servlet-name>
         <url-pattern>/changeProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>orderSort</servlet-name>
+        <url-pattern>/orderSort</url-pattern>
     </servlet-mapping>
 </web-app>
