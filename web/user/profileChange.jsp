@@ -179,9 +179,9 @@
             }
 
             // Validate Phone Number
-            var phonePattern = /^[0-9]{10}$/;
+            var phonePattern = /^(09|03|07|08|05)\d{8}$/;
             if (!phonePattern.test(phoneNumber)) {
-                alert("Invalid phone number format. Please enter exactly 10 digits without any spaces.");
+                alert("Invalid phone number format. Please enter a valid 10-digit number.");
                 return false;
             }
 
