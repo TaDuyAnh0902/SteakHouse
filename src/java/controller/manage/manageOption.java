@@ -113,7 +113,7 @@ public class manageOption extends HttpServlet {
                 session.setAttribute("statistics", "success");
                 String type = "cate";
                 session.setAttribute("manage", "success");
-                request.setAttribute("admin", "success");
+                session.setAttribute("admin", "success");
                 session.setAttribute("statistics", "success");
                 Map<String, Integer> data = mnDAO.getDataProductsCategories();
                 Map<String, Integer> dataOrder = mnDAO.getDataOrderManage();
@@ -126,9 +126,9 @@ public class manageOption extends HttpServlet {
                 try {
                     String compareTwoDates = mnDAO.CompareTwoDates();
                     if(compareTwoDates.startsWith("-"))
-                    request.setAttribute("compareTwoDatesNegative", compareTwoDates);
+                    session.setAttribute("compareTwoDatesNegative", compareTwoDates);
                     else{
-                        request.setAttribute("compareTwoDatesPositive", compareTwoDates);
+                        session.setAttribute("compareTwoDatesPositive", compareTwoDates);
                     }
                 } catch (ParseException ex) {
                     Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
@@ -136,9 +136,9 @@ public class manageOption extends HttpServlet {
                 try {
                     String compareTwoWeek = mnDAO.CompareTwoWeek();
                     if(compareTwoWeek.startsWith("-"))
-                    request.setAttribute("compareTwoWeeksNegative", compareTwoWeek);
+                    session.setAttribute("compareTwoWeeksNegative", compareTwoWeek);
                     else{
-                        request.setAttribute("compareTwoWeeksPositive", compareTwoWeek);
+                        session.setAttribute("compareTwoWeeksPositive", compareTwoWeek);
                     }
                 } catch (ParseException ex) {
                     Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,35 +146,33 @@ public class manageOption extends HttpServlet {
                 try {
                     String compareTwoMonth = mnDAO.CompareTwoMonth();
                     if(compareTwoMonth.startsWith("-"))
-                    request.setAttribute("compareTwoMonthsNegative", compareTwoMonth);
+                    session.setAttribute("compareTwoMonthsNegative", compareTwoMonth);
                     else{
-                        request.setAttribute("compareTwoMonthsPositive", compareTwoMonth);
+                        session.setAttribute("compareTwoMonthsPositive", compareTwoMonth);
                     }
                 } catch (ParseException ex) {
                     Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                request.setAttribute("chart", data);
-                request.setAttribute("graph", dataOrder);
-                request.setAttribute("money", dataMoney);
-                request.setAttribute("type", type);
-                request.setAttribute("getStatisticsBestSellings", dataBestSelling);
+                session.setAttribute("chart", data);
+                session.setAttribute("graph", dataOrder);
+                session.setAttribute("money", dataMoney);
+                session.setAttribute("type", type);
+                
+                session.setAttribute("getStatisticsBestSellings", dataBestSelling);
                 
                 int totalCategory = mnDAO.totalCategory();
-                request.setAttribute("totalCategory", totalCategory);
+                session.setAttribute("totalCategory", totalCategory);
                 int totalProduct = mnDAO.totalProduct();
-                request.setAttribute("totalProduct", totalProduct);
+                session.setAttribute("totalProduct", totalProduct);
                 int totalUser = mnDAO.totalUser();
-                request.setAttribute("totalUser", totalUser);
+                session.setAttribute("totalUser", totalUser);
                 int totalOrder = mnDAO.totalOrder();
-                request.setAttribute("totalOrder", totalOrder);
+                session.setAttribute("totalOrder", totalOrder);
 
-                request.setAttribute("totalMoneyToDay", totalMoneyToDay);
-                request.setAttribute("totalMoneyThisWeek", totalMoneyThisWeek);
-                request.setAttribute("totalMoneyThisMonth", totalMoneyThisMonth);
-            }
-                
-            default -> {
+                session.setAttribute("totalMoneyToDay", totalMoneyToDay);
+                session.setAttribute("totalMoneyThisWeek", totalMoneyThisWeek);
+                session.setAttribute("totalMoneyThisMonth", totalMoneyThisMonth);
             }
         }
         if (!check.equals("productsManagement")) {
