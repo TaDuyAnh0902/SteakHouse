@@ -61,6 +61,9 @@
             #table-container table th {
                 text-align: center;
             }
+            #table-container table th:hover{
+                cursor: pointer;
+            }
             #table-container table thead:nth-child(1) {
                 border-top-left-radius: 16px;
             }
@@ -121,9 +124,6 @@
                 text-align: end;
                 padding-right: 10%;
             }
-            #RequestPayment-content li{
-                width: 100%;
-            }
         </style>
 
     </head>
@@ -182,7 +182,7 @@
                             </table>
                         </div>
                         <div id="RequestPayment-content">
-                            <h3>Thông báo </h3>
+                            <h3>Thông báo thanh toán</h3>
                             <ul style="list-style: none;">
                                 <c:forEach items="${sessionScope.listPaymentRequest}" var="l">
                                     <c:set var="type" value="${l.type}"/>
@@ -212,7 +212,7 @@
                                     <li>
                                         <div style="display: flex; justify-content: space-between;
                                              align-items: center; width: 100%; height: 50px;
-                                             color: orange; background-color: white;
+                                             color: brown; background-color: white;
                                              padding: 5px; border-radius: 8px; margin-bottom: 5px;">
                                             <div>
                                                 <span>${cl.content}</span>
