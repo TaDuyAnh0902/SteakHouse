@@ -89,4 +89,46 @@ public class BestSellingDAO extends ProductsDAO {
         }
         return map;
     }
+    
+    public Map<String,Integer> getStatisticsBestSellingsByWeek(){
+        Map<String, Integer> map = new HashMap<>();
+        String sql = """
+                     SELECT DISTINCT TOP 5 *
+                     FROM BestSelling
+                     WHERE date >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0)
+                       AND date < DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()) + 1, 0);""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Product p = getProductById(rs.getString("pid"));
+                String name = p.getName();
+                int quantity = rs.getInt("quantity");
+                map.put(name, quantity);
+            }
+        } catch (SQLException e) {
+        }
+        return map;
+    }
+    
+    public Map<String,Integer> getStatisticsBestSellingsByMonth(){
+        Map<String, Integer> map = new HashMap<>();
+        String sql = """
+                     SELECT DISTINCT TOP 5 *
+                       FROM BestSelling
+                       WHERE date >= DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)
+                         AND date < DATEADD(MONTH, 1, DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1));""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Product p = getProductById(rs.getString("pid"));
+                String name = p.getName();
+                int quantity = rs.getInt("quantity");
+                map.put(name, quantity);
+            }
+        } catch (SQLException e) {
+        }
+        return map;
+    }
 }
