@@ -5,7 +5,9 @@
 
 package Order;
 
+import dal.BestSellingDAO;
 import dal.OrderDAO;
+import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -59,12 +61,23 @@ public class ConfirmOrderByCashier extends HttpServlet {
     throws ServletException, IOException {
        HttpSession session = request.getSession();
         String id = request.getParameter("id");
+        String pid = request.getParameter("pid");
+        String quantity = request.getParameter("quantity");
         OrderDAO odDAO = new OrderDAO();
+        ProductsDAO pdDAO = new ProductsDAO();
+        BestSellingDAO bsDAO = new BestSellingDAO();
         odDAO.confirmOrder(id);
-        
         List<OrderLine> list = odDAO.getAllListOrderLine();
         session.setAttribute("allListOrderLine", list);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        session.removeAttribute("tableStatus");
+        try {
+            int pid_int = Integer.parseInt(pid);
+            int quantity_int = Integer.parseInt(quantity);
+            bsDAO.addBestSelling(pid_int, quantity_int);
+            pdDAO.updateProductWaitting(pid_int, quantity_int);
+        } catch (Exception e) {
+        }
+        response.sendRedirect("manageOrderAction?check=viewOrder");
     } 
 
     /** 
