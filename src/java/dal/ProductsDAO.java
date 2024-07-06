@@ -322,6 +322,19 @@ public class ProductsDAO extends AccountDAO {
         }
     }
 
+    public void updateProductWaitting(int pid, int quantity){
+        String sql = """
+                     UPDATE products
+                     SET quantitywaitting = quantitywaitting - ?
+                     WHERE id = ?;""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, quantity);
+            st.setInt(2, pid);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
     public void updateProductById(String name, int quantity, double price, String describe, String image, int cid, String id) {
         String sql = """
                      UPDATE [dbo].[Products]
