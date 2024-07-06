@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <title>JSP Page</title>
-       <style>
+        <style>
             :root {
                 --primary-color: #28a745;
                 --secondary-color: #155724;
@@ -153,6 +153,10 @@
                 background-color: #ddd;
             }
 
+            th:hover {
+                cursor: pointer;
+            }
+            
             a {
                 text-decoration: none;
                 color: var(--primary-color);
@@ -254,12 +258,11 @@
                         <table border="1">
                             <c:if test="${requestScope.products!=null}">
                                 <tr>
-                                    <th>Name</th>
+                                    <th onclick="productSort('name')">Name</th>
                                     <th>Image</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
+                                    <th onclick="productSort('quantity')">Quantity</th>
+                                    <th onclick="productSort('price')">Price</th>
                                     <th>Describe</th>
-                                    <th>Category Name</th>
                                     <th>Status</th>
                                     <th colspan="2">Action</th>
                                 </tr>
@@ -275,7 +278,6 @@
                                     <td>${p.quantity}</td>
                                     <td>${p.price}</td>
                                     <td>${p.describe}</td>
-                                    <td>${p.category.name}</td>
                                     <td>${p.sid.nameStatus}</td>
                                     <td><a href="productAction?action=edit&id=${p.id}&cid=${p.category.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
 
@@ -368,7 +370,7 @@
                     </div>
                 </c:if>
 
-                
+
                 <c:if test="${requestScope.tableUpdate!=null}"> 
                     <%@include file="tableUpdate.jsp" %> 
                 </c:if>
@@ -474,5 +476,34 @@
                 }
             }
         </script>
+        <script>
+        function productSort(id) {
+            var currentUrl = window.location.href;
+            if (id === "name") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/productSort?check=name&cid=${cid}&action=NameDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "productSort?check=name&cid=${cid}&action=NameASC";
+                } else {
+                    window.location.href = "productSort?check=name&cid=${cid}&action=NameDESC";
+                }
+            }
+            if (id === "quantity") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/productSort?check=quantity&cid=${cid}&action=QuantityDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "productSort?check=quantity&cid=${cid}&action=QuantityASC";
+                } else {
+                    window.location.href = "productSort?check=quantity&cid=${cid}&action=QuantityDESC";
+                }
+            }
+            if (id === "price") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/productSort?check=price&cid=${cid}&action=PriceDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "productSort?check=price&cid=${cid}&action=PriceASC";
+                } else {
+                    window.location.href = "productSort?check=price&cid=${cid}&action=PriceDESC";
+                }
+            }
+        }
+    </script>
     </body>
 </html>
