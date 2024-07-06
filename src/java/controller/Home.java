@@ -5,6 +5,7 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.BestSellingDAO;
 import dal.HomeMobileRequestDAO;
 import dal.ManageDAO;
 import dal.OrderDAO;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.BestSelling;
 import model.OrderLine;
 import model.PaymentRequest;
 import model.Product;
@@ -67,10 +69,9 @@ public class Home extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         ProductsDAO PdDAO = new ProductsDAO();
-        AccountDAO acDAO = new AccountDAO();
         OrderDAO odDAO = new OrderDAO();
-        ManageDAO mnDAO = new ManageDAO();
         HomeMobileRequestDAO hmDAO = new HomeMobileRequestDAO();
+        BestSellingDAO bsDAO = new BestSellingDAO();
         String idTable = request.getParameter("idTable");
         if (session.getAttribute("role") == null) {
             session.setAttribute("role", 3);
@@ -104,6 +105,8 @@ public class Home extends HttpServlet {
                 request.setAttribute("main", "success");
                 List<Product> list = PdDAO.getNewProduct();
                 session.setAttribute("getNewProduct", list);
+                List<BestSelling> list2 = bsDAO.getBestSellings();
+                session.setAttribute("bestSelling", list2);
             }
         }
 
