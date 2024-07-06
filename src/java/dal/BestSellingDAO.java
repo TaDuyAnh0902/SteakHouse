@@ -74,7 +74,8 @@ public class BestSellingDAO extends ProductsDAO {
         Map<String, Integer> map = new HashMap<>();
         String sql = """
                      SELECT DISTINCT TOP 5 *
-                     FROM BestSelling""";
+                    FROM BestSelling
+                    WHERE date = CAST(GETDATE() AS DATE);""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
