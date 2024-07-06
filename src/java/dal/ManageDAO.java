@@ -132,13 +132,32 @@ public class ManageDAO extends ProductsDAO{
     public List<String> getDateFromOrderManage() {
         List<String> list = new ArrayList<>();
         try {
+                String sql = """
+                         SELECT DISTINCT [date]
+                         FROM OrderManage
+                         WHERE [date] >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0)
+                           AND [date] < DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()) + 1, 0)
+                         ORDER BY [date] DESC;""";
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(rs.getString("date"));
+            }
+        } catch (SQLException e) {
+        }
+        
+        return list;
+    }
+    
+    public List<String> getMonthFromOrderManage() {
+        List<String> list = new ArrayList<>();
+        try {
             String sql = """
                          SELECT DISTINCT [date]
                          FROM OrderManage
-                         WHERE [date] <= GETDATE()
-                         ORDER BY [date] DESC
-                         OFFSET 0 ROWS
-                         FETCH NEXT 7 ROWS ONLY;""";
+                         WHERE [date] >= DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)
+                           AND [date] < DATEADD(MONTH, 1, DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1))
+                         ORDER BY [date] DESC;""";
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -193,6 +212,16 @@ public class ManageDAO extends ProductsDAO{
     public Map<String, Integer> getDataOrderManage() {
         Map<String, Integer> data = new HashMap<>();
         List<String> list = getDateFromOrderManage();
+        for (String x : list) {
+            int count = getTotalOrdersByDay(x);
+            data.put(x, count);
+        }
+        return sortMapByDate(data);
+    }
+    
+    public Map<String, Integer> getDataOrderManageByMonth() {
+        Map<String, Integer> data = new HashMap<>();
+        List<String> list = getMonthFromOrderManage();
         for (String x : list) {
             int count = getTotalOrdersByDay(x);
             data.put(x, count);
@@ -267,6 +296,16 @@ public class ManageDAO extends ProductsDAO{
     public Map<String, Double> getDataRevenue() {
         Map<String, Double> data = new HashMap<>();
         List<String> list = getDateFromOrderManage();
+        for (String x : list) {
+            double money = getTotalMoneyByDay(x);
+            data.put(x, money);
+        }
+        return sortMapByDate2(data);
+    }
+    
+    public Map<String, Double> getDataRevenueByMonth() {
+        Map<String, Double> data = new HashMap<>();
+        List<String> list = getMonthFromOrderManage();
         for (String x : list) {
             double money = getTotalMoneyByDay(x);
             data.put(x, money);
