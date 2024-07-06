@@ -233,7 +233,7 @@
                 }
                 .product > div {
                     position: absolute;
-                    top: 230px;
+                    top: 60%;
                     left: 0;
                     right: 0;
                 }
@@ -262,12 +262,15 @@
                     <c:set var="quan" value="${b.pid.id}"/>
                     <c:set var="cid" value="${b.pid.category.id}"/>
                     <div class="product" onclick="productInfo('${quan}', '${cid}')">
-                        <p style="position: absolute; 
+                        <p style="position: absolute;
                            background-color: red; color: white; width: 50px; text-align: center; border-top-left-radius: 8px;">Hot</p>
                         <img src="${b.pid.image}" alt="${b.pid.image}"/>
                         <p class="categoryName">${b.pid.category.name}</p>
-                        <p class="productName">${b.pid.name}</p>
-                        <div>
+                        <div class="product-details">
+                            <c:if test="${sessionScope.tableNumber!=null}">
+                                <p style="margin: 0; color: brown;">(đang đợi: ${b.pid.quantityWaitting})</p>
+                            </c:if>
+                            <p style="text-align: center;">${b.pid.name}</p>
                             <h5 style="font-weight: bold; color: red; text-align: center;">${b.pid.price}00 vnđ</h5>
                             <c:if test="${sessionScope.tableNumber!=null}">
                                 <div class="BuyProduct">
@@ -296,10 +299,10 @@
                             <img src="${p.image}" alt="${p.image}"/>
                             <div class="product-details">
                                 <p class="categoryName">${p.category.name}</p>
-                                <p class="productName">${p.name}</p>
                                 <c:if test="${sessionScope.tableNumber!=null}">
                                     <p style="margin: 0; color: brown;">(đang đợi: ${p.quantityWaitting})</p>
                                 </c:if>
+                                <p style="text-align: center;">${p.name}</p>
                                 <div>
                                     <h5>${p.price}00 vnđ</h5>
                                     <c:if test="${sessionScope.tableNumber!=null}">
