@@ -12,21 +12,26 @@
     <title>JSP Page</title>
     <style>
         body{
-            background: url(images/bannerLogin2.jpg);
-            background-repeat: no-repeat;
-            background-size: 100% 100vh;
+            background: url(images/bannerLogin2.jpg) no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
         }
         form{
-            background-color: white;
-            padding: 30px;
-            border-radius: 16px;
-            padding-right: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
         }
         form p {
-            font-size: 40px;
+            font-size: 28px;
             font-weight: bold;
-            text-align: center;
-            padding-right: 30px;
+            margin-bottom: 20px;
         }
         input[type=text] {
             --w: 1ch;
@@ -34,7 +39,7 @@
             --b: 2px;
             --n: 6;
             --c: #888;
-            font-size: 70px;
+            font-size: 50px;
             line-height: 1.5;
             letter-spacing: var(--w);
             font-family: monospace;
@@ -50,7 +55,8 @@
             outline: 0;
         }
         input[type=text]:focus-visible {
-            --c: #000;
+            --c: #0EA049;
+            box-shadow: 0 0 8px rgba(123, 44, 191, 0.2);
         }
         body {
             margin: 0;
@@ -62,17 +68,41 @@
             display: block;
             width: 100px;
             height: 50px;
-            border-radius: 16px;
+            border-radius: 25px;
             font-size: 20px;
+            color: white;
             text-align: center;
             margin-top: 30px;
             margin-left:  37%;
+            border: none;
+            cursor: pointer;
+            background-color: #04AA6D;
+            transition: background-color 0.3s ease;
+        }
+/*        input[type=submit] {
+            display: block;
+            width: 150px;
+            height: 50px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            background-color: #04AA6D;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }*/
+        input[type=submit]:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
     <form action="VerifyCode" method="post">
         <p>OTP Verification</p>
+        <p>Code has been sent to your email!!!</p>
         <input type="text" name="authcode" maxlength="6">
         <input type="submit" value="Verify" >
     </form>
