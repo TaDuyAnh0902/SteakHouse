@@ -97,7 +97,7 @@ public class Register extends HttpServlet {
                 response.sendRedirect("verify");
             } else {
                 // Handle email sending failure
-                response.sendRedirect("register");
+                response.sendRedirect("Register");
             }
         } else {
             request.setAttribute("passwordNotMatch", "passwords do not match");
