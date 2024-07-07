@@ -180,10 +180,13 @@
 
             // Validate Phone Number
             var phonePattern = /^(09|03|07|08|05)\d{8}$/;
-            if (!phonePattern.test(phoneNumber)) {
-                alert("Invalid phone number format. Please enter a valid 10-digit number.");
-                return false;
+            if (phoneNumber) {
+                if (!phonePattern.test(phoneNumber)) {
+                    alert("Invalid phone number format. Please enter a valid 10-digit number.");
+                    return false;
+                }
             }
+
 
             // Validate Password
             if (password.length < 8) {

@@ -139,7 +139,7 @@
                 var titleValue = document.getElementById('title').value;
                 var phoneValue = document.getElementById('phone').value;
                 var messageValue = document.getElementById('message').value;
-                var mailtoLink = 'mailto:anhtdhe172879@fpt.edu.vn?subject=' + encodeURIComponent(titleValue) + '&body=Tôi là ' + encodeURIComponent(nameValue + '\n') + 'Phone: ' + encodeURIComponent(phoneValue + '\n') + 'Message: ' + encodeURIComponent(messageValue);
+                var mailtoLink = 'mailto:steakhouseswp@gmail.com?subject=' + encodeURIComponent(titleValue) + '&body=Tôi là ' + encodeURIComponent(nameValue + '\n') + 'Phone: ' + encodeURIComponent(phoneValue + '\n') + 'Message: ' + encodeURIComponent(messageValue);
                 window.location.href = mailtoLink;
             }
         </script>
