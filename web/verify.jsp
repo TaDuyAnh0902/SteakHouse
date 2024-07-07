@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,6 +75,7 @@
     <form action="VerifyCode" method="post">
         <p>OTP Verification</p>
         <input type="text" name="authcode" maxlength="6">
+        <p style="font-size: 20px; color: red;"><c:out value="${requestScope.verifyFail}"/></p>
         <input type="submit" value="Verify" >
     </form>
 </body>
