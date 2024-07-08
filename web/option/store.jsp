@@ -82,13 +82,6 @@
             .product-details {
                 padding: 10px 0;
             }
-            .product-details h5 {
-                font-weight: bold;
-                color: red;
-                position: absolute;
-                bottom: 0px;
-                left: 25%;
-            }
             .categoryName,
             .productName
             {
@@ -208,10 +201,9 @@
                 .categoryName {
                     display: none;
                 }
-                .product h5 {
+                h5 {
                     font-weight: normal;
                     font-size: 16px;
-                    top: -10px;
                 }
                 .BuyProduct {
                     position: relative;
@@ -250,7 +242,7 @@
             <div class="left-store col-md-3">
                 <h4>Browse</h4><br>
                 <ul class="menu">
-                    <li><a href="Products?cid=0">Sản Phẩm</a></li>
+                    <li><a href="Products?cid=0">All</a></li>
                     <hr>
                     <c:forEach var="c" items="${sessionScope.data}">
                         <li><a href="Products?cid=${c.id}">${c.name}</a></li><hr>
@@ -264,6 +256,8 @@
                     <div class="product" onclick="productInfo('${quan}', '${cid}')">
                         <p style="position: absolute;
                            background-color: red; color: white; width: 50px; text-align: center; border-top-left-radius: 8px;">Hot</p>
+                        <h5 style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+                            color: red;">${b.pid.price}00 vnđ</h5>
                         <img src="${b.pid.image}" alt="${b.pid.image}"/>
                         <p class="categoryName">${b.pid.category.name}</p>
                         <div class="product-details">
@@ -271,7 +265,6 @@
                                 <p style="margin: 0; color: brown;">(đang đợi: ${b.pid.quantityWaitting})</p>
                             </c:if>
                             <p style="text-align: center;">${b.pid.name}</p>
-                            <h5 style="font-weight: bold; color: red; text-align: center;">${b.pid.price}00 vnđ</h5>
                             <c:if test="${sessionScope.tableNumber!=null}">
                                 <div class="BuyProduct">
                                     <c:set var="q" value="${param.quantity}"/>
@@ -296,15 +289,17 @@
                         <c:set var="quan" value="${p.id}"/>
                         <c:set var="cid" value="${p.category.id}"/>
                         <div class="product" onclick="productInfo('${quan}', '${cid}')">
+                            <h5 style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+                                color: red;">${p.price}00 vnđ</h5>
                             <img src="${p.image}" alt="${p.image}"/>
                             <div class="product-details">
                                 <p class="categoryName">${p.category.name}</p>
                                 <c:if test="${sessionScope.tableNumber!=null}">
                                     <p style="margin: 0; color: brown;">(đang đợi: ${p.quantityWaitting})</p>
                                 </c:if>
+
                                 <p style="text-align: center;">${p.name}</p>
                                 <div>
-                                    <h5>${p.price}00 vnđ</h5>
                                     <c:if test="${sessionScope.tableNumber!=null}">
                                         <div class="BuyProduct">
                                             <c:set var="q" value="${param.quantity}"/>
