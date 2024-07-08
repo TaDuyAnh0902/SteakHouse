@@ -241,7 +241,7 @@
                 </c:if>
             </div>
 
-            <c:if test="${sessionScope.role==3}">
+                <c:if test="${sessionScope.role==3 && sessionScope.tableNumber==null}">
                 <div class="echbay-sms-messenger style-for-position-br">
                     <div class="phonering-alo-alo">
                         <a href="https://www.messenger.com/t/366526929875352" target="_blank" rel="nofollow" class="echbay-phonering-messenger-event">.</a>
