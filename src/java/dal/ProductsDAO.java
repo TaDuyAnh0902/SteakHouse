@@ -350,6 +350,19 @@ public class ProductsDAO extends AccountDAO {
         } catch (SQLException e) {
         }
     }
+    
+    public void restoreProductById(String id) {
+        String sql = "Update [Products] SET sid = 1 where id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+        }
+    }
 
     public void updateProductWaitting(int pid, int quantity) {
         String sql = """
