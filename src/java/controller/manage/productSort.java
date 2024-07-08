@@ -60,35 +60,35 @@ public class productSort extends HttpServlet {
         String check = request.getParameter("check");
         String cid = request.getParameter("cid");
         String action = request.getParameter("action");
-        if(null != check)switch (check) {
-            case "name":
+        List<Product> list = null;
+        if(null != check)
+            switch (check) {
+            case "name" -> {
                 if("NameASC".equals(action)){
-                    List<Product> list = pdDAO.sortNameProductsASC(cid);
-                    request.setAttribute("products", list);
+                    list = pdDAO.sortNameProductsASC(cid);
                 }else{
-                    List<Product> list = pdDAO.sortNameProductsDESC(cid);
-                    request.setAttribute("products", list);
-                }   break;
-            case "quantity":
+                    list = pdDAO.sortNameProductsDESC(cid);
+                }
+            }
+            case "quantity" -> {
                 if("QuantityASC".equals(action)){
-                    List<Product> list = pdDAO.sortQuantityProductsASC(cid);
-                    request.setAttribute("products", list);
+                    list = pdDAO.sortQuantityProductsASC(cid);
                 }else{
-                    List<Product> list = pdDAO.sortQuantityProductsDESC(cid);
-                    request.setAttribute("products", list);
-                }   break;
-            case "price":
+                    list = pdDAO.sortQuantityProductsDESC(cid);
+                }
+            }
+            case "price" -> {
                 if("PriceASC".equals(action)){
-                    List<Product> list = pdDAO.sortPriceProductsASC(cid);
-                    request.setAttribute("products", list);
+                    list = pdDAO.sortPriceProductsASC(cid);
                 }else{
-                    List<Product> list = pdDAO.sortPriceProductsDESC(cid);
-                    request.setAttribute("products", list);
-                }   break;
-            default:
-                break;
+                    list = pdDAO.sortPriceProductsDESC(cid);
+                }
+            }
+            default -> {
+            }
         }
-        
+        request.setAttribute("products", list);
+        request.setAttribute("productSize", list.size());
         request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
