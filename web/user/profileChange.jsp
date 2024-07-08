@@ -12,126 +12,166 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background-color: #f5f5f5;
-            }
 
-            .wrapperr, .profileChange {
-                width: 80%;
-                margin: 0 auto;
-                margin-top: 3px;
-                padding: 20px;
-                background-color: white;
-                border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
 
-            h2 {
-                text-align: center;
-                color: #4A148C;
-                margin-bottom: 20px;
-            }
+        .wrapper {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-            .profile {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
+        .profile-header {
+            width: 100%;
+            position: relative;
+            text-align: center;
+        }
 
-            .profile > div {
-                flex: 1;
-                margin: 10px;
-            }
+        .profile-header img.background {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
 
-            .profile img {
-                width: 100%;
-                max-width: 200px;
-                border-radius: 50%;
-                display: block;
-                margin: 0 auto;
-            }
+        .profile-header img.user {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid white;
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-            .profile input[type="text"],
-            .profile input[type="email"],
-            .profile input[type="password"] {
-                width: 100%;
-                padding: 10px;
-                margin: 10px 0;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-            }
+        h2 {
+            text-align: center;
+            color: #4A148C;
+            margin: 70px 0 20px; /* Adjusted margin to account for profile picture */
+        }
 
-            .profile .choose {
-                display: flex;
-                justify-content: space-between;
-            }
+        .profile {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
 
-            .profile .choose div {
-                flex: 1;
-                text-align: center;
-            }
+        .info-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px; /* Increased margin-bottom for more spacing */
+        }
 
-            .profile .choose a,
-            .profile .choose input[type="submit"] {
-                display: inline-block;
-                padding: 10px 20px;
-                margin: 10px;
-                text-decoration: none;
-                color: white;
-                background-color: #4A148C;
-                border-radius: 5px;
-            }
+        .info-item {
+            width: 48%;
+            margin-bottom: 20px; /* Added margin-bottom for more spacing */
+        }
 
-            .profile .choose a:hover,
-            .profile .choose input[type="submit"]:hover {
-                background-color: #6A1B9A;
-            }
+        .info-item label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+        }
 
-            .profile h4 {
-                text-align: center;
-                color: red;
-            }
+        .info-item input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
 
-            input[type="submit"] {
-                cursor: pointer;
-                border: none;
-            }
+        .choose {
+            margin-top: 20px; /* Added margin for separation */
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .choose div {
+            text-align: center;
+        }
+
+        .choose a,
+        .choose input[type="submit"] {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 20px; /* Increased horizontal margin for more spacing */
+            text-decoration: none;
+            color: white;
+            background-color: #4A148C;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .choose a:hover,
+        .choose input[type="submit"]:hover {
+            background-color: #6A1B9A;
+        }
         </style>
     </head>
-    <body>
-        <c:set var="profileNew" value="${requestScope.profileNew}"/>
-        <div class="profileChange">
-            <h2>PROFILE</h2>
-            <form action="changeProfile" method="post" name="changeProfile" onsubmit="return validateUpdateProfile()">
-                <div class="profile">
-                    <div>
-                        <img src="images/user.jpg" alt="image"/>
+   <body>
+    <c:set var="profileNew" value="${requestScope.profileNew}"/>
+    <div class="wrapper">
+        <div class="profile-header">
+            <img src="images/banner6.jpg" alt="background" class="background"/>
+            <img src="images/user.jpg" alt="user" class="user"/>
+        </div>
+        <h2>PROFILE</h2>
+        <form action="changeProfile" method="post" name="changeProfile" onsubmit="return validateUpdateProfile()">
+            <div class="profile">
+                <div class="info-container">
+                    <div class="info-item">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" placeholder="Name *" name="name" value="${profileNew.name}" required />
                     </div>
-                    <div>
-                        Name: <input type="text" placeholder="Name *" name="name" value="${profileNew.name}" required />
-                        Email: <input type="email" placeholder="Email *" name="email" value="${profileNew.email}" required />
-                        Phone: <input type="text" placeholder="Phone" name="phoneNumber" value="${profileNew.phoneNumber}"/>
-                        <div class="choose">
-                            <div class="submit">
-                                <input type="submit" value="Save">
-                            </div>
-                            <div class="back">
-                                <a href="Profile?user=${profileNew.username}">Back</a>
-                            </div>
-                        </div>
+                    <div class="info-item">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" placeholder="Email *" name="email" value="${profileNew.email}" required />
                     </div>
-                    <div>
-                        Username: <input type="text" placeholder="Username *" name="user" value="${profileNew.username}" readonly />
-                        Password: <input type="password" placeholder="Password *" name="pass" value="${profileNew.passWord}" required />
-                        Confirm Password: <input type="password" placeholder="Confirm Password *" name="confirmPass" required />
+                    <div class="info-item">
+                        <label for="phone">Phone:</label>
+                        <input type="text" id="phone" placeholder="Phone" name="phoneNumber" value="${profileNew.phoneNumber}"/>
                     </div>
                 </div>
-            </form>
-        </div>
-    </body>
+                <div class="info-container">
+                    <div class="info-item">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" placeholder="Username *" name="user" value="${profileNew.username}" readonly />
+                    </div>
+                    <div class="info-item">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" placeholder="Password *" name="pass" value="${profileNew.passWord}" required />
+                    </div>
+                    <div class="info-item">
+                        <label for="confirmPass">Confirm Password:</label>
+                        <input type="password" id="confirmPass" placeholder="Confirm Password *" name="confirmPass" required />
+                    </div>
+                </div>
+            </div>
+            <div class="choose">
+                <div>
+                    <input type="submit" value="Save">
+                </div>
+                <div>
+                    <a href="Profile?user=${profileNew.username}">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
     <script>
         function validateUpdateProfile() {
             var form = document.forms["changeProfile"];
