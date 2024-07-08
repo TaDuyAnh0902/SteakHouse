@@ -22,6 +22,7 @@
             .wrapperr {
                 width: 80%;
                 margin: 0 auto;
+                margin-top: 3px;
                 padding: 20px;
                 background-color: white;
                 border-radius: 10px;

@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import model.Status;
 
 /**
  *
@@ -28,12 +29,13 @@ public class AccountDAO extends StatusDAO {
                 Account ad = new Account();
                 ad.setName(rs.getString("name"));
                 ad.setUsername(rs.getString("username"));
-                ad.setEmail("email");
+                ad.setEmail(rs.getString("email"));
                 ad.setPassWord(rs.getString("password"));
                 ad.setPhoneNumber(rs.getString("phoneNumber"));
                 ad.setCode(rs.getString("code"));
                 ad.setRole(rs.getInt("role"));
-
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
                 list.add(ad);
             }
         } catch (SQLException e) {
@@ -50,6 +52,7 @@ public class AccountDAO extends StatusDAO {
                             ,[phoneNumber]
                             ,[code]
                             ,[role]
+                            ,[sid]
                        FROM [dbo].[Account]
                        where username = ?""";
         try {
@@ -58,14 +61,17 @@ public class AccountDAO extends StatusDAO {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                return new Account(
-                        rs.getString("name"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("code"),
-                        rs.getInt("role"));
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                return ad;
             }
         } catch (SQLException e) {
 
@@ -82,6 +88,7 @@ public class AccountDAO extends StatusDAO {
                             ,[phoneNumber]
                             ,[code]
                             ,[role]
+                            ,[sid]
                        FROM [dbo].[Account]
                        where username = ? and password = ?""";
         try {
@@ -91,14 +98,17 @@ public class AccountDAO extends StatusDAO {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                return new Account(
-                        rs.getString("name"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("code"),
-                        rs.getInt("role"));
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                return ad;
             }
         } catch (SQLException e) {
 
@@ -115,6 +125,7 @@ public class AccountDAO extends StatusDAO {
                             ,[phoneNumber]
                             ,[code]
                             ,[role]
+                            ,[sid]
                        FROM [dbo].[Account]
                        where username = ?""";
 
@@ -124,21 +135,24 @@ public class AccountDAO extends StatusDAO {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                return new Account(
-                        rs.getString("name"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("code"),
-                        rs.getInt("role"));
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                return ad;
             }
         } catch (SQLException e) {
         }
         return null;
     }
 
-    public void addUser(String name, String username, String email, String password) {
+    public void addAccount(Account ac) {
         String sql = """
                      INSERT INTO [dbo].[Account]
                                            ([name]
@@ -147,24 +161,25 @@ public class AccountDAO extends StatusDAO {
                                            ,[password]
                                            ,[phoneNumber]
                                            ,[code]
-                                           ,[role])
+                                           ,[role]
+                                           ,[sid])
                                      VALUES
-                                           (?,?,?,?,'','',3)""";
+                                           (?,?,?,?,'','',3,1)""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, name);
-            st.setString(2, username);
-            st.setString(3, email);
-            st.setString(4, password);
+            st.setString(1, ac.getName());
+            st.setString(2, ac.getUsername());
+            st.setString(3, ac.getEmail());
+            st.setString(4, ac.getPassWord());
             st.executeUpdate();
 
         } catch (SQLException e) {
 
         }
     }
-
+    
     public void deleteUser(String user) {
-        String sql = "delete Account where username = ?";
+        String sql = "Update [Account] SET sid = 2 where username = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, user);
@@ -174,7 +189,7 @@ public class AccountDAO extends StatusDAO {
 
         }
     }
-    
+
     public void updateUser(String name, String user, String phone, String pass) {
         String sql = """
                      UPDATE [dbo].[Account]
@@ -194,32 +209,6 @@ public class AccountDAO extends StatusDAO {
 
         }
     }
-    
-    public void addAccount(Account ac) {
-        String sql = """
-                     INSERT INTO [dbo].[Account]
-                                           ([name]
-                                           ,[username]
-                                           ,[email]
-                                           ,[password]
-                                           ,[phoneNumber]
-                                           ,[code]
-                                           ,[role])
-                                     VALUES
-                                           (?,?,?,?,'','',3)""";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, ac.getName());
-            st.setString(2, ac.getUsername());
-            st.setString(3, ac.getEmail());
-            st.setString(4, ac.getPassWord());
-            st.executeUpdate();
-
-        } catch (SQLException e) {
-
-        }
-    }
-
     public Account getAccountByUser(String username) {
         String sql = """
                      SELECT [name]
@@ -229,6 +218,7 @@ public class AccountDAO extends StatusDAO {
                             ,[phoneNumber]
                             ,[code]
                             ,[role]
+                            ,[sid]
                        FROM [dbo].[Account]
                        where username = ?""";
 
@@ -239,17 +229,22 @@ public class AccountDAO extends StatusDAO {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                return new Account(
-                        rs.getString("name"),
-                        rs.getString("username"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("code"),
-                        rs.getInt("role"));
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                return ad;
             }
         } catch (SQLException e) {
         }
         return null;
     }
+
 }
+
