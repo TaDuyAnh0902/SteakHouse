@@ -1,9 +1,3 @@
-<%-- 
-    Document   : manageOrder
-    Created on : Jun 14, 2024, 10:53:56 PM
-    Author     : HP
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -60,6 +54,9 @@
             }
             #table-container table th {
                 text-align: center;
+            }
+            #table-container table th:hover{
+                cursor: pointer;
             }
             #table-container table thead:nth-child(1) {
                 border-top-left-radius: 16px;
@@ -121,9 +118,6 @@
                 text-align: end;
                 padding-right: 10%;
             }
-            #RequestPayment-content li{
-                width: 100%;
-            }
         </style>
 
     </head>
@@ -145,11 +139,11 @@
                             <table border="1">
                                 <thead>
                                     <tr>
-                                        <th>Tên món ăn</th>
-                                        <th>Số lượng</th>
-                                        <th>Thời gian</th>
-                                        <th>Bàn</th>
-                                        <th>Trạng thái</th>
+                                        <th onclick="OrderSort('name')">Tên món ăn</th>
+                                        <th onclick="OrderSort('quantity')">Số lượng</th>
+                                        <th onclick="OrderSort('time')">Thời gian</th>
+                                        <th onclick="OrderSort('table')">Bàn</th>
+                                        <th onclick="OrderSort('status')">Trạng thái</th>
                                     </tr>
                                 </thead>
                                 <c:forEach items="${sessionScope.allListOrderLine}" var="o">
@@ -182,7 +176,7 @@
                             </table>
                         </div>
                         <div id="RequestPayment-content">
-                            <h3>Thông báo </h3>
+                            <h3>Thông báo thanh toán</h3>
                             <ul style="list-style: none;">
                                 <c:forEach items="${sessionScope.listPaymentRequest}" var="l">
                                     <c:set var="type" value="${l.type}"/>
@@ -212,7 +206,7 @@
                                     <li>
                                         <div style="display: flex; justify-content: space-between;
                                              align-items: center; width: 100%; height: 50px;
-                                             color: orange; background-color: white;
+                                             color: brown; background-color: white;
                                              padding: 5px; border-radius: 8px; margin-bottom: 5px;">
                                             <div>
                                                 <span>${cl.content}</span>
@@ -298,9 +292,52 @@
         </div>
 
     </body>
-    <script>
+        <script>
         function manageOrderAction(ac) {
             window.location.href = "manageOrderAction?check=" + ac;
+        }
+        function OrderSort(id) {
+            var currentUrl = window.location.href;
+            if (id === "name") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=name&action=NameDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "orderSort?check=name&action=NameASC";
+                } else {
+                    window.location.href = "orderSort?check=name&action=NameDESC";
+                }
+            }
+            if (id === "quantity") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=quantity&action=QuantityDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "orderSort?check=quantity&action=QuantityASC";
+                } else {
+                    window.location.href = "orderSort?check=quantity&action=QuantityDESC";
+                }
+            }
+            if (id === "time") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=time&action=TimeDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "orderSort?check=time&action=TimeASC";
+                } else {
+                    window.location.href = "orderSort?check=time&action=TimeDESC";
+                }
+            }
+            if (id === "table") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=table&action=TableDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "orderSort?check=table&action=TableASC";
+                } else {
+                    window.location.href = "orderSort?check=table&action=TableDESC";
+                }
+            }
+            if (id === "status") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=status&action=StatusDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "orderSort?check=status&action=StatusASC";
+                } else {
+                    window.location.href = "orderSort?check=status&action=StatusDESC";
+                }
+            }
         }
     </script>
 </html>

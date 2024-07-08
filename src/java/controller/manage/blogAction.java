@@ -11,6 +11,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import model.Blog;
 
 /**
@@ -57,29 +59,32 @@ public class blogAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String action = request.getParameter("action");
-
-        if ("Add new blog".equals(action)) {
-            request.setAttribute("blogAdd", "success");
-        } else {
-            String id = request.getParameter("id");
-            BlogDAO db = new BlogDAO();
-            int id_int;
-            try {
-                id_int = Integer.parseInt(id);
-                if ("delete".equals(action)) {
-                    db.deleteBlogById(id_int);
-                    response.sendRedirect("manageOption?check=blogManagement");
-                    return;
-                } else if ("edit".equals(action)) {
+        String id = request.getParameter("id");
+        BlogDAO db = new BlogDAO();
+        if (null != action) switch (action) {
+            case "Add blog" -> request.setAttribute("blogAdd", "success");
+            case "delete" -> {
+                db.deleteBlogById(id);
+                List<Blog> list = db.getAllBlog();
+                session.setAttribute("blogManage", list);
+            }
+            case "edit" -> {
+                try {
+                    int id_int = Integer.parseInt(id);
                     Blog blogUpdate = db.getBlogById(id_int);
                     request.setAttribute("blogUpdate", blogUpdate);
-
+                } catch (NumberFormatException e) {
                 }
-            } catch (NumberFormatException e) {
             }
-
-            
+            case "restore" -> {
+                db.restoreTableById(id);
+                List<Blog> list = db.getAllBlog();
+                session.setAttribute("blogManage", list);
+            }
+            default -> {
+            }
         }
 
         request.getRequestDispatcher("home.jsp").forward(request, response);

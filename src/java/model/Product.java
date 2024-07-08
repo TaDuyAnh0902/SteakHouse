@@ -16,10 +16,11 @@ public class Product {
     private String describe, image;
     private Category category;
     private Status sid;
+    private int quantityWaitting;
     public Product() {
     }
 
-    public Product(String id, String name, int quantity, double price, String dateproduct, String describe, String image, Category category, Status sid) {
+    public Product(String id, String name, int quantity, double price, String dateproduct, String describe, String image, Category category, Status sid, int quantityWaitting) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
@@ -29,6 +30,7 @@ public class Product {
         this.image = image;
         this.category = category;
         this.sid = sid;
+        this.quantityWaitting = quantityWaitting;
     }
 
     public String getId() {
@@ -101,5 +103,13 @@ public class Product {
 
     public void setSid(Status sid) {
         this.sid = sid;
+    }
+
+    public int getQuantityWaitting() {
+        return quantityWaitting;
+    }
+
+    public void setQuantityWaitting(int quantityWaitting) {
+        this.quantityWaitting = quantityWaitting;
     }
 }

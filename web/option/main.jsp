@@ -12,7 +12,7 @@
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <style>
             .main {
-                margin-top: 30px;
+                margin-top: 5px;
             }
 
             .banner {
@@ -24,14 +24,16 @@
                 padding: 0 15%;
             }
 
-            .hot-selling-title p {
+            .hot-selling-title p,
+            .best-selling-title p{
                 font-size: 36px;
                 font-weight: bold;
                 color: var(--dark-green-color);
                 text-align: center;
             }
 
-            .hot-selling {
+            .hot-selling,
+            .best-selling{
                 display: flex;
                 text-align: center;
                 flex-wrap: wrap;
@@ -67,7 +69,7 @@
                 border-left: 1px solid rgb(192, 192, 192);
                 border-right: 1px solid rgb(192, 192, 192);
             }
-            
+
         </style>
     </head>
     <body>
@@ -85,13 +87,27 @@
                 <div class="hot-selling">
                     <c:forEach items="${sessionScope.getNewProduct}" var="p">
                         <c:if test="${p.sid.id==1}">
-                                <div class="newProducts">
+                            <div class="newProducts">
                                 <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; "><img src="${p.image}" alt="${p.image}"/></a>
                                 <p>${p.category.name}</p>
                                 <p>${p.name}</p>
                             </div>
                         </c:if>
-                        
+
+                    </c:forEach>
+                </div>
+                <div class="best-selling-title">
+                    <hr>
+                    <p>SẢN PHẨM BÁN CHẠY</p>
+                    <hr>
+                </div>
+                <div class="best-selling">
+                    <c:forEach items="${sessionScope.bestSelling}" var="b">
+                        <div class="newProducts">
+                            <a href="productInfo?id=${b.pid.id}&cid=${b.pid.category.id}" style="color: black; "><img src="${b.pid.image}" alt="${b.pid.image}"/></a>
+                            <p>${b.pid.category.name}</p>
+                            <p>${b.pid.name}</p>
+                        </div>
                     </c:forEach>
                 </div>
             </div>
@@ -125,7 +141,7 @@
     </body>
     <script>
         var index = 1;
-        var imgs = ["images/banner.jpg",  "images/banner12.jpg","images/banner10.jpg"];
+        var imgs = ["images/banner.jpg", "images/banner12.jpg", "images/banner10.jpg"];
 
         function changeImage() {
             document.getElementById('img').src = imgs[index];

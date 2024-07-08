@@ -8,19 +8,16 @@ import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import model.Account;
-import model.Status;
 
 /**
  *
  * @author ASUS
  */
-public class Register extends HttpServlet {
+public class changeProfile extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +36,10 @@ public class Register extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Register</title>");
+            out.println("<title>Servlet changeProfile</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Register at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet changeProfile at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +57,15 @@ public class Register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("user/register.jsp").forward(request, response);
+        request.setAttribute("profileChange", "success");
+        String user = request.getParameter("user");
+
+        AccountDAO db = new AccountDAO();
+
+        Account ac = db.getAccountByUser(user);
+
+        request.setAttribute("profileNew", ac);
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     /**
@@ -75,36 +80,29 @@ public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
-        String user = request.getParameter("username");
-        String email = request.getParameter("email");
-        String phone = "0";
+        String user = request.getParameter("user");
+        String phone = request.getParameter("phoneNumber");
         String pass = request.getParameter("pass");
+        String email = request.getParameter("email");
         String confirmPass = request.getParameter("confirmPass");
 
-        SendEmail sm = new SendEmail();
-        AccountDAO ad = new AccountDAO();
+        AccountDAO db = new AccountDAO();
 
-        if (ad.checkUserName(user) != null) {
-            request.setAttribute("duplicateUser", "duplicate user name");
-            request.getRequestDispatcher("user/register.jsp").forward(request, response);
-        }
         if (pass.equals(confirmPass)) {
-            Status s = new Status(1,"");
-            String code = sm.getRandom();
-            Account ac = new Account(name, user, email, pass, phone, code, 3,s);
-            boolean test = sm.sendEmail(ac);
-            if (test) {
-                HttpSession session = request.getSession();
-                session.setAttribute("authcode", ac);
-                response.sendRedirect("verify");
-            } else {
-                // Handle email sending failure
-                response.sendRedirect("Register");
-            }
+            db.updateUser(name, user, phone, pass);
+            Account ac = db.getAccountByUser(user);
+            request.setAttribute("profile", ac);
+            request.setAttribute("successfully", "Registered successfully");
         } else {
+            request.setAttribute("profileChange", "success");
+
+            Account ac = db.getAccountByUser(user);
+
+            request.setAttribute("profileNew", ac);
             request.setAttribute("passwordNotMatch", "passwords do not match");
-            request.getRequestDispatcher("user/register.jsp").forward(request, response);
         }
+
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     /**

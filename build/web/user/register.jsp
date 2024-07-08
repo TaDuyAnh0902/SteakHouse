@@ -101,7 +101,7 @@
     <body>
         <div class="register-page">
             <div class="form">
-                <form action="Register" class="register-form" method="post">
+                <form action="Register" class="register-form" method="post" name="register" onsubmit="return validateRegister()">
                     <h2><i class="fas fa-lock"></i> Register</h2>
                     <!--<input type="text" placeholder="Full Name *" required />-->
                     <input type="text" placeholder="Name *" name="name" value="${param.name}" required>
@@ -130,4 +130,96 @@
             </div>
         </div>
     </body>
+    <script>
+        function validateRegister() {
+            var form = document.forms["register"];
+            var name = form["name"].value;
+            var username = form["username"].value;
+            var email = form["email"].value;
+            var password = form["pass"].value;
+            var confirmPassword = form["confirmPass"].value;
+
+            if (/^\s/.test(name)) {
+                alert("Name cannot have leading spaces.");
+                return false;
+            }
+
+            if (/\s$/.test(name)) {
+                alert("Name cannot have trailing spaces.");
+                return false;
+            }
+
+            if (/ {2,}/.test(name)) {
+                alert("Name cannot contain multiple consecutive spaces.");
+                return false;
+            }
+
+            if (!/^[a-zA-Z\sÀ-Ỹà-ỹẠ-Ỷạ-ỵĂ-Ắă-ắẰ-Ỳằ-ỳẠ-Ỵạ-ỵÂ-Ậâ-ậẦ-Ỷầ-ỷẠ-Ỵạ-ỵĐđĨĩƠ-ớơ-ớỠ-Ỷỡ-ỷỌ-Ựọ-ựỜ-Ỹờ-ỹỘ-Ỷộ-ỷỢ-Ựợ-ựÚú]+$/u.test(name)) {
+                alert("Name contains invalid characters.");
+                return false;
+            }
+
+            if (name.length < 6) {
+                alert("Name must be at least 6 characters long.");
+                return false;
+            }
+
+            if (/\s$/.test(username)) {
+                alert("Username cannot have trailing spaces.");
+                return false;
+            }
+
+            if (/ {2,}/.test(username)) {
+                alert("Username cannot contain multiple consecutive spaces.");
+                return false;
+            }
+
+            if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                alert("Username contains invalid characters.");
+                return false;
+            }
+            if (username.length < 6) {
+                alert("Username must be at least 6 characters long.");
+                return false;
+            }
+
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (/^\s/.test(email)) {
+                alert("Email cannot have leading spaces.");
+                return false;
+            }
+
+            if (/\s$/.test(email)) {
+                alert("Email cannot have trailing spaces.");
+                return false;
+            }
+
+            if (!emailPattern.test(email)) {
+                alert("Invalid email format.");
+                return false;
+            }
+
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            if (/^\s/.test(password)) {
+                alert("Password cannot have leading spaces.");
+                return false;
+            }
+
+            if (/\s$/.test(password)) {
+                alert("Password cannot have trailing spaces.");
+                return false;
+            }
+
+            if (/ {2,}/.test(password)) {
+                alert("Password cannot contain multiple consecutive spaces.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </html>

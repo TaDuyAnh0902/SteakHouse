@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <title>JSP Page</title>
-       <style>
+        <style>
             :root {
                 --primary-color: #28a745;
                 --secondary-color: #155724;
@@ -153,6 +153,10 @@
                 background-color: #ddd;
             }
 
+            th:hover {
+                cursor: pointer;
+            }
+
             a {
                 text-decoration: none;
                 color: var(--primary-color);
@@ -222,24 +226,36 @@
             .confirmation-dialog .cancel:hover {
                 background-color: #e0a800;
             }
+            .searchProduct {
+                margin: 10px;
+                height: 40px;
+                border-radius: 4px;
+                padding: 5px;
+                font-size: 16px;
+            }
         </style>
     </head>
     <body>
         <div class="manageContent">
             <div class="manageOption">
                 <ul>
-                    <li onclick="ac('statistics')">Thống kê</li>
-                    <li onclick="ac('productsManagement')">Quản Lý Sản Phẩm</li>
-                    <li onclick="ac('accountManagement')">Quản Lý Tài Khoản</li>
-                    <li onclick="ac('blogManagement')">Quản Lý Blog</li>
-                    <li onclick="ac('tableManagement')">Quản Lý Bàn</li>
+                    <li onclick="ac('statistics')">Dashboard</li>
+                    <li onclick="ac('productsManagement')">Product Management</li>
+                    <li onclick="ac('accountManagement')">Account Management</li>
+                    <li onclick="ac('blogManagement')">Blog Management</li>
+                    <li onclick="ac('tableManagement')">Table Management</li>
                 </ul>
             </div>
 
             <div id="wrapperrr">
+
+
                 <c:if test="${sessionScope.statistics!=null}">
                     <%@include file="admin.jsp" %>
                 </c:if>
+
+
+
                 <c:if test="${sessionScope.productsManagement!=null}">
 
                     <div id="menu_tab">
@@ -252,102 +268,177 @@
                     <div class="clr"></div>
                     <div class="content">
                         <table border="1">
-                            <c:if test="${requestScope.products!=null}">
+                            <c:if test="${requestScope.productSize > 0}">
                                 <tr>
-                                    <th>Name</th>
+                                    <th>ID</th>
+                                    <th onclick="productSort('name')">Name</th>
                                     <th>Image</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
+                                    <th onclick="productSort('quantity')">Quantity</th>
+                                    <th onclick="productSort('price')">Price</th>
                                     <th>Describe</th>
-                                    <th>Category Name</th>
                                     <th>Status</th>
                                     <th colspan="2">Action</th>
                                 </tr>
                             </c:if>
-
+                            <c:if test="${requestScope.productSize == 0}">
+                                <p style="text-align: center; font-size: 32px;">Product not found</p>
+                            </c:if>
                             <c:set var="cid" value="${null}"/>
 
                             <c:forEach items="${requestScope.products}" var="p">
                                 <c:set var="cid" value="${p.category.id}"/>
                                 <tr>
+                                    <td>${p.id}</td>
                                     <td>${p.name}</td>
                                     <td><img src="${p.image}" alt="${p.image}" class="imgProduct"/></td>
                                     <td>${p.quantity}</td>
                                     <td>${p.price}</td>
                                     <td>${p.describe}</td>
-                                    <td>${p.category.name}</td>
                                     <td>${p.sid.nameStatus}</td>
-                                    <td><a href="productAction?action=edit&id=${p.id}&cid=${p.category.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
-
-                                    <td><a href="productAction?action=delete&id=${p.id}" onclick="return confirmDeleteProduct(${p.id});"><i class="fa-solid fa-trash"></i></a></td>
+                                    <td><a href="productAction?action=edit&id=${p.id}"><i class="fas fa-edit"></i></a></td>
+                                        <c:if test="${p.sid.id==1}">
+                                        <td><a href="productAction?action=delete&id=${p.id}&cid=${p.category.id}" onclick="return confirmDeleteProduct(${p.id});"><i class="fas fa-trash"></i></a></td>
+                                    </c:if>
+                                    <c:if test="${p.sid.id==2}">
+                                        <td><a href="productAction?action=restore&id=${p.id}&cid=${p.category.id}"><i class="fas fa-recycle"></i></a></td>
+                                    </c:if>
                                 </tr>
                             </c:forEach>
                             <c:if test="${cid!=null}">
-                                <div>
+                                <div style="display: flex;">
                                     <form action="checkAdd">
                                         <input type="hidden" name="cid" value="${cid}">
-                                        <input type="submit" value="Add new products" class="add">
+                                        <input type="submit" value="Add Product" class="add">
+                                    </form>
+                                    <form action="adminSearch">
+                                        <input type="hidden" name="cid" value="${cid}">
+                                        <input type="text" placeholder="Search" name="productSearch" class="searchProduct">
                                     </form>
                                 </div>
                             </c:if>
 
                         </table>
                     </div>
+                    <c:if test="${requestScope.productAdd!=null}"> 
+                        <%@include file="productAdd.jsp" %> 
+                    </c:if>
+
+                    <c:if test="${requestScope.productUpdate!=null}"> 
+                        <%@include file="productUpdate.jsp" %> 
+                    </c:if>
                 </c:if>
 
-                <c:if test="${requestScope.productAdd!=null}"> 
-                    <%@include file="productAdd.jsp" %>
-                </c:if>
 
-                <c:if test="${requestScope.productUpdate!=null}"> 
-                    <%@include file="productUpdate.jsp" %> 
-                </c:if>
-                <!--                Account-->
 
                 <c:if test="${sessionScope.accountManagement!=null}">
+
                     <div>
-                        <h2>Danh Sách Tài Khoản</h2>
+
+                        <div>
+                            <form action="adminSearch">
+                                <input type="text" placeholder="Search" name="accountSearch" class="searchProduct">
+                            </form>
+                        </div>
                         <div class="content">
                             <table border="1">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Password</th>
-                                    <th>Role</th>
-                                    <th>Action</th>
-                                </tr>
-                                <c:forEach items="${sessionScope.accountManage}" var="a">
+                                <c:if test="${requestScope.accountSize > 0}">
                                     <tr>
-                                        <td>${a.username}</td>
-                                        <td>
-                                            <input type="password" value="${a.passWord}" id="password-${a.username}" readonly>
-                                            <button type="button" onclick="togglePassword('${a.username}')">Show</button>
-                                        </td>
-                                        <td>${a.role}</td>
-                                        <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');"><i class="fa-solid fa-trash"></i></a></td>
+                                        <th onclick="accountSort('username')">Username</th>
+                                        <th onclick="accountSort('name')">Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th onclick="accountSort('status')">Status</th>
+                                        <th colspan="2">Action</th>
                                     </tr>
+                                </c:if>
+                                <c:if test="${requestScope.accountSize == 0}">
+                                    <p style="text-align: center; font-size: 32px;">Account not found</p>
+                                </c:if>
+
+                                <c:forEach items="${sessionScope.accountManage}" var="a">
+                                    <c:if test="${a.role==3}">
+                                        <tr>
+                                            <td>${a.username}</td>
+                                            <td>${a.name}</td>
+                                            <td>${a.email}</td>
+                                            <td>${a.phoneNumber}</td>
+                                            <td>${a.sid.nameStatus}</td>
+                                            <c:if test="${a.sid.id==1}">
+                                                <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');"><i class="fas fa-trash"></i></a></td>
+                                                    </c:if>
+                                                    <c:if test="${a.sid.id==2}">
+                                                <td><a href="accountAction?action=restore&username=${a.username}"><i class="fas fa-recycle"></i></a></td>
+                                                    </c:if>
+                                        </tr>
+                                    </c:if>
+
                                 </c:forEach>
                             </table>
                         </div>
                     </div>
                 </c:if>
 
+                <c:if test="${sessionScope.blogManagement!=null}">
+                    <c:if test="${requestScope.blogAdd!=null}"> 
+                        <%@include file="blogAdd.jsp" %> 
+                    </c:if>
+                    <c:if test="${requestScope.blogUpdate!=null}"> 
+                        <%@include file="blogUpdate.jsp" %> 
+                    </c:if>
+                    <c:if test="${requestScope.blogAdd==null && requestScope.blogUpdate==null}">
+                        <form action="blogAction">
+                            <input type="submit" value="Add blog" class="add" name="action">
+                        </form>
+                    </c:if>
+                    <div>
+                        <div class="content">
+                            <table border="1">
+                                <c:if test="${sessionScope.blogManage!=null}">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Title</th>
+                                        <th>image</th>
+                                        <th>source</th>
+                                        <th>Status</th>
+                                        <th colspan="2">Action</th>
+                                    </tr>
+                                </c:if>
+                                <c:forEach items="${sessionScope.blogManage}" var="b">
+                                    <tr>
+                                        <td>${b.id}</td>
+                                        <td>${b.title}</td>
+                                        <td><img src="${b.image}" alt="${p.image}" class="imgProduct"/></td>
+                                        <td><a href="${b.source}">${b.source}</a></td>
+                                        <td>${b.sid.nameStatus}</td>
+                                        <td><a href="blogAction?action=edit&id=${b.id}"><i class="fas fa-edit"></i></a></td>
+                                                <c:if test="${b.sid.id==1}">
+                                            <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteTable(${t.id});"><i class="fas fa-trash"></i></a></td>
+                                                </c:if>
+                                                <c:if test="${b.sid.id==2}">
+                                            <td><a href="blogAction?action=restore&id=${b.id}"><i class="fas fa-recycle"></i></a></td>
+                                                </c:if>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
 
-                <!--                Table-->
+                </c:if>
+
+
 
                 <c:if test="${sessionScope.tableManagement!=null}">
                     <c:if test="${requestScope.tableAdd==null && requestScope.tableUpdate==null}">
                         <form action="tableAction">
-                            <input type="submit" value="Add new table" class="add" name="action">
+                            <input type="submit" value="Add table" class="add" name="action">
                         </form>
                     </c:if>
+
                     <div>
-                        <h2>Danh Sách Bàn</h2>
-                        <c:if test="${requestScope.tableAdd!=null}"> 
-                            <%@include file="tableAdd.jsp" %> 
-                        </c:if>
                         <div class="content">
                             <table border="1">
                                 <tr>
+                                    <th>Id</th>
                                     <th>Name</th>
                                     <th>QR code</th>
                                     <th>Status</th>
@@ -356,123 +447,150 @@
 
                                 <c:forEach items="${sessionScope.tableManage}" var="t">
                                     <tr>
+                                        <td>${t.id}</td>
                                         <td>${t.nameTable}</td>
-                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.103:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank"><i class="fa-regular fa-eye"></i></a></td>
+                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.103:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank"><i class="fas fa-eye"></i></a></td>
                                         <td>${t.sid.nameStatus}</td>
-                                        <td><a href="tableAction?action=edit&id=${t.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
-                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteTable(${b.id});"><i class="fa-solid fa-trash"></i></a></td>
+                                        <td><a href="tableAction?action=edit&id=${t.id}"><i class="fas fa-edit"></i></a></td>
+                                                <c:if test="${t.sid.id==1}">
+                                            <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});"><i class="fas fa-trash"></i></a></td>
+                                                </c:if>
+                                                <c:if test="${t.sid.id==2}">
+                                            <td><a href="tableAction?action=restore&id=${t.id}"><i class="fas fa-recycle"></i></a></td>
+                                                </c:if>
                                     </tr>
                                 </c:forEach>
                             </table>
                         </div>
                     </div>
-                </c:if>
-
-                
-                <c:if test="${requestScope.tableUpdate!=null}"> 
-                    <%@include file="tableUpdate.jsp" %> 
-                </c:if>
-                <!--                // Blog-->
-                <c:if test="${sessionScope.blogManagement!=null}">
-                    <c:if test="${requestScope.blogAdd==null && requestScope.blogUpdate==null}">
-                        <form action="blogAction">
-                            <input type="submit" value="Add new blog" class="add" name="action">
-                        </form>
+                    <c:if test="${requestScope.tableAdd!=null}"> 
+                        <%@include file="tableAdd.jsp" %> 
                     </c:if>
-                    <div>
-                        <h2>Danh Sách Blog</h2>
-                        <c:if test="${requestScope.blogAdd!=null}"> 
-                            <%@include file="blogAdd.jsp" %> 
-                        </c:if>
-                        <div class="content">
-                            <table border="1">
-                                <tr>
-                                    <th>Title</th>
-                                    <th>image</th>
-                                    <th>source</th>
-                                    <th>Status</th>
-                                    <th colspan="2">Action</th>
-                                </tr>
-
-                                <c:forEach items="${sessionScope.blogManage}" var="b">
-                                    <tr>
-                                        <td>${b.title}</td>
-                                        <td><img src="${b.image}" alt="${p.image}" class="imgProduct"/></td>
-                                        <td><a href="${b.source}"><i class="fa-solid fa-link"></i></a></td>
-                                        <td>${b.sid.nameStatus}</td>
-                                        <td><a href="blogAction?action=edit&id=${b.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
-                                        <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteBlog(${t.id});"><i class="fa-solid fa-trash"></i></a></td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </div>
-                    </div>
+                    <c:if test="${requestScope.tableUpdate!=null}"> 
+                        <%@include file="tableUpdate.jsp" %> 
+                    </c:if>
                 </c:if>
 
-                <c:if test="${requestScope.blogUpdate!=null}"> 
-                    <%@include file="blogUpdate.jsp" %> 
-                </c:if>
+
             </div>
         </div>
-
-
-
-        <script>
-            function togglePassword(username) {
-                var passwordField = document.getElementById("password-" + username);
-                var showButton = passwordField.nextElementSibling;
-
-                if (passwordField.type === "password") {
-                    passwordField.type = "text";
-                    showButton.textContent = "Hide";
-                } else {
-                    passwordField.type = "password";
-                    showButton.textContent = "Show";
-                }
-            }
-            function ac(id) {
-                window.location.href = "manageOption?check=" + id;
-            }
-
-            function confirmDeleteProduct(id) {
-                var confirmation = confirm("Are you sure you want to delete your Product?");
-                if (confirmation === true) {
-                    return true;
-                } else {
-                    alert("Product deletion canceled.");
-                    return false;
-                }
-            }
-
-            function confirmDeleteAccount(username) {
-                var confirmation = confirm("Are you sure you want to delete the Account : " + username + "?");
-                if (confirmation === true) {
-                    return true;
-                } else {
-                    alert("Account deletion canceled.");
-                    return false;
-                }
-            }
-
-            function confirmDeleteBlog(id) {
-                var confirmation = confirm("Are you sure you want to delete this blog post?");
-                if (confirmation === true) {
-                    return true;
-                } else {
-                    alert("Blog post deletion canceled.");
-                    return false;
-                }
-            }
-
-            function confirmDeleteTable(id) {
-                var confirmation = confirm("Are you sure you want to delete Table?");
-                if (confirmation === true) {
-                    return true;
-                } else {
-                    alert("Table deletion canceled.");
-                    return false;
-                }
-            }
-        </script>
     </body>
+
+
+
+    <script>
+        function togglePassword(username) {
+            var passwordField = document.getElementById("password-" + username);
+            var showButton = passwordField.nextElementSibling;
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                showButton.textContent = "Hide";
+            } else {
+                passwordField.type = "password";
+                showButton.textContent = "Show";
+            }
+        }
+        function ac(id) {
+            window.location.href = "manageOption?check=" + id;
+        }
+
+        function confirmDeleteProduct(id) {
+            var confirmation = confirm("Are you sure you want to delete your Product?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Product deletion canceled.");
+                return false;
+            }
+        }
+
+        function confirmDeleteAccount(username) {
+            var confirmation = confirm("Are you sure you want to delete the Account : " + username + "?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Account deletion canceled.");
+                return false;
+            }
+        }
+
+        function confirmDeleteBlog(id) {
+            var confirmation = confirm("Are you sure you want to delete this blog post?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Blog post deletion canceled.");
+                return false;
+            }
+        }
+
+        function confirmDeleteTable(id) {
+            var confirmation = confirm("Are you sure you want to delete Table?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Table deletion canceled.");
+                return false;
+            }
+        }
+    </script>
+    <script>
+        function productSort(id) {
+            var currentUrl = window.location.href;
+            if (id === "name") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/productSort?check=name&cid=${cid}&action=NameDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "productSort?check=name&cid=${cid}&action=NameASC";
+                } else {
+                    window.location.href = "productSort?check=name&cid=${cid}&action=NameDESC";
+                }
+            }
+            if (id === "quantity") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/productSort?check=quantity&cid=${cid}&action=QuantityDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "productSort?check=quantity&cid=${cid}&action=QuantityASC";
+                } else {
+                    window.location.href = "productSort?check=quantity&cid=${cid}&action=QuantityDESC";
+                }
+            }
+            if (id === "price") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/productSort?check=price&cid=${cid}&action=PriceDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "productSort?check=price&cid=${cid}&action=PriceASC";
+                } else {
+                    window.location.href = "productSort?check=price&cid=${cid}&action=PriceDESC";
+                }
+            }
+        }
+    </script>
+    <script>
+        function accountSort(id) {
+            var currentUrl = window.location.href;
+            if (id === "username") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/accountSort?check=username&action=UsernameDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "accountSort?check=username&action=UsernameASC";
+                } else {
+                    window.location.href = "accountSort?check=username&action=UsernameDESC";
+                }
+            }
+            if (id === "name") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/accountSort?check=name&action=NameDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "accountSort?check=name&action=NameASC";
+                } else {
+                    window.location.href = "accountSort?check=name&action=NameDESC";
+                }
+            }
+            if (id === "status") {
+                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/accountSort?check=status&action=StatusDESC";
+                if (currentUrl === baseUrlHome) {
+                    window.location.href = "accountSort?check=status&action=StatusASC";
+                } else {
+                    window.location.href = "accountSort?check=status&action=StatusDESC";
+                }
+            }
+        }
+    </script>
 </html>

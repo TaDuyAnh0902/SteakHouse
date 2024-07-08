@@ -50,21 +50,96 @@
                 background-color: #000; /* Màu nền khi hover */
             }
 
-            .float-contact {
+            .echbay-sms-messenger div.phonering-alo-zalo,
+            .echbay-sms-messenger div.phonering-alo-alo {
+                background-color:#0084ff
+            }
+            .echbay-sms-messenger div.phonering-alo-sms {
+                background-color:#f60
+            }
+            .echbay-sms-messenger div.phonering-alo-messenger {
+                background-color:#e60f1e
+            }
+
+            .echbay-sms-messenger {
+                width:45px
+            }
+            .echbay-sms-messenger a {
+                line-height:45px;
+                color: transparent;
+                display:block;
+            }
+            .echbay-sms-messenger {
+                display:block
+            }
+            .echbay-sms-messenger div.phonering-alo-zalo {
+                display: block
+            }
+
+            .echbay-sms-messenger div.phonering-alo-alo {
+                background-image: url(https://webantam.com/wp-content/uploads/2023/04/messenger_1.webp);
+            }
+
+            .echbay-sms-messenger div.phonering-alo-zalo {
+                background-image: url(https://webantam.com/wp-content/uploads/2023/04/zalo_1.webp);
+            }
+            .echbay-sms-messenger div.phonering-alo-messenger {
+                background-image: url(https://webantam.com/wp-content/uploads/2023/04/call.webp);
+                background-color: #e60f1e;
+            }
+            .echbay-sms-messenger div {
+                margin: 14px 0;
+                background: #0084FF center no-repeat;
+                background-size: 70%;
+                border-radius: 50%;
+                box-shadow: 0 3px 10px #888;
+            }
+
+            .echbay-sms-messenger {
+                text-align: center;
+                right:20px;
                 position: fixed;
-                bottom: 80px;
-                right: 20px;
-                z-index: 9999;
+                bottom: 150px;
+                z-index: 999;
             }
-            .chat-zalo, .chat-facebook {
-                display: block;
-                margin-bottom: 10px;
-                line-height: 0;
-                transition: transform 0.3s ease, opacity 0.3s ease;
+            .echbay-sms-messenger div.phonering-alo-messenger{
+
+                animation:2s ease-in-out 0s normal none infinite running ring-alo-circle-img-anim;
+
             }
-            .chat-zalo:hover, .chat-facebook:hover {
-                transform: scale(1.2);
-                opacity: 0.8;
+
+            .echbay-sms-messenger div.phonering-alo-alo{
+
+                animation:2s ease-in-out 0s normal none infinite running ring-alo-circle-img-anim;
+            }
+
+            .echbay-sms-messenger div.phonering-alo-zalo{
+
+                animation:2s ease-in-out 0s normal none infinite running ring-alo-circle-img-anim;
+            }
+
+            @keyframes ring-alo-circle-img-anim {
+                0% {
+                    transform:rotate(0deg) scale(1) skew(1deg);
+                }
+                10% {
+                    transform:rotate(-25deg) scale(1) skew(1deg);
+                }
+                20% {
+                    transform:rotate(25deg) scale(1) skew(1deg);
+                }
+                30% {
+                    transform:rotate(-25deg) scale(1) skew(1deg);
+                }
+                40% {
+                    transform:rotate(25deg) scale(1) skew(1deg);
+                }
+                50% {
+                    transform:rotate(0deg) scale(1) skew(1deg);
+                }
+                100% {
+                    transform:rotate(0deg) scale(1) skew(1deg);
+                }
             }
 
             @media only screen and (max-width: 500px) {
@@ -103,147 +178,153 @@
                     margin-left: -30px;
                 }
 
-                .float-contact{
+                .echbay-sms-messenger style-for-position-br{
                     display: none;
                 }
 
-            }
-        </style>
-    </head>
-    <body>
-        <div class="wrapper">
+            </style>
+        </head>
+        <body>
+            <div class="wrapper">
 
 
-            <c:if test="${sessionScope.tableNumber!=null && requestScope.homeMobile==null}">
-                <div class="mobile">
-                    <div class="headerPhone1">
-                        <div>
-                            <i class="fas fa-chevron-left" onclick="goBack()" id="back"></i>
-                            <a href="homeMobile">
-                                <i class="fas fa-home"></i>
-                            </a>
+                <c:if test="${sessionScope.tableNumber!=null && requestScope.homeMobile==null}">
+                    <div class="mobile">
+                        <div class="headerPhone1">
+                            <div>
+                                <i class="fas fa-chevron-left" onclick="goBack()" id="back"></i>
+                                <a href="homeMobile">
+                                    <i class="fas fa-home"></i>
+                                </a>
+                            </div>
+                            <div>
+                                <h2>Bàn <c:out value="${sessionScope.tableNumber}"/></h2>
+                            </div>
+                            <div>
+                                <a href="Action?check=ListOrderLine" title="shopping cart">
+                                    <i class="fas fa-shopping-cart"></i>(${sessionScope.totalProductByTable})
+                                </a>
+                            </div>
                         </div>
-                        <div>
-                            <h2>Bàn <c:out value="${sessionScope.tableNumber}"/></h2>
-                        </div>
-                        <div>
-                            <a href="Action?check=ListOrderLine" title="shopping cart">
-                                <i class="fas fa-shopping-cart"></i>(${sessionScope.totalProductByTable})
-                            </a>
-                        </div>
+
+                    </div>
+                </c:if>
+
+                <c:if test="${requestScope.homeMobile!=null}"> <%@include file="homeMobile.jsp" %></c:if>
+                <%@include file="header.jsp" %>
+
+                <c:if test="${requestScope.main!=null}"> <%@include file="option/main.jsp" %> </c:if>
+
+                <c:if test="${requestScope.profile!=null}"> <%@include file="user/profile.jsp" %> </c:if>
+                <c:if test="${requestScope.profileChange!=null}"> <%@include file="user/profileChange.jsp" %> </c:if>
+
+                <c:if test="${requestScope.store!=null}"> <%@include file="option/store.jsp" %> </c:if>
+                <c:if test="${requestScope.productInfo!=null}"> <%@include file="option/productInfo.jsp" %> </c:if>
+
+
+                <c:if test="${requestScope.blogList!=null}"> <%@include file="option/blog.jsp" %> </c:if>    
+                <c:if test="${requestScope.sourceBlog!=null}"> <jsp:include page="${requestScope.sourceBlog}" /> </c:if> 
+
+
+                <c:if test="${requestScope.introduction!=null}"> <%@include file="option/introduction.jsp" %> </c:if>                        
+
+                <c:if test="${requestScope.contact!=null}"> <%@include file="option/contact.jsp" %> </c:if> 
+
+                <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
+
+                <c:if test="${requestScope.ListOrderLine!=null}"> <%@include file="option/ListOrderLine.jsp" %> </c:if>
+
+                <c:if test="${sessionScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %> </c:if>
+
+                <c:if test="${sessionScope.manageOrder==null && sessionScope.manage==null}">
+                    <%@include file="footer.jsp" %>
+                </c:if>
+            </div>
+
+                <c:if test="${sessionScope.role==3 && sessionScope.tableNumber==null}">
+                <div class="echbay-sms-messenger style-for-position-br">
+                    <div class="phonering-alo-alo">
+                        <a href="https://www.messenger.com/t/366526929875352" target="_blank" rel="nofollow" class="echbay-phonering-messenger-event">.</a>
                     </div>
 
+                    <div class="phonering-alo-messenger">
+                        <a href="https://www.facebook.com/thegioisteak" target="_blank" rel="nofollow" class="echbay-phonering-messenger-event">.</a>
+                    </div>
+                    <div class="phonering-alo-zalo">
+                        <a href="https://zalo.me/0865448856" target="_blank" rel="nofollow" class="echbay-phonering-zalo-event">.</a>
+                    </div>
                 </div>
             </c:if>
 
-            <c:if test="${requestScope.homeMobile!=null}"> <%@include file="homeMobile.jsp" %></c:if>
-            <%@include file="header.jsp" %>
+            <button id="backToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
 
-            <c:if test="${requestScope.main!=null}"> <%@include file="option/main.jsp" %> </c:if>
+        </body>
+        <script>
+            var quantity = 1;
 
-            <c:if test="${requestScope.store!=null}"> <%@include file="option/store.jsp" %> </c:if>
-            <c:if test="${requestScope.productInfo!=null}"> <%@include file="option/productInfo.jsp" %> </c:if>
-
-
-            <c:if test="${requestScope.blogList!=null}"> <%@include file="option/blog.jsp" %> </c:if>    
-            <c:if test="${requestScope.sourceBlog!=null}"> <jsp:include page="${requestScope.sourceBlog}" /> </c:if> 
-
-
-            <c:if test="${requestScope.introduction!=null}"> <%@include file="option/introduction.jsp" %> </c:if>                        
-
-            <c:if test="${requestScope.contact!=null}"> <%@include file="option/contact.jsp" %> </c:if> 
-
-            <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
-
-            <c:if test="${requestScope.ListOrderLine!=null}"> <%@include file="option/ListOrderLine.jsp" %> </c:if>
-
-            <c:if test="${sessionScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %> </c:if>
-
-            <c:if test="${sessionScope.manageOrder==null && sessionScope.manage==null}">
-                <%@include file="footer.jsp" %>
-            </c:if>
-        </div>
-
-        <c:if test="${sessionScope.manageOrder==null && sessionScope.manage==null}">
-            <div class="float-contact">
-                <div class="chat-zalo">
-                    <a href="https://zalo.me/0979735203" target="_blank"><img title="Chat Zalo" src="images/zalo3.jpg" alt="zalo-icon" style="width: 80px; height: 80px;" /></a>
-                </div>
-                <div class="chat-facebook">
-                    <a href="https://www.facebook.com/messages/t/366526929875352" target="_blank"><img title="Chat Facebook" src="images/mess.png" alt="facebook-icon" style="width: 75px; height: 60px;"/></a>
-                </div>
-            </div>
-        </c:if>
-
-        <button id="backToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
-
-    </body>
-    <script>
-        var quantity = 1;
-
-        function increment() {
-            quantity++;
-            updateQuantity();
-        }
-
-        function decrement() {
-            if (quantity > 1) {
-                quantity--;
+            function increment() {
+                quantity++;
                 updateQuantity();
             }
-        }
 
-        function updateQuantity() {
-            document.getElementById("quantity").value = quantity;
-        }
-
-        function goBack() {
-            window.history.back();
-        }
-    </script>
-
-    <script>
-        // Lấy phần tử nút
-        let mybutton = document.getElementById("backToTopBtn");
-
-        // Khi người dùng cuộn xuống 20px từ đầu tài liệu, hiển thị nút
-        window.onscroll = function () {
-            scrollFunction()
-        };
-
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-
-        // Khi người dùng nhấp vào nút, cuộn lên đầu tài liệu với hiệu ứng mượt mà
-        mybutton.onclick = function () {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            function updateContent() {
-                var currentUrl = window.location.href;
-                var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
-                var baseUrlConfirmOrder = "http://localhost:9999/SWP391-SteakHouse/ConfirmOrderByCashier?id=";
-
-                if (currentUrl === baseUrlHome || currentUrl.startsWith(baseUrlConfirmOrder)) {
-                    $.ajax({
-                        url: currentUrl,
-                        success: function (data) {
-                            $('#table-container').html($(data).find('#table-container').html());
-                            $('#RequestPayment-content').html($(data).find('#RequestPayment-content').html());
-                        }
-                    });
+            function decrement() {
+                if (quantity > 1) {
+                    quantity--;
+                    updateQuantity();
                 }
             }
 
-            setInterval(updateContent, 5000);
-        });
-    </script>
-</html>
+            function updateQuantity() {
+                document.getElementById("quantity").value = quantity;
+            }
+
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+
+        <script>
+            // Lấy phần tử nút
+            let mybutton = document.getElementById("backToTopBtn");
+
+            // Khi người dùng cuộn xuống 20px từ đầu tài liệu, hiển thị nút
+            window.onscroll = function () {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    mybutton.style.display = "block";
+                } else {
+                    mybutton.style.display = "none";
+                }
+            }
+
+            // Khi người dùng nhấp vào nút, cuộn lên đầu tài liệu với hiệu ứng mượt mà
+            mybutton.onclick = function () {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                function updateContent() {
+                    var currentUrl = window.location.href;
+                    var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
+                    var baseUrlConfirmOrder = "http://localhost:9999/SWP391-SteakHouse/ConfirmOrderByCashier?id=";
+                    var baseUrlSort = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=";
+                    if (currentUrl === baseUrlHome || currentUrl.startsWith(baseUrlConfirmOrder) || currentUrl.startsWith(baseUrlSort)) {
+                        $.ajax({
+                            url: currentUrl,
+                            success: function (data) {
+                                $('#table-container').html($(data).find('#table-container').html());
+                                $('#RequestPayment-content').html($(data).find('#RequestPayment-content').html());
+                            }
+                        });
+                    }
+                }
+
+                setInterval(updateContent, 5000);
+            });
+        </script>
+    </html>

@@ -139,7 +139,7 @@
                 </div>
                 <div>
                     <h2>${p.name}</h2>
-                    <h3>${p.price}00 vnđ</h3><br><br>
+                    <h3 style="color: red">${p.price}00 vnđ</h3><br><br>
                     <c:if test="${sessionScope.tableNumber!=null}">
                         <div class="BuyProduct">
                             <form action="BuyProduct">
@@ -187,7 +187,7 @@
                         <div class="product">
                             <a href="productInfo?id=${p.id}&cid=${p.category.id}"><img src="${p.image}" alt="${p.image}"/></a>
                             <h6>${p.name}</h6>
-                            <h6 style="font-weight: bold;">${p.price}00 vnđ</h6>
+                            <h6 style="font-weight: bold; color: red">${p.price}00 vnđ</h6>
                         </div>
                     </c:if>
                 </c:forEach>

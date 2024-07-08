@@ -112,6 +112,38 @@
         <servlet-name>VerifyCode</servlet-name>
         <servlet-class>controller.LogIn.VerifyCode</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>verify</servlet-name>
+        <servlet-class>controller.LogIn.verify</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>controller.LogIn.Profile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>changeProfile</servlet-name>
+        <servlet-class>controller.LogIn.changeProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>orderSort</servlet-name>
+        <servlet-class>controller.manage.orderSort</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminSort</servlet-name>
+        <servlet-class>controller.manage.adminSort</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>accountSort</servlet-name>
+        <servlet-class>controller.manage.accountSort</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>productSort</servlet-name>
+        <servlet-class>controller.manage.productSort</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adminSearch</servlet-name>
+        <servlet-class>controller.manage.adminSearch</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -223,5 +255,37 @@
     <servlet-mapping>
         <servlet-name>VerifyCode</servlet-name>
         <url-pattern>/VerifyCode</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>verify</servlet-name>
+        <url-pattern>/verify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/Profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>changeProfile</servlet-name>
+        <url-pattern>/changeProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>orderSort</servlet-name>
+        <url-pattern>/orderSort</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminSort</servlet-name>
+        <url-pattern>/adminSort</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>accountSort</servlet-name>
+        <url-pattern>/accountSort</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>productSort</servlet-name>
+        <url-pattern>/productSort</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminSearch</servlet-name>
+        <url-pattern>/adminSearch</url-pattern>
     </servlet-mapping>
 </web-app>

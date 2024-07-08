@@ -2,25 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.LogIn;
+package controller.manage;
 
 import dal.AccountDAO;
+import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import model.Account;
-import model.Status;
+import model.Product;
 
 /**
  *
- * @author ASUS
+ * @author Admin
  */
-public class Register extends HttpServlet {
+public class adminSearch extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +40,10 @@ public class Register extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Register</title>");
+            out.println("<title>Servlet adminSearch</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Register at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet adminSearch at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +61,29 @@ public class Register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("user/register.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        AccountDAO acDAO = new AccountDAO();
+        String accountSearch = request.getParameter("accountSearch");
+        if (accountSearch != null) {
+            List<Account> list = acDAO.SearchAllAccount(accountSearch);
+            session.setAttribute("accountManage", list);
+            request.setAttribute("accountSize", list.size());
+        } else {
+            String cid = request.getParameter("cid");
+            String productSearch = request.getParameter("productSearch");
+            ProductsDAO db = new ProductsDAO();
+            try {
+                int cid_int = Integer.parseInt(cid);
+                List<Product> list = db.searchProductByNameAndCid(productSearch, cid_int);
+                request.setAttribute("products", list);
+                request.setAttribute("productSize", list.size());
+
+            } catch (NumberFormatException e) {
+
+            }
+        }
+
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     /**
@@ -74,37 +97,7 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String user = request.getParameter("username");
-        String email = request.getParameter("email");
-        String phone = "0";
-        String pass = request.getParameter("pass");
-        String confirmPass = request.getParameter("confirmPass");
-
-        SendEmail sm = new SendEmail();
-        AccountDAO ad = new AccountDAO();
-
-        if (ad.checkUserName(user) != null) {
-            request.setAttribute("duplicateUser", "duplicate user name");
-            request.getRequestDispatcher("user/register.jsp").forward(request, response);
-        }
-        if (pass.equals(confirmPass)) {
-            Status s = new Status(1,"");
-            String code = sm.getRandom();
-            Account ac = new Account(name, user, email, pass, phone, code, 3,s);
-            boolean test = sm.sendEmail(ac);
-            if (test) {
-                HttpSession session = request.getSession();
-                session.setAttribute("authcode", ac);
-                response.sendRedirect("verify");
-            } else {
-                // Handle email sending failure
-                response.sendRedirect("Register");
-            }
-        } else {
-            request.setAttribute("passwordNotMatch", "passwords do not match");
-            request.getRequestDispatcher("user/register.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**

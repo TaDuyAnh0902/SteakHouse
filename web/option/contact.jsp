@@ -45,6 +45,10 @@
                 color: #3a6d2f;
             }
 
+            .contact-left img{
+                animation: fadeInUp 2s;
+            }
+
             .contact-right input,
             .contact-right textarea {
                 width: 100%;
@@ -76,12 +80,12 @@
             }
 
             .send button {
-                width: 100px;
-                height: 40px;
+                width: 80px;
+                height: 45px;
                 text-align: center;
                 border: 2px solid ;
-                border-radius: 4px;
-                background-color: #467E37;
+                border-radius: 12px;
+                background-color: #28a745;
                 color: white;
                 font-weight: 700;
                 transition: background-color 0.3s ease;
@@ -90,6 +94,16 @@
             .send button:hover {
                 cursor: pointer;
                 background-color: #04AA6D;
+            }
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+}
             }
         </style>
     </head>
@@ -139,7 +153,7 @@
                 var titleValue = document.getElementById('title').value;
                 var phoneValue = document.getElementById('phone').value;
                 var messageValue = document.getElementById('message').value;
-                var mailtoLink = 'mailto:anhtdhe172879@fpt.edu.vn?subject=' + encodeURIComponent(titleValue) + '&body=Tôi là ' + encodeURIComponent(nameValue + '\n') + 'Phone: ' + encodeURIComponent(phoneValue + '\n') + 'Message: ' + encodeURIComponent(messageValue);
+                var mailtoLink = 'mailto:steakhouseswp@gmail.com?subject=' + encodeURIComponent(titleValue) + '&body=Tôi là ' + encodeURIComponent(nameValue + '\n') + 'Phone: ' + encodeURIComponent(phoneValue + '\n') + 'Message: ' + encodeURIComponent(messageValue);
                 window.location.href = mailtoLink;
             }
         </script>

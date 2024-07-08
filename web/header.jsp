@@ -137,6 +137,11 @@
                         <li>
                             <a href="LogInLogOut?check=logOut" title="Log Out"><i class="fas fa-sign-out-alt"></i></a>
                         </li>
+                        <c:if test="${sessionScope.role == 3}">
+                            <li>
+                                <a href="Profile?user=${user.username}" class="name" title="Hi ${user.name}"><i class="fas fa-user"></i></a>
+                            </li>
+                        </c:if>
                     </c:if>
                 </ul>
             </div>

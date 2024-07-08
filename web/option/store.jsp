@@ -70,6 +70,9 @@
                 overflow: hidden;
                 position: relative;
             }
+            .product:hover{
+                cursor: pointer;
+            }
             .product img {
                 border-radius: 8px;
                 width: 100%;
@@ -79,15 +82,8 @@
             .product-details {
                 padding: 10px 0;
             }
-            .product-details h5 {
-                font-weight: bold;
-                color: red;
-                position: absolute;
-                bottom: 0px;
-                left: 25%;
-            }
             .categoryName,
-            #productName
+            .productName
             {
                 text-align: center;
             }
@@ -184,7 +180,7 @@
                     display: flex;
                     text-align: center;
                 }
-                #productName {
+                .productName {
                     position: absolute;
                     top: -50px;
                     left: 0;
@@ -205,10 +201,9 @@
                 .categoryName {
                     display: none;
                 }
-                .product h5 {
+                h5 {
                     font-weight: normal;
                     font-size: 16px;
-                    top: 10px;
                 }
                 .BuyProduct {
                     position: relative;
@@ -220,9 +215,6 @@
                     top: 0;
                 }
                 .actions {
-                    /*                    position: absolute;
-                                        right: 50%;
-                                        left: 50%;*/
                     display: none;
                 }
                 button {
@@ -233,7 +225,7 @@
                 }
                 .product > div {
                     position: absolute;
-                    top: 230px;
+                    top: 60%;
                     left: 0;
                     right: 0;
                 }
@@ -250,7 +242,7 @@
             <div class="left-store col-md-3">
                 <h4>Browse</h4><br>
                 <ul class="menu">
-                    <li><a href="Products?cid=0">Sản Phẩm</a></li>
+                    <li><a href="Products?cid=0">All</a></li>
                     <hr>
                     <c:forEach var="c" items="${sessionScope.data}">
                         <li><a href="Products?cid=${c.id}">${c.name}</a></li><hr>
@@ -258,20 +250,56 @@
                 </ul>
             </div>
             <div class="right-store col-md-9">
+                <c:forEach items="${requestScope.productss}" var="b">
+                    <c:set var="quan" value="${b.pid.id}"/>
+                    <c:set var="cid" value="${b.pid.category.id}"/>
+                    <div class="product" onclick="productInfo('${quan}', '${cid}')">
+                        <p style="position: absolute;
+                           background-color: red; color: white; width: 50px; text-align: center; border-top-left-radius: 8px;">Hot</p>
+                        <h5 style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+                            color: red;">${b.pid.price}00 vnđ</h5>
+                        <img src="${b.pid.image}" alt="${b.pid.image}"/>
+                        <p class="categoryName">${b.pid.category.name}</p>
+                        <div class="product-details">
+                            <c:if test="${sessionScope.tableNumber!=null}">
+                                <p style="margin: 0; color: brown;">(đang đợi: ${b.pid.quantityWaitting})</p>
+                            </c:if>
+                            <p style="text-align: center;">${b.pid.name}</p>
+                            <c:if test="${sessionScope.tableNumber!=null}">
+                                <div class="BuyProduct">
+                                    <c:set var="q" value="${param.quantity}"/>
+                                    <c:if test="${p.quantity > 0}">
+                                        <div class="actions">
+                                            <button type="button" onclick="decrement('${quan}')">-</button>
+                                            <input type="text" id="quantity-${quan}" value="1" name="quantity" style="width: 24px; height: 28px; border-radius: 4px; text-align: center;">
+                                            <button type="button" onclick="increment('${quan}')">+</button>
+                                            <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; "><i class="fas fa-shopping-cart"></i></a>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${p.quantity == 0}">
+                                        <h3 style="color: red">Hết hàng</h3>
+                                    </c:if>
+                                </div>
+                            </c:if>
+                        </div>
+                    </div>
+                </c:forEach>
                 <c:forEach items="${requestScope.products}" var="p">
                     <c:if test="${p.sid.id==1}">
                         <c:set var="quan" value="${p.id}"/>
                         <c:set var="cid" value="${p.category.id}"/>
                         <div class="product" onclick="productInfo('${quan}', '${cid}')">
+                            <h5 style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+                                color: red;">${p.price}00 vnđ</h5>
                             <img src="${p.image}" alt="${p.image}"/>
                             <div class="product-details">
                                 <p class="categoryName">${p.category.name}</p>
-                                <p id="productName">${p.name}</p>
                                 <c:if test="${sessionScope.tableNumber!=null}">
-                                    <p style="margin: 0; color: red;">(đang đợi: ${p.quantityWaitting})</p>
+                                    <p style="margin: 0; color: brown;">(đang đợi: ${p.quantityWaitting})</p>
                                 </c:if>
+
+                                <p style="text-align: center;">${p.name}</p>
                                 <div>
-                                    <h5>${p.price}00 vnđ</h5>
                                     <c:if test="${sessionScope.tableNumber!=null}">
                                         <div class="BuyProduct">
                                             <c:set var="q" value="${param.quantity}"/>
