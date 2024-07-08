@@ -266,7 +266,7 @@ public class AccountDAO extends StatusDAO {
                             ,[role]
                             ,[sid]
                        FROM [dbo].[Account]
-                       where username = ? and password = ?""";
+                       where username = ? and password = ? and sid = 1""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -356,6 +356,18 @@ public class AccountDAO extends StatusDAO {
 
     public void deleteUser(String user) {
         String sql = "Update [Account] SET sid = 2 where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, user);
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+
+        }
+    }
+    
+    public void restoreAccountByUsername(String user) {
+        String sql = "Update [Account] SET sid = 1 where username = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, user);
