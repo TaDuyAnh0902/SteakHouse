@@ -12,11 +12,12 @@ public class Account {
 
     private String name, username, email, passWord, phoneNumber, code;
     private int role;
+    private Status sid;
 
     public Account() {
     }
 
-    public Account(String name, String username, String email, String passWord, String phoneNumber, String code, int role) {
+    public Account(String name, String username, String email, String passWord, String phoneNumber, String code, int role, Status sid) {
         this.name = name;
         this.username = username;
         this.email = email;
@@ -24,6 +25,7 @@ public class Account {
         this.phoneNumber = phoneNumber;
         this.code = code;
         this.role = role;
+        this.sid = sid;
     }
 
     public String getName() {
@@ -80,5 +82,13 @@ public class Account {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public Status getSid() {
+        return sid;
+    }
+
+    public void setSid(Status sid) {
+        this.sid = sid;
     }
 }
