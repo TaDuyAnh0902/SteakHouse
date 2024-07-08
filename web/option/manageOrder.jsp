@@ -1,9 +1,3 @@
-<%-- 
-    Document   : manageOrder
-    Created on : Jun 14, 2024, 10:53:56 PM
-    Author     : HP
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -12,130 +6,117 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-       body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background-color: #f8f9fa;
-            }
             .manageOrder {
                 display: flex;
                 height: 100vh;
             }
             .manageOrder-left {
                 width: 20%;
-                background-color: #343a40;
-                color: white;
-                padding: 20px 0;
+                font-size: 20px;
+                border-right: 1px solid gray;
             }
-            .manageOrder-left ul {
+            .manageOrder-left > ul {
                 list-style: none;
-                padding: 0;
-                margin: 0;
+                display: block;
+                height: 100%;
             }
             .manageOrder-left ul li {
-                padding: 20px;
-                text-align: center;
                 cursor: pointer;
-                border-bottom: 1px solid #495057;
-                transition: background-color 0.3s;
+                padding: 16px;
+                text-align: center;
+                border-bottom: 1px solid rgb(179, 179, 179);
             }
             .manageOrder-left ul li:hover {
-                background-color: #495057;
+                background-color: #E2D9BC;
             }
             .manageOrder-right {
-                flex: 1;
-                padding: 20px;
-                overflow-y: auto;
-                background-color: white;
+                width: 80%;
+                margin-top: 20px;
             }
-            .manageOrder-right h4 {
-                text-align: center;
-                color: red;
-                margin-bottom: 20px;
+            .manageOrder-right-content {
+                display: flex;
             }
             #table-container {
-                width: 100%;
-                margin-bottom: 20px;
+                width: 70%;
+                padding: 0 10px;
             }
             #table-container table {
+                display: inline-block;
                 width: 100%;
                 border-collapse: collapse;
-                margin-bottom: 20px;
             }
             #table-container th,
             #table-container td {
-                padding: 10px;
-                border: 1px solid #dee2e6;
+                padding: 5px;
+            }
+            #table-container thead {
+                width: 100%;
+            }
+            #table-container table th {
                 text-align: center;
             }
-            #table-container th {
-                background-color: #e9ecef;
+            #table-container table th:hover{
                 cursor: pointer;
             }
-            .notification {
-                background-color: white;
-                border: 1px solid #dee2e6;
-                border-radius: 8px;
-                padding: 15px;
-                margin-bottom: 10px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                transition: background-color 0.3s;
+            #table-container table thead:nth-child(1) {
+                border-top-left-radius: 16px;
             }
-            .notification:hover {
-                background-color: #f8f9fa;
+            #table-container th:nth-child(1),
+            #table-container th:nth-child(3)
+            {
+                width: 40%;
+            }
+            #table-container th:nth-child(4),
+            #table-container th:nth-child(5)
+            {
+                width: 15%;
+            }
+            #table-container th:nth-child(2)
+            {
+                width: 10%;
             }
             .allListTable {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                font-size: 24px;
+            }
+            .allListTable > div {
+                width: calc(20% - 40px);
+                margin: 20px;
+                display: flex;
             }
             .allListTable a {
-                display: block;
-                text-decoration: none;
-                padding: 20px;
-                border: 1px solid gray;
-                border-radius: 10px;
-                text-align: center;
-                background-color: #e2d9bc;
                 color: black;
-                transition: background-color 0.3s;
+                padding: 10px;
+                border: 1px solid gray;
+                height: 120px;
+                width: 300px;
+                border-radius: 40%;
+                text-decoration: none;
+                padding-top: 40px;
             }
-            .allListTable a:hover {
-                background-color: #c2b49a;
+            .manageOrder-right-content {
+                display: flex;
             }
             .ListOrderbyTable {
-                border: 1px solid gray;
-                padding: 20px;
-                border-radius: 10px;
-            }
-            .ListOrderbyTable table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-            }
-            .ListOrderbyTable th,
-            .ListOrderbyTable td {
-                padding: 10px;
-                border: 1px solid #dee2e6;
                 text-align: center;
             }
-            .ListOrderbyTable th {
-                background-color: #e9ecef;
+            .ListOrderbyTable td:nth-child(1){
+                text-align: start;
             }
-            .totalMoney {
-                font-weight: bold;
-                color: #f90;
+            .ListOrderbyTable table th:nth-child(1)
+            {
+                width: 40%;
             }
-            .complete-link {
-                color: red;
-                font-size: 20px;
-                text-decoration: none;
-                display: block;
-                text-align: center;
-                margin-top: 20px;
+            .ListOrderbyTable table th:nth-child(2),
+            .ListOrderbyTable table th:nth-child(3)
+            {
+                width: 30%;
+            }
+            .ListOrderbyTable table td:nth-child(3),
+            .totalMoney{
+                text-align: end;
+                padding-right: 10%;
             }
         </style>
 
@@ -311,7 +292,7 @@
         </div>
 
     </body>
-    <script>
+        <script>
         function manageOrderAction(ac) {
             window.location.href = "manageOrderAction?check=" + ac;
         }
@@ -358,6 +339,5 @@
                 }
             }
         }
-
     </script>
 </html>
