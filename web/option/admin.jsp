@@ -239,32 +239,32 @@
                     <p style="text-align: center;">Revenue statistics</p> 
                 </div>
                 <div class="revenue-details">
-                    <h3 style="text-align: center;">Chi tiết doanh thu</h3>
-                    <p>Thu nhập hôm nay: ${sessionScope.totalMoneyToDay} vnđ</p>
+                    <h3 style="text-align: center;">Revenue details</h3>
+                    <p>Today: ${sessionScope.totalMoneyToDay} vnđ</p>
                     <p>
                         <c:if test="${sessionScope.compareTwoDatesNegative!=null}">
-                            So với hôm qua: <i class="fas fa-long-arrow-alt-down" style="color: #ff0000;"></i> ${sessionScope.compareTwoDatesNegative} vnđ 
+                            Compared to yesterday: <i class="fas fa-long-arrow-alt-down" style="color: #ff0000;"></i> ${sessionScope.compareTwoDatesNegative} vnđ 
                         </c:if>
                         <c:if test="${sessionScope.compareTwoDatesPositive!=null}">
-                            So với hôm qua: <i class="fas fa-long-arrow-alt-up" style="color: #00ff33;"></i> ${sessionScope.compareTwoDatesPositive} vnđ
+                            Compared to yesterday: <i class="fas fa-long-arrow-alt-up" style="color: #00ff33;"></i> ${sessionScope.compareTwoDatesPositive} vnđ
                         </c:if>
                     </p>
-                    <p>Thu nhập tuần nay: ${sessionScope.totalMoneyThisWeek} vnđ</p>
+                    <p>This Week: ${sessionScope.totalMoneyThisWeek} vnđ</p>
                     <p>
                         <c:if test="${sessionScope.compareTwoWeeksNegative!=null}">
-                            So với tuần trước: <i class="fas fa-long-arrow-alt-down" style="color: #ff0000;"></i> ${sessionScope.compareTwoWeeksNegative} vnđ
+                            Compared to last week: <i class="fas fa-long-arrow-alt-down" style="color: #ff0000;"></i> ${sessionScope.compareTwoWeeksNegative} vnđ
                         </c:if>
                         <c:if test="${sessionScope.compareTwoWeeksPositive!=null}">
-                            So với tuần trước: <i class="fas fa-long-arrow-alt-up" style="color: #00ff33;"></i> ${sessionScope.compareTwoWeeksPositive} vnđ
+                            Compared to last week: <i class="fas fa-long-arrow-alt-up" style="color: #00ff33;"></i> ${sessionScope.compareTwoWeeksPositive} vnđ
                         </c:if>
                     </p>
-                    <p>Thu nhập tháng nay: ${sessionScope.totalMoneyThisMonth} vnđ</p>
+                    <p>This Month: ${sessionScope.totalMoneyThisMonth} vnđ</p>
                     <p>
                         <c:if test="${sessionScope.compareTwoMonthsNegative!=null}">
-                            So với tháng trước: <i class="fas fa-long-arrow-alt-down" style="color: #ff0000;"></i> ${sessionScope.compareTwoMonthsNegative} vnđ
+                            Compared to last month: <i class="fas fa-long-arrow-alt-down" style="color: #ff0000;"></i> ${sessionScope.compareTwoMonthsNegative} vnđ
                         </c:if>
                         <c:if test="${sessionScope.compareTwoMonthsPositive!=null}">
-                            So với tháng trước: <i class="fas fa-long-arrow-alt-up" style="color: #00ff33;"></i> ${sessionScope.compareTwoMonthsPositive} vnđ
+                            Compared to last month: <i class="fas fa-long-arrow-alt-up" style="color: #00ff33;"></i> ${sessionScope.compareTwoMonthsPositive} vnđ
                         </c:if>
                     </p>
                 </div>
