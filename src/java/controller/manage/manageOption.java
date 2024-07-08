@@ -88,12 +88,13 @@ public class manageOption extends HttpServlet {
                 session.setAttribute("data", c);
                 List<Product> list = PdDAO.getproductByCid(1);
                 request.setAttribute("products", list);
-
+                request.setAttribute("productSize", list.size());
             }
-            case "accountManagement" ->{
+            case "accountManagement" -> {
                 session.setAttribute("accountManagement", "success");
                 List<Account> list = acDAO.getAllAccount();
                 session.setAttribute("accountManage", list);
+                request.setAttribute("accountSize", list.size());
             }
                 
                 
