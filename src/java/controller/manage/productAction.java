@@ -106,6 +106,8 @@ public class productAction extends HttpServlet {
             ProductsDAO db = new ProductsDAO();
 
             db.updateProductById(name, quantity_int, price_float, describe, image, cid_int, id);
+            List<Product> list = db.getproductByCid(cid_int);
+            request.setAttribute("products", list);
         } catch (NumberFormatException e) {
 
         }

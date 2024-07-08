@@ -279,9 +279,9 @@
                                     <td>${p.price}</td>
                                     <td>${p.describe}</td>
                                     <td>${p.sid.nameStatus}</td>
-                                    <td><a href="productAction?action=edit&id=${p.id}&cid=${p.category.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
+                                    <td><a href="productAction?action=edit&id=${p.id}"><i class="fa-regular fa-pen-to-square"></i></a></td>
 
-                                    <td><a href="productAction?action=delete&id=${p.id}" onclick="return confirmDeleteProduct(${p.id});"><i class="fa-solid fa-trash"></i></a></td>
+                                    <td><a href="productAction?action=delete&id=${p.id}&cid=${p.category.id}" onclick="return confirmDeleteProduct(${p.id});"><i class="fa-solid fa-trash"></i></a></td>
                                 </tr>
                             </c:forEach>
                             <c:if test="${cid!=null}">

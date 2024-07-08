@@ -3,16 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="test">
-            <file>file:/D:/SteakHouse/SteakHouse/web/user/login.jsp</file>
-            <file>file:/D:/SteakHouse/SteakHouse/src/java/controller/LogIn/LogInLogOut.java</file>
-            <file>file:/D:/SteakHouse/SteakHouse/src/java/controller/Home.java</file>
-            <file>file:/D:/SteakHouse/SteakHouse/web/META-INF/context.xml</file>
-            <file>file:/D:/SteakHouse/SteakHouse/src/java/dal/DBContext.java</file>
-            <file>file:/D:/SteakHouse/SteakHouse/src/java/controller/LogIn/Login.java</file>
-            <file>file:/D:/SteakHouse/SteakHouse/web/user/register.jsp</file>
-            <file>file:/D:/SteakHouse/SteakHouse/src/java/controller/LogIn/Register.java</file>
-            <file>file:/D:/SteakHouse/SteakHouse/src/java/controller/LogIn/test.java</file>
-            <file>file:/D:/SteakHouse/SteakHouse/web/WEB-INF/web.xml</file>
+            <file>file:/D:/New%20folder%20(2)/SteakHouse/src/java/controller/LogIn/VerifyCode.java</file>
+            <file>file:/D:/New%20folder%20(2)/SteakHouse/src/java/controller/LogIn/Register.java</file>
+            <file>file:/D:/New%20folder%20(2)/SteakHouse/web/verify.jsp</file>
         </group>
     </open-files>
 </project-private>

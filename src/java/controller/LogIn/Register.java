@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import model.Status;
 
 /**
  *
@@ -88,8 +89,9 @@ public class Register extends HttpServlet {
             request.getRequestDispatcher("user/register.jsp").forward(request, response);
         }
         if (pass.equals(confirmPass)) {
+            Status s = new Status(1,"");
             String code = sm.getRandom();
-            Account ac = new Account(name, user, email, pass, phone, code, 3);
+            Account ac = new Account(name, user, email, pass, phone, code, 3,s);
             boolean test = sm.sendEmail(ac);
             if (test) {
                 HttpSession session = request.getSession();
