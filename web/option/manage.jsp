@@ -239,11 +239,11 @@
         <div class="manageContent">
             <div class="manageOption">
                 <ul>
-                    <li onclick="ac('statistics')">Thống kê</li>
-                    <li onclick="ac('productsManagement')">Quản Lý Sản Phẩm</li>
-                    <li onclick="ac('accountManagement')">Quản Lý Tài Khoản</li>
-                    <li onclick="ac('blogManagement')">Quản Lý Blog</li>
-                    <li onclick="ac('tableManagement')">Quản Lý Bàn</li>
+                    <li onclick="ac('statistics')">Dashboard</li>
+                    <li onclick="ac('productsManagement')">Product Management</li>
+                    <li onclick="ac('accountManagement')">Account Management</li>
+                    <li onclick="ac('blogManagement')">Blog Management</li>
+                    <li onclick="ac('tableManagement')">Table Management</li>
                 </ul>
             </div>
 
@@ -295,23 +295,25 @@
                                     <td>${p.price}</td>
                                     <td>${p.describe}</td>
                                     <td>${p.sid.nameStatus}</td>
-                                    <td><a href="productAction?action=edit&id=${p.id}">Edit</a></td>
-                                    <c:if test="${p.sid.id==1}">
-                                        <td><a href="productAction?action=delete&id=${p.id}&cid=${p.category.id}" onclick="return confirmDeleteProduct(${p.id});">Delete</a></td>
+                                    <td><a href="productAction?action=edit&id=${p.id}"><i class="fas fa-edit"></i></a></td>
+                                        <c:if test="${p.sid.id==1}">
+                                        <td><a href="productAction?action=delete&id=${p.id}&cid=${p.category.id}" onclick="return confirmDeleteProduct(${p.id});"><i class="fas fa-trash"></i></a></td>
                                     </c:if>
                                     <c:if test="${p.sid.id==2}">
-                                        <td><a href="productAction?action=restore&id=${p.id}&cid=${p.category.id}">Restore</a></td>
+                                        <td><a href="productAction?action=restore&id=${p.id}&cid=${p.category.id}"><i class="fas fa-recycle"></i></a></td>
                                     </c:if>
                                 </tr>
                             </c:forEach>
                             <c:if test="${cid!=null}">
-                                <div>
+                                <div style="display: flex;">
                                     <form action="checkAdd">
                                         <input type="hidden" name="cid" value="${cid}">
                                         <input type="submit" value="Add Product" class="add">
+                                    </form>
+                                    <form action="adminSearch">
+                                        <input type="hidden" name="cid" value="${cid}">
                                         <input type="text" placeholder="Search" name="productSearch" class="searchProduct">
                                     </form>
-
                                 </div>
                             </c:if>
 
@@ -333,7 +335,7 @@
                     <div>
 
                         <div>
-                            <form action="checkAdd">
+                            <form action="adminSearch">
                                 <input type="text" placeholder="Search" name="accountSearch" class="searchProduct">
                             </form>
                         </div>
@@ -361,8 +363,12 @@
                                             <td>${a.email}</td>
                                             <td>${a.phoneNumber}</td>
                                             <td>${a.sid.nameStatus}</td>
-                                            <!--<td><a href="accountAction?action=edit&user=${a.username}">Edit</a></td>-->
-                                            <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');">Delete</a></td>
+                                            <c:if test="${a.sid.id==1}">
+                                                <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');"><i class="fas fa-trash"></i></a></td>
+                                                    </c:if>
+                                                    <c:if test="${a.sid.id==2}">
+                                                <td><a href="accountAction?action=restore&username=${a.username}"><i class="fas fa-recycle"></i></a></td>
+                                                    </c:if>
                                         </tr>
                                     </c:if>
 
@@ -373,15 +379,21 @@
                 </c:if>
 
                 <c:if test="${sessionScope.blogManagement!=null}">
+                    <c:if test="${requestScope.blogAdd!=null}"> 
+                        <%@include file="blogAdd.jsp" %> 
+                    </c:if>
+                    <c:if test="${requestScope.blogUpdate!=null}"> 
+                        <%@include file="blogUpdate.jsp" %> 
+                    </c:if>
                     <c:if test="${requestScope.blogAdd==null && requestScope.blogUpdate==null}">
                         <form action="blogAction">
-                            <input type="submit" value="add blog" class="add" name="action">
+                            <input type="submit" value="Add blog" class="add" name="action">
                         </form>
                     </c:if>
                     <div>
                         <div class="content">
                             <table border="1">
-                                <c:if test="${requestScope.blogManage!=null}">
+                                <c:if test="${sessionScope.blogManage!=null}">
                                     <tr>
                                         <th>Id</th>
                                         <th>Title</th>
@@ -391,26 +403,26 @@
                                         <th colspan="2">Action</th>
                                     </tr>
                                 </c:if>
-                                <c:forEach items="${requestScope.blogManage}" var="b">
+                                <c:forEach items="${sessionScope.blogManage}" var="b">
                                     <tr>
                                         <td>${b.id}</td>
                                         <td>${b.title}</td>
                                         <td><img src="${b.image}" alt="${p.image}" class="imgProduct"/></td>
                                         <td><a href="${b.source}">${b.source}</a></td>
                                         <td>${b.sid.nameStatus}</td>
-                                        <td><a href="blogAction?action=edit&id=${b.id}">Edit</a></td>
-                                        <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteTable(${t.id});">Delete</a></td>
+                                        <td><a href="blogAction?action=edit&id=${b.id}"><i class="fas fa-edit"></i></a></td>
+                                                <c:if test="${b.sid.id==1}">
+                                            <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteTable(${t.id});"><i class="fas fa-trash"></i></a></td>
+                                                </c:if>
+                                                <c:if test="${b.sid.id==2}">
+                                            <td><a href="blogAction?action=restore&id=${b.id}"><i class="fas fa-recycle"></i></a></td>
+                                                </c:if>
                                     </tr>
                                 </c:forEach>
                             </table>
                         </div>
                     </div>
-                    <c:if test="${requestScope.blogAdd!=null}"> 
-                        <%@include file="blogAdd.jsp" %> 
-                    </c:if>
-                    <c:if test="${requestScope.blogUpdate!=null}"> 
-                        <%@include file="blogUpdate.jsp" %> 
-                    </c:if>
+
                 </c:if>
 
 
@@ -418,12 +430,11 @@
                 <c:if test="${sessionScope.tableManagement!=null}">
                     <c:if test="${requestScope.tableAdd==null && requestScope.tableUpdate==null}">
                         <form action="tableAction">
-                            <input type="submit" value="add" class="add" name="action">
+                            <input type="submit" value="Add table" class="add" name="action">
                         </form>
                     </c:if>
 
                     <div>
-                        <h2>Danh Sách Bàn</h2>
                         <div class="content">
                             <table border="1">
                                 <tr>
@@ -438,10 +449,15 @@
                                     <tr>
                                         <td>${t.id}</td>
                                         <td>${t.nameTable}</td>
-                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.103:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank">View</a></td>
+                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.103:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank"><i class="fas fa-eye"></i></a></td>
                                         <td>${t.sid.nameStatus}</td>
-                                        <td><a href="tableAction?action=edit&id=${t.id}">Edit</a></td>
-                                        <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});">Delete</a></td>
+                                        <td><a href="tableAction?action=edit&id=${t.id}"><i class="fas fa-edit"></i></a></td>
+                                                <c:if test="${t.sid.id==1}">
+                                            <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});"><i class="fas fa-trash"></i></a></td>
+                                                </c:if>
+                                                <c:if test="${t.sid.id==2}">
+                                            <td><a href="tableAction?action=restore&id=${t.id}"><i class="fas fa-recycle"></i></a></td>
+                                                </c:if>
                                     </tr>
                                 </c:forEach>
                             </table>
