@@ -5,6 +5,7 @@
 
 package controller.manage;
 
+import dal.AccountDAO;
 import dal.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Account;
+import model.Product;
 
 /**
  *
@@ -54,8 +59,32 @@ public class checkAdd extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String cid = request.getParameter("cid");
-        request.setAttribute("productAdd", cid);
+        HttpSession session = request.getSession();
+        AccountDAO acDAO = new AccountDAO();
+        String accountSearch = request.getParameter("accountSearch");
+        if (accountSearch != null) {
+            List<Account> list = acDAO.SearchAllAccount(accountSearch);
+            session.setAttribute("accountManage", list);
+            request.setAttribute("accountSize", list.size());
+        } else {
+            String cid = request.getParameter("cid");
+            String productSearch = request.getParameter("productSearch");
+            if (productSearch != null) {
+                ProductsDAO db = new ProductsDAO();
+                try {
+                    int cid_int = Integer.parseInt(cid);
+                    List<Product> list = db.searchProductByNameAndCid(productSearch, cid_int);
+                    request.setAttribute("products", list);
+                    request.setAttribute("productSize", list.size());
+
+                } catch (NumberFormatException e) {
+
+                }
+            } else {
+                request.setAttribute("productAdd", cid);
+            }
+        }
+
         request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
     
