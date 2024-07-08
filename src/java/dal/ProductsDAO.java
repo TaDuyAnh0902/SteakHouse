@@ -243,6 +243,35 @@ public class ProductsDAO extends AccountDAO {
         return list;
     }
 
+    public List<Product> searchProductByNameAndCid(String name, int cid) {
+        List<Product> list = new ArrayList<>();
+        String sql = "select * from Products where cid = ? and name like ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            st.setInt(1, cid);
+            st.setString(2,name + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getString("id"));
+                p.setName(rs.getString("name"));
+                p.setQuantity(rs.getInt("quantity"));
+                p.setPrice(rs.getDouble("price"));
+                p.setDateproduct(rs.getString("dateproduct"));
+                p.setDescribe(rs.getString("describe"));
+                p.setImage(rs.getString("image"));
+                Category c = getCategoryById(rs.getInt("cid"));
+                p.setCategory(c);
+                Status s = getStatusById(rs.getInt("sid"));
+                p.setSid(s);
+                list.add(p);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
     public List<Product> searchProductBySort(int idx) {
         List<Product> list = new ArrayList<>();
         String sql = "select * from Products";
