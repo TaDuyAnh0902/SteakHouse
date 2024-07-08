@@ -99,7 +99,7 @@
                 text-align: center;
                 right:20px;
                 position: fixed;
-                bottom: 300px;
+                bottom: 150px;
                 z-index: 999;
             }
             .echbay-sms-messenger div.phonering-alo-messenger{
@@ -248,10 +248,10 @@
                     </div>
 
                     <div class="phonering-alo-messenger">
-                        <a href="https://www.messenger.com/t/366526929875352" target="_blank" rel="nofollow" class="echbay-phonering-messenger-event">.</a>
+                        <a href="https://www.facebook.com/thegioisteak" target="_blank" rel="nofollow" class="echbay-phonering-messenger-event">.</a>
                     </div>
                     <div class="phonering-alo-zalo">
-                        <a href="https://zalo.me/0979735203" target="_blank" rel="nofollow" class="echbay-phonering-zalo-event">.</a>
+                        <a href="https://zalo.me/0865448856" target="_blank" rel="nofollow" class="echbay-phonering-zalo-event">.</a>
                     </div>
                 </div>
             </c:if>
