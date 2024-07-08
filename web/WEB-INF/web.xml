@@ -132,6 +132,10 @@
         <servlet-name>adminSort</servlet-name>
         <servlet-class>controller.manage.adminSort</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>accountSort</servlet-name>
+        <servlet-class>controller.manage.accountSort</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -263,5 +267,9 @@
     <servlet-mapping>
         <servlet-name>adminSort</servlet-name>
         <url-pattern>/adminSort</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>accountSort</servlet-name>
+        <url-pattern>/accountSort</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -43,6 +43,182 @@ public class AccountDAO extends StatusDAO {
         return list;
     }
 
+    public List<Account> SearchAllAccount(String username) {
+        String sql = "select * from Account where username like ?";
+        List<Account> list = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                list.add(ad);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public List<Account> getAllAccountByUsernameASC() {
+        String sql = "select * from Account order by username asc";
+        List<Account> list = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                list.add(ad);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public List<Account> getAllAccountByUsernameDESC() {
+        String sql = "select * from Account order by username desc";
+        List<Account> list = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                list.add(ad);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public List<Account> getAllAccountByNameASC() {
+        String sql = "select * from Account order by name asc";
+        List<Account> list = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                list.add(ad);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public List<Account> getAllAccountByNameDESC() {
+        String sql = "select * from Account order by name desc";
+        List<Account> list = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                list.add(ad);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public List<Account> getAllAccountByStatusASC() {
+        String sql = "select * from Account order by sid asc";
+        List<Account> list = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                list.add(ad);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+    public List<Account> getAllAccountByStatusDESC() {
+        String sql = "select * from Account order by sid desc";
+        List<Account> list = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account ad = new Account();
+                ad.setName(rs.getString("name"));
+                ad.setUsername(rs.getString("username"));
+                ad.setEmail(rs.getString("email"));
+                ad.setPassWord(rs.getString("password"));
+                ad.setPhoneNumber(rs.getString("phoneNumber"));
+                ad.setCode(rs.getString("code"));
+                ad.setRole(rs.getInt("role"));
+                Status s = getStatusById(rs.getInt("sid"));
+                ad.setSid(s);
+                list.add(ad);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
     public Account check(String username) {
         String sql = """
                      SELECT [name]
@@ -177,7 +353,7 @@ public class AccountDAO extends StatusDAO {
 
         }
     }
-    
+
     public void deleteUser(String user) {
         String sql = "Update [Account] SET sid = 2 where username = ?";
         try {
@@ -209,6 +385,7 @@ public class AccountDAO extends StatusDAO {
 
         }
     }
+
     public Account getAccountByUser(String username) {
         String sql = """
                      SELECT [name]
@@ -247,4 +424,3 @@ public class AccountDAO extends StatusDAO {
     }
 
 }
-
