@@ -62,18 +62,37 @@ public class productAction extends HttpServlet {
         String cid = request.getParameter("cid");
         String action = request.getParameter("action");
         ProductsDAO db = new ProductsDAO();
-        if ("delete".equals(action)) {
-            db.deleteProductById(id);
-            int cid_int;
-            try {
-                cid_int = Integer.parseInt(cid);
-                List<Product> list = db.getproductByCid(cid_int);
-                request.setAttribute("products", list);
-            } catch (NumberFormatException e) {
+        if (null != action) {
+            switch (action) {
+                case "delete" -> {
+                    db.deleteProductById(id);
+                    int cid_int;
+                    try {
+                        cid_int = Integer.parseInt(cid);
+                        List<Product> list = db.getproductByCid(cid_int);
+                        request.setAttribute("products", list);
+                        request.setAttribute("productSize", list.size());
+                    } catch (NumberFormatException e) {
+                    }
+                }
+                case "edit" -> {
+                    Product productUpdate = db.getProductById(id);
+                    request.setAttribute("productUpdate", productUpdate);
+                }
+                case "restore" -> {
+                    db.restoreProductById(id);
+                    int cid_int;
+                    try {
+                        cid_int = Integer.parseInt(cid);
+                        List<Product> list = db.getproductByCid(cid_int);
+                        request.setAttribute("products", list);
+                        request.setAttribute("productSize", list.size());
+                    } catch (NumberFormatException e) {
+                    }
+                }
+                default -> {
+                }
             }
-        } else if ("edit".equals(action)) {
-            Product productUpdate = db.getProductById(id);
-            request.setAttribute("productUpdate", productUpdate);
         }
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
@@ -108,6 +127,7 @@ public class productAction extends HttpServlet {
             db.updateProductById(name, quantity_int, price_float, describe, image, cid_int, id);
             List<Product> list = db.getproductByCid(cid_int);
             request.setAttribute("products", list);
+            request.setAttribute("productSize", list.size());
         } catch (NumberFormatException e) {
 
         }
