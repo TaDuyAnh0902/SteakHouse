@@ -50,9 +50,23 @@ public class BestSellingDAO extends ProductsDAO {
     
     public List<BestSelling> getBestSellings(){
         String sql = """
-                     SELECT TOP 6 *
-                     FROM BestSelling
-                     ORDER BY quantity DESC;""";
+                     WITH CurrentWeekOrders AS (
+                        SELECT
+                            pid,
+                            quantity
+                        FROM
+                            BestSelling
+                        WHERE
+                            DATEPART(ISO_WEEK, date) = DATEPART(ISO_WEEK, GETDATE())
+                            AND YEAR(date) = YEAR(GETDATE())
+                    )
+                    SELECT
+                        pid,
+                        SUM(quantity) AS total_quantity
+                    FROM
+                        CurrentWeekOrders
+                    GROUP BY
+                        pid;""";
         List<BestSelling> list = new ArrayList<>();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -61,8 +75,7 @@ public class BestSellingDAO extends ProductsDAO {
                 BestSelling bs = new BestSelling();
                 Product p = getProductById(rs.getString("pid"));
                 bs.setPid(p);
-                bs.setQuantity(rs.getInt("quantity"));
-                bs.setDate(rs.getString("date"));
+                bs.setQuantity(rs.getInt("total_quantity"));
                 list.add(bs);
             }
         } catch (SQLException e) {
@@ -93,17 +106,30 @@ public class BestSellingDAO extends ProductsDAO {
     public Map<String,Integer> getStatisticsBestSellingsByWeek(){
         Map<String, Integer> map = new HashMap<>();
         String sql = """
-                     SELECT DISTINCT TOP 5 *
-                     FROM BestSelling
-                     WHERE date >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()), 0)
-                       AND date < DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()) + 1, 0);""";
+                     WITH CurrentWeekOrders AS (
+                        SELECT
+                            pid,
+                            quantity
+                        FROM
+                            BestSelling
+                        WHERE
+                            DATEPART(ISO_WEEK, date) = DATEPART(ISO_WEEK, GETDATE())
+                            AND YEAR(date) = YEAR(GETDATE())
+                    )
+                    SELECT
+                        pid,
+                        SUM(quantity) AS total_quantity
+                    FROM
+                        CurrentWeekOrders
+                    GROUP BY
+                        pid;""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
                 Product p = getProductById(rs.getString("pid"));
                 String name = p.getName();
-                int quantity = rs.getInt("quantity");
+                int quantity = rs.getInt("total_quantity");
                 map.put(name, quantity);
             }
         } catch (SQLException e) {
@@ -114,17 +140,30 @@ public class BestSellingDAO extends ProductsDAO {
     public Map<String,Integer> getStatisticsBestSellingsByMonth(){
         Map<String, Integer> map = new HashMap<>();
         String sql = """
-                     SELECT DISTINCT TOP 5 *
-                       FROM BestSelling
-                       WHERE date >= DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)
-                         AND date < DATEADD(MONTH, 1, DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1));""";
+                     WITH CurrentMonthOrders AS (
+                        SELECT
+                            pid,
+                            quantity
+                        FROM
+                            BestSelling
+                        WHERE
+                            MONTH(date) = MONTH(GETDATE())
+                            AND YEAR(date) = YEAR(GETDATE())
+                    )
+                    SELECT
+                        pid,
+                        SUM(quantity) AS total_quantity
+                    FROM
+                        CurrentMonthOrders
+                    GROUP BY
+                        pid;""";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
                 Product p = getProductById(rs.getString("pid"));
                 String name = p.getName();
-                int quantity = rs.getInt("quantity");
+                int quantity = rs.getInt("total_quantity");
                 map.put(name, quantity);
             }
         } catch (SQLException e) {
