@@ -63,16 +63,29 @@ public class OrderDAO extends ProductsDAO {
         return null;
     }
 
-    public Table deleteTableById(int id) {
+    public Table deleteTableById(String id) {
         String sql = "Update [Table] set sid = 2 where id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
+            st.setString(1, id);
             st.executeUpdate();
 
         } catch (SQLException e) {
         }
         return null;
+    }
+
+    public void restoreTableById(String id) {
+        String sql = "Update [Table] SET sid = 1 where id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+        }
     }
 
     public void addTable(String nameTable) {
@@ -104,6 +117,7 @@ public class OrderDAO extends ProductsDAO {
         } catch (SQLException e) {
         }
     }
+
     public List<Integer> getAllTableId() {
         String sql = "select distinct [id] from [table]";
         List<Integer> list = new ArrayList<>();
@@ -118,13 +132,14 @@ public class OrderDAO extends ProductsDAO {
         }
         return list;
     }
+
     public boolean getStatusByTable(int idTable) {
         String sql = """
                      select * from orderline where tid = ?
                      """;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1,idTable);
+            st.setInt(1, idTable);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 return true;
@@ -134,6 +149,7 @@ public class OrderDAO extends ProductsDAO {
         }
         return false;
     }
+
     public Map<Integer, Boolean> getTableStatus() {
         Map<Integer, Boolean> data = new HashMap<>();
         List<Integer> list = getAllTableId();
@@ -393,6 +409,7 @@ public class OrderDAO extends ProductsDAO {
         } catch (SQLException e) {
         }
     }
+
     public List<OrderLine> sortNameOrdersASC() {
         String sql = """
                     SELECT 
@@ -445,7 +462,7 @@ public class OrderDAO extends ProductsDAO {
 
         return list;
     }
-    
+
     public List<OrderLine> sortNameOrdersDESC() {
         String sql = """
                     SELECT 
@@ -498,7 +515,7 @@ public class OrderDAO extends ProductsDAO {
 
         return list;
     }
-    
+
     public List<OrderLine> sortQuantityOrdersASC() {
         String sql = """
                     SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
@@ -532,7 +549,7 @@ public class OrderDAO extends ProductsDAO {
 
         return list;
     }
-    
+
     public List<OrderLine> sortQuantityOrdersDESC() {
         String sql = """
                     SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
@@ -566,7 +583,7 @@ public class OrderDAO extends ProductsDAO {
 
         return list;
     }
-    
+
     public List<OrderLine> sortTimeOrdersASC() {
         String sql = """
                     SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
@@ -600,7 +617,7 @@ public class OrderDAO extends ProductsDAO {
 
         return list;
     }
-    
+
     public List<OrderLine> sortTimeOrdersDESC() {
         String sql = """
                     SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
@@ -634,7 +651,7 @@ public class OrderDAO extends ProductsDAO {
 
         return list;
     }
-    
+
     public List<OrderLine> sortTableOrdersASC() {
         String sql = """
                     SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
@@ -668,7 +685,7 @@ public class OrderDAO extends ProductsDAO {
 
         return list;
     }
-    
+
     public List<OrderLine> sortTableOrdersDESC() {
         String sql = """
                     SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
@@ -702,7 +719,7 @@ public class OrderDAO extends ProductsDAO {
 
         return list;
     }
-    
+
     public List<OrderLine> sortStatusOrdersASC() {
         String sql = """
                     SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
@@ -736,7 +753,7 @@ public class OrderDAO extends ProductsDAO {
 
         return list;
     }
-    
+
     public List<OrderLine> sortStatusOrdersDESC() {
         String sql = """
                     SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
