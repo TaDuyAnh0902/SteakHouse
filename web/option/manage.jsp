@@ -449,7 +449,7 @@
                                     <tr>
                                         <td>${t.id}</td>
                                         <td>${t.nameTable}</td>
-                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.103:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank"><i class="fas fa-eye"></i></a></td>
+                                        <td><a href="https://quickchart.io/qr?text=http://10.33.15.246:8080/SWP391-SteakHouse/home?idTable=${t.id}&caption=Table${t.id}" target="_blank"><i class="fas fa-eye"></i></a></td>
                                         <td>${t.sid.nameStatus}</td>
                                         <td><a href="tableAction?action=edit&id=${t.id}"><i class="fas fa-edit"></i></a></td>
                                                 <c:if test="${t.sid.id==1}">
