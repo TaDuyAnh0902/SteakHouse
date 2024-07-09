@@ -352,8 +352,21 @@ public class OrderDAO extends ProductsDAO {
     public void buy(int idTable) {
         String sql = """
                      UPDATE [dbo].[OrderLine]
-                    SET [sid] = 2
-                    WHERE [tid] = ?
+                        SET [sid] = 2
+                        WHERE [tid] = ? and sid = 1
+
+                         UPDATE p
+                         SET p.quantitywaitting = (
+                             SELECT SUM(o.quantity)
+                             FROM orderline o
+                             WHERE o.sid = 2 AND o.pid = p.id
+                         )
+                         FROM products p
+                         WHERE EXISTS (
+                             SELECT 1
+                             FROM orderline o
+                             WHERE o.sid = 2 AND o.pid = p.id
+                         );
                       """;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
