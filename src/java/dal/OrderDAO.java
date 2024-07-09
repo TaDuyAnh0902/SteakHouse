@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
-import model.Account;
 import model.OrderLine;
 import model.Product;
 import model.Status;
@@ -261,7 +260,7 @@ public class OrderDAO extends ProductsDAO {
 
     public List<OrderLine> getListOrderLine(int idTable) {
         String sql = """
-                    SELECT pid, tid, sid, quantity
+                    SELECT id, pid, tid, sid, quantity
                     FROM orderline
                     where tid = ?
                  """;
@@ -272,8 +271,7 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine olt = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
+                 olt.setId(rs.getInt("id"));
 
                 Product p = getProductById(rs.getString("pid"));
                 olt.setPid(p);
@@ -285,7 +283,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(olt);
             }
         } catch (SQLException e) {
-            // Better to log the exception
 
         }
 
@@ -305,7 +302,6 @@ public class OrderDAO extends ProductsDAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            // Better to log the exception
         }
         return 0;
     }
@@ -324,8 +320,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -338,7 +332,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
 
         }
 
@@ -452,8 +445,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -466,8 +457,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
-
         }
 
         return list;
@@ -505,8 +494,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -519,8 +506,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
-
         }
 
         return list;
@@ -539,8 +524,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -553,8 +536,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
-
         }
 
         return list;
@@ -573,8 +554,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -587,8 +566,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
-
         }
 
         return list;
@@ -607,8 +584,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -621,8 +596,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
-
         }
 
         return list;
@@ -641,8 +614,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -655,8 +626,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
-
         }
 
         return list;
@@ -675,8 +644,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -689,8 +656,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
-
         }
 
         return list;
@@ -709,8 +674,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -723,8 +686,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
-
         }
 
         return list;
@@ -743,8 +704,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -757,8 +716,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
-
         }
 
         return list;
@@ -777,8 +734,6 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine ol = new OrderLine();
-                // Since the `id` column is not part of the grouped result, you might need to handle it differently
-                // ol.setId(rs.getInt("id"));
                 ol.setId(rs.getInt("id"));
                 Product p = getProductById(rs.getString("pid"));
                 ol.setPid(p);
@@ -791,8 +746,6 @@ public class OrderDAO extends ProductsDAO {
                 list.add(ol);
             }
         } catch (SQLException e) {
-            // Better to log the exception
-
         }
 
         return list;
