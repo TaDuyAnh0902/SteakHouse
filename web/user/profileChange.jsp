@@ -19,7 +19,7 @@
                 background-color: #f5f5f5;
             }
 
-            .wrapper {
+            .wrapperr {
                 width: 80%;
                 margin: 20px auto;
                 padding: 20px;
@@ -129,7 +129,7 @@
     </head>
     <body>
         <c:set var="profileNew" value="${requestScope.profileNew}"/>
-        <div class="wrapper">
+        <div class="wrapperr">
             <div class="profile-header">
                 <img src="images/banner6.jpg" alt="background" class="background"/>
                 <img src="images/user.jpg" alt="user" class="user"/>
