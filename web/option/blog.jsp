@@ -32,24 +32,30 @@
                 display: flex;
                 gap: 20px;
             }
+            .BlogItem img {
+                border-radius: 8px;
+            }
         </style>
     </head>
     <body>
         <div class="Blog">
             <h1>Blog</h1>
-            
+
             <div class="BlogContainer">
                 <c:forEach var="blog" items="${requestScope.blogList}">
-                    <div class="BlogItem">
-                        <div>
-                            <a href="choiceBlog?sourceBlog=${blog.source}"><img src="${blog.image}" alt="alt"/></a>
+                    <c:if test="${blog.sid.id==1}">
+                        <div class="BlogItem">
+                            <div>
+                                <a href="choiceBlog?sourceBlog=${blog.source}"><img src="${blog.image}" alt="alt"/></a>
+                            </div>
+                            <div>
+                                <h5>${blog.title}</h5>
+                                <p>${blog.date}</p>
+                                <p>Posted By ${blog.aid.username}</p>
+                            </div>
                         </div>
-                        <div>
-                            <h5>${blog.title}</h5>
-                            <p>${blog.date}</p>
-                            <p>Posted By ${blog.aid.username}</p>
-                        </div>
-                    </div>
+                    </c:if>
+
                 </c:forEach>
             </div>
         </div>

@@ -257,7 +257,7 @@
                         <p style="position: absolute;
                            background-color: red; color: white; width: 50px; text-align: center; border-top-left-radius: 8px;">Hot</p>
                         <h5 style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
-                            color: red;">${b.pid.price}00 vnđ</h5>
+                            color: red;">${b.pid.price}00 đ</h5>
                         <img src="${b.pid.image}" alt="${b.pid.image}"/>
                         <p class="categoryName">${b.pid.category.name}</p>
                         <div class="product-details">
