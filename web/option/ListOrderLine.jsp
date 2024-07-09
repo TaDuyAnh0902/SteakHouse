@@ -30,10 +30,11 @@
                     height: 32px;
                 }
                 .ListOrderLine tbody td:nth-child(1) {
-                    width: 60%;
+                    width: 40%;
                 }
                 .ListOrderLine tbody td:nth-child(2),
                 .ListOrderLine thead th:nth-child(2){
+                    width: 25%;
                     text-align: center;
                 }
                 .ListOrderLine tbody {
@@ -46,7 +47,7 @@
                     font-weight: bold;
                 }
                 .ListOrderLine a {
-                    text-align: center; 
+                    text-align: center;
                     display: block;
                     font-size: 20px;
                     font-weight: bold;
@@ -55,12 +56,17 @@
                     text-decoration: none;
                     border-radius: 8px;
                 }
-                
+
                 .ListOrderLine a:active {
                     background-color: rgb(150, 144, 125);
                 }
                 .footer{
                     display: none;
+                }
+                .table td:nth-child(3),
+                .totalMoney{
+                    text-align: end;
+                    padding-right: 10%;
                 }
             }
         </style>
@@ -72,40 +78,49 @@
                 <th>Tên sản phẩm</th>
                 <th>Số lượng</th>
                 <th>Giá</th>
+                <th>Xóa</th>
                 </thead>
                 <c:forEach var="order" items="${sessionScope.OrderLine}">
                     <c:if test="${order.sid.id==2}">
                         <tbody>
-                            <td>
-                                ${order.pid.name}
-                                <p style="color: #F90;">(đã đặt)</p>
-                            </td>
-                            <td>${order.quantity}</td>
-                            <td>${order.pid.price}</td>
+                        <td>
+                            ${order.pid.name}
+                            <p style="color: #F90;">(đã đặt)</p>
+                        </td>
+                        <td>${order.quantity}</td>
+                        <td>${order.pid.price}00</td>
+                        <td></td>
                         </tbody>
                     </c:if>
                     <c:if test="${order.sid.id==1}">
                         <tbody>
-                            <td>
-                                ${order.pid.name}
-<p style="color: green;">(món mới)</p>
-                            </td>
-                            <td>${order.quantity}</td>
-                            <td>${order.pid.price}</td>
+                        <td>
+                            ${order.pid.name}
+                            <p style="color: green;">(món mới)</p>
+                        </td>
+                        <td>${order.quantity}</td>
+                        <td>${order.pid.price}00</td>
+                        <td><a href="deleteProductByMobile?id=${order.id}" style="background-color: white;"><i class="fas fa-trash-alt"></i></a></td>
+                        </tbody>
+                    </c:if>
+                    <c:if test="${order.sid.id==3}">
+                        <tbody>
+                        <td>
+                            ${order.pid.name}
+                            <p style="color: brown;">(đã ra)</p>
+                        </td>
+                        <td>${order.quantity}</td>
+                        <td>${order.pid.price}00</td>
+                        <td></td>
                         </tbody>
                     </c:if>
                 </c:forEach>
+                <tbody style="border-bottom: 1px solid gray;border-top: 1px solid gray;">
+                <td colspan="2" style="color: brown;">Tổng tiền</td>
+                <td style="color: #F90;" class="totalMoney">${sessionScope.totalMoney}</td>
+                </tbody>
             </table>
-            <div>
-                <div>
-                    <p>Tổng Tiền:</p>
-                </div>
-                <div>
-                    <p><c:out value="${sessionScope.totalMoney}"/></p>
-                </div>
-            </div>
-                    <a href="ConfirmOrder?action=buy&idTable=${sessionScope.tableNumber}">Đặt</a>
+            <a href="ConfirmOrder?action=buy&idTable=${sessionScope.tableNumber}">Đặt</a>
         </div>
     </body>
 </html>
-
