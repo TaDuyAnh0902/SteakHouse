@@ -6,11 +6,49 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
+            :root {
+                --primary-color: #28a745;
+                --secondary-color: #155724;
+                --background-color: #f8f9fa;
+                --text-color: #212529;
+                --hover-color: #218838;
+                --danger-color: #dc3545;
+                --warning-color: #ffc107;
+            }
+            #table-container table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            #table-container th, td {
+                padding: 12px;
+                border: 1px solid #ddd;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            #table-container th {
+                background-color: var(--primary-color);
+                color: white;
+            }
+
+            #table-container tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #table-container tr:hover {
+                background-color: #ddd;
+            }
+
+            #table-container th:hover {
+                cursor: pointer;
+            }
             .manageOrder {
                 display: flex;
                 height: 100vh;
             }
-            .manageOrder-left {
+/*            .manageOrder-left {
                 width: 20%;
                 font-size: 20px;
                 border-right: 1px solid gray;
@@ -28,19 +66,48 @@
             }
             .manageOrder-left ul li:hover {
                 background-color: #E2D9BC;
+            }*/
+            .manageOrder-left {
+                width: 20%;
+                font-size: 20px;
+                min-height: 500px;
+            }
+
+            .manageOrder-left > ul {
+                list-style: none;
+                display: block;
+                min-height: 1500px;
+                /*height: 100%;*/
+                background: #E2D9BC;
+                padding: 0;
+                margin: 0;
+                border-radius: 5px;
+                overflow: hidden;
+            }
+
+            .manageOrder-left ul li {
+                cursor: pointer;
+                padding: 16px;
+                padding-left: 16%;
+                border-bottom: 1px solid rgb(179, 179, 179);
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+
+            .manageOrder-left ul li:hover {
+                color: var(--hover-color);
+                background-color: var(--background-color);
             }
             .manageOrder-right {
                 width: 80%;
-                margin-top: 20px;
             }
             .manageOrder-right-content {
                 display: flex;
             }
             #table-container {
                 width: 70%;
-                padding: 0 10px;
+                /*padding: 0 10px;*/
             }
-            #table-container table {
+/*            #table-container table {
                 display: inline-block;
                 width: 100%;
                 border-collapse: collapse;
@@ -74,7 +141,7 @@
             #table-container th:nth-child(2)
             {
                 width: 10%;
-            }
+            }*/
             .allListTable {
                 display: flex;
                 flex-wrap: wrap;
@@ -122,7 +189,6 @@
 
     </head>
     <body>
-        <h4 style="text-align: center; color: red;"><c:out value="${requestScope.payFail}"/></h4>
         <div class="manageOrder">
             <div class="manageOrder-left">
                 <ul>
@@ -175,7 +241,7 @@
                                 </c:forEach>
                             </table>
                         </div>
-                        <div id="RequestPayment-content">
+                        <div id="RequestPayment-content" style="margin: 0 auto;">
                             <h3>Thông báo thanh toán</h3>
                             <ul style="list-style: none;">
                                 <c:forEach items="${sessionScope.listPaymentRequest}" var="l">
@@ -202,6 +268,7 @@
                                         </div>
                                     </li>
                                 </c:forEach>
+                            <h3 style="margin-top: 50px;">Yêu cầu khách hàng</h3>
                                 <c:forEach items="${sessionScope.listClientRequest}" var="cl">
                                     <li>
                                         <div style="display: flex; justify-content: space-between;
@@ -253,10 +320,10 @@
 
                                 <c:if test="${time!=null}">
                                     Thời gian đặt hàng: <c:out value="${time}"/>
-                                    <table style="width: 350px;">
+                                    <table style="width: 350px;" border="0">
                                         <thead style="width: 100%; border-bottom: 1px solid gray;border-top: 1px solid gray;">
                                             <tr>
-                                                <th>Tên</th>
+                                                <th style=" width: 50%;">Tên</th>
                                                 <th>Số lượng</th>
                                                 <th>Giá</th>
                                             </tr>
@@ -265,20 +332,20 @@
                                             <c:set var="table" value="${o.tid.id}"/>
                                             <c:if test="${o.sid.id!=1}">
                                                 <tbody>
-                                                <td>${o.pid.name}</td>
-                                                <td>${o.quantity}</td>
-                                                <td>
+                                                <td style="border: 0; font-size: 16px;">${o.pid.name}</td>
+                                                <td style="border: 0;">${o.quantity}</td>
+                                                <td style="border: 0;">
                                                     ${o.pid.price}00
                                                 </td>
                                                 </tbody>
                                             </c:if>
                                         </c:forEach>
                                         <tbody style="border-bottom: 1px solid gray;border-top: 1px solid gray;">
-                                        <td colspan="2" style="color: brown;">Tổng tiền</td>
-                                        <td style="color: #F90;"class="totalMoney">${requestScope.totalMoney}</td>
+                                        <td colspan="2" style="color: brown; border: 0;">Tổng tiền</td>
+                                        <td style="color: #F90; border: 0;"class="totalMoney">${requestScope.totalMoney}</td>
                                         </tbody>
                                         <tfoot>
-                                        <td colspan="3" ><a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" style="color: red;font-size: 20px;
+                                        <td colspan="3" style=" border: 0;"><a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" style="color: red;font-size: 20px;
                                                             text-decoration: none; display: block; text-align: center;">Hoàn tất</a></td>
                                         </tfoot>
                                     </table>
