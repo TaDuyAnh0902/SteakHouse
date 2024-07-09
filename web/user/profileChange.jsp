@@ -12,8 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-
-            body {
+           body {
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
@@ -60,40 +59,47 @@
             }
 
             .profile {
+                width: 100%;
+                padding-top: 40px;
                 display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                margin-bottom: 20px;
+                flex-direction: column;
+                align-items: center;
             }
 
             .info-container {
                 width: 100%;
                 display: flex;
-                justify-content: space-between;
-                margin-bottom: 20px; /* Increased margin-bottom for more spacing */
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 20px;
             }
 
             .info-item {
-                width: 48%;
-                margin-bottom: 20px; /* Added margin-bottom for more spacing */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 5px 0;
+                width: 100%;
             }
 
             .info-item label {
-                display: block;
-                text-align: left;
-                margin-bottom: 5px;
+                width: 20%;
+                text-align: right;
+                margin-right: 50px;
             }
 
-            .info-item input {
-                width: 100%;
-                padding: 8px;
+            .info-item input[type="text"],
+            .info-item input[type="password"],
+            .info-item input[type="email"] {
+                width: 50%;
+                padding: 5px;
                 border: 1px solid #ddd;
                 border-radius: 5px;
-                box-sizing: border-box;
+                margin-right: 120px;
             }
 
             .choose {
-                margin-top: 20px; /* Added margin for separation */
+                margin-top: 20px;
                 display: flex;
                 justify-content: center;
                 width: 100%;
@@ -103,17 +109,16 @@
                 text-align: center;
             }
 
-            .choose a,
-            .choose input[type="submit"] {
+            .choose input[type="submit"],
+            .choose a {
                 display: inline-block;
                 padding: 10px 20px;
-                margin: 10px 20px; /* Increased horizontal margin for more spacing */
+                margin: 10px;
                 text-decoration: none;
                 color: white;
                 background-color: #4A148C;
                 border-radius: 5px;
                 border: none;
-                cursor: pointer;
             }
 
             .choose a:hover,
