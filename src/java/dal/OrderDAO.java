@@ -75,6 +75,16 @@ public class OrderDAO extends ProductsDAO {
         return null;
     }
 
+    public void deleteProductByMobile(int id) {
+        String sql = "delete orderline where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
     public void restoreTableById(String id) {
         String sql = "Update [Table] SET sid = 1 where id = ?";
 

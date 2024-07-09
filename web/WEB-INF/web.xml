@@ -144,6 +144,10 @@
         <servlet-name>adminSearch</servlet-name>
         <servlet-class>controller.manage.adminSearch</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deleteProductByMobile</servlet-name>
+        <servlet-class>Order.deleteProductByMobile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -287,5 +291,9 @@
     <servlet-mapping>
         <servlet-name>adminSearch</servlet-name>
         <url-pattern>/adminSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteProductByMobile</servlet-name>
+        <url-pattern>/deleteProductByMobile</url-pattern>
     </servlet-mapping>
 </web-app>

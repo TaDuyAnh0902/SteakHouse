@@ -296,12 +296,12 @@
                                     <td>${p.describe}</td>
                                     <td>${p.sid.nameStatus}</td>
                                     <td><a href="productAction?action=edit&id=${p.id}"><i class="fas fa-edit"></i></a></td>
-                                        <c:if test="${p.sid.id==1}">
+                                            <c:if test="${p.sid.id==1}">
                                         <td><a href="productAction?action=delete&id=${p.id}&cid=${p.category.id}" onclick="return confirmDeleteProduct(${p.id});"><i class="fas fa-trash"></i></a></td>
-                                    </c:if>
-                                    <c:if test="${p.sid.id==2}">
-                                        <td><a href="productAction?action=restore&id=${p.id}&cid=${p.category.id}"><i class="fas fa-recycle"></i></a></td>
-                                    </c:if>
+                                            </c:if>
+                                            <c:if test="${p.sid.id==2}">
+                                        <td><a href="productAction?action=restore&id=${p.id}&cid=${p.category.id}" onclick="return confirmRestoreProduct(${p.id});"><i class="fas fa-recycle"></i></a></td>
+                                            </c:if>
                                 </tr>
                             </c:forEach>
                             <c:if test="${cid!=null}">
@@ -367,7 +367,7 @@
                                                 <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');"><i class="fas fa-trash"></i></a></td>
                                                     </c:if>
                                                     <c:if test="${a.sid.id==2}">
-                                                <td><a href="accountAction?action=restore&username=${a.username}"><i class="fas fa-recycle"></i></a></td>
+                                                <td><a href="accountAction?action=restore&username=${a.username}" onclick="return confirmRestoreAccount('${a.username}');"><i class="fas fa-recycle"></i></a></td>
                                                     </c:if>
                                         </tr>
                                     </c:if>
@@ -412,10 +412,10 @@
                                         <td>${b.sid.nameStatus}</td>
                                         <td><a href="blogAction?action=edit&id=${b.id}"><i class="fas fa-edit"></i></a></td>
                                                 <c:if test="${b.sid.id==1}">
-                                            <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteTable(${t.id});"><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteBlog(${t.id});"><i class="fas fa-trash"></i></a></td>
                                                 </c:if>
                                                 <c:if test="${b.sid.id==2}">
-                                            <td><a href="blogAction?action=restore&id=${b.id}"><i class="fas fa-recycle"></i></a></td>
+                                                <td><a href="blogAction?action=restore&id=${b.id}" onclick="return confirmRestoreBlog(${t.id});"><i class="fas fa-recycle"></i></a></td>
                                                 </c:if>
                                     </tr>
                                 </c:forEach>
@@ -453,10 +453,10 @@
                                         <td>${t.sid.nameStatus}</td>
                                         <td><a href="tableAction?action=edit&id=${t.id}"><i class="fas fa-edit"></i></a></td>
                                                 <c:if test="${t.sid.id==1}">
-                                            <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});"><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteTable(${b.id});"><i class="fas fa-trash"></i></a></td>
                                                 </c:if>
                                                 <c:if test="${t.sid.id==2}">
-                                            <td><a href="tableAction?action=restore&id=${t.id}"><i class="fas fa-recycle"></i></a></td>
+                                                <td><a href="tableAction?action=restore&id=${t.id}" onclick="return confirmRestoreTable(${b.id});"><i class="fas fa-recycle"></i></a></td>
                                                 </c:if>
                                     </tr>
                                 </c:forEach>
@@ -505,12 +505,32 @@
             }
         }
 
+        function confirmRestoreProduct(id) {
+            var confirmation = confirm("Are you sure you want to restore your Product?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Product restore canceled.");
+                return false;
+            }
+        }
+
         function confirmDeleteAccount(username) {
             var confirmation = confirm("Are you sure you want to delete the Account : " + username + "?");
             if (confirmation === true) {
                 return true;
             } else {
                 alert("Account deletion canceled.");
+                return false;
+            }
+        }
+
+        function confirmRestoreAccount(username) {
+            var confirmation = confirm("Are you sure you want to restore the Account : " + username + "?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Account restore canceled.");
                 return false;
             }
         }
@@ -525,12 +545,32 @@
             }
         }
 
+        function confirmRestoreBlog(id) {
+            var confirmation = confirm("Are you sure you want to restore your Blog?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Blog restore canceled.");
+                return false;
+            }
+        }
+
         function confirmDeleteTable(id) {
             var confirmation = confirm("Are you sure you want to delete Table?");
             if (confirmation === true) {
                 return true;
             } else {
                 alert("Table deletion canceled.");
+                return false;
+            }
+        }
+
+        function confirmRestoreTable(id) {
+            var confirmation = confirm("Are you sure you want to restore your Table?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Table restore canceled.");
                 return false;
             }
         }
