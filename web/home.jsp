@@ -230,12 +230,16 @@
 
                 <c:if test="${requestScope.contact!=null}"> <%@include file="option/contact.jsp" %> </c:if> 
 
-                <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
-
+                <c:if test="${sessionScope.role==1}">
+                    <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
+                </c:if>
+                
                 <c:if test="${requestScope.ListOrderLine!=null}"> <%@include file="option/ListOrderLine.jsp" %> </c:if>
 
-                <c:if test="${sessionScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %> </c:if>
-
+                <c:if test="${sessionScope.role==2}">
+                    <c:if test="${sessionScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %> </c:if>
+                </c:if>
+                
                 <c:if test="${sessionScope.manageOrder==null && sessionScope.manage==null}">
                     <%@include file="footer.jsp" %>
                 </c:if>
