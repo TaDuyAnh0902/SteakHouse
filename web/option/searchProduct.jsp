@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -76,39 +77,26 @@
     </head>
     <body>
         <div action="search" class="slidecontainer">
-
-<!--            <input type="range" min="1" max="500" name="price" value="${param.price}" class="slider" id="myRange">
-            <p>Price: <span id="demo"></span>k to 500k</p>-->
-            
-            <!--<input type="submit" value="Search" style="margin-top: 0;" class="submit"><br><br>-->
-            <!--<h4>Sắp xếp theo:</h4>-->
             <div>
                 <form id="searchForm" action="search">
-                    <input type="text" id="search" name="search" placeholder="Search"><br>
+                    <input type="text" id="search" name="search" placeholder="Search" value="${requestScope.searchContent}"><br>
                     <button type="submit" hidden>Login</button>
                 </form>
             </div>
             
             <div>
+                <c:set var="sortItem" value="${requestScope.sortItem}"/>
                 <select name="sort" onchange="search(this.value)">
-                    <option value="0">Thứ tự mặc định</option>
-                    <option value="sort1">Tên a-z</option>
-                    <option value="sort2">Giá giảm dần</option>
-                    <option value="sort3">Giá tăng dần</option>
+                    <option value="sort0"}>Thứ tự mặc định</option>
+                    <option value="sort1" ${(sortItem == 1)?'selected':''}>Tên a-z</option>
+                    <option value="sort2" ${(sortItem == 2)?'selected':''}>Giá giảm dần</option>
+                    <option value="sort3" ${(sortItem == 3)?'selected':''}>Giá tăng dần</option>
                 </select><br>
             </div>
             
         </div>
 
         <script>
-//            var slider = document.getElementById("myRange");
-//            var output = document.getElementById("demo");
-//            output.innerHTML = slider.value;
-//
-//            slider.oninput = function () {
-//                output.innerHTML = this.value;
-//            }
-            
             function search(id) {
                 window.location.href = "search?sort=" + id;
             }
@@ -120,7 +108,6 @@
                 }
             }
 
-            // Adding event listener to the input field
             window.onload = function() {
                 document.getElementById('search').addEventListener('keydown', handleEnter);
             }
