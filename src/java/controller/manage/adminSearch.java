@@ -68,6 +68,7 @@ public class adminSearch extends HttpServlet {
             List<Account> list = acDAO.SearchAllAccount(accountSearch);
             session.setAttribute("accountManage", list);
             request.setAttribute("accountSize", list.size());
+            request.setAttribute("accountSearchContent", accountSearch);
         } else {
             String cid = request.getParameter("cid");
             String productSearch = request.getParameter("productSearch");
@@ -77,6 +78,7 @@ public class adminSearch extends HttpServlet {
                 List<Product> list = db.searchProductByNameAndCid(productSearch, cid_int);
                 request.setAttribute("products", list);
                 request.setAttribute("productSize", list.size());
+                request.setAttribute("productSearchContent", productSearch);
 
             } catch (NumberFormatException e) {
 
