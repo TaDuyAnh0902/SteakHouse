@@ -334,7 +334,7 @@
                                                 <tbody>
                                                 <td style="border: 0; font-size: 16px;">${o.pid.name}</td>
                                                 <td style="border: 0;">${o.quantity}</td>
-                                                <td style="border: 0;">
+                                                <td style="border: 0; float: right;">
                                                     ${o.pid.price}00
                                                 </td>
                                                 </tbody>
@@ -342,7 +342,7 @@
                                         </c:forEach>
                                         <tbody style="border-bottom: 1px solid gray;border-top: 1px solid gray;">
                                         <td colspan="2" style="color: brown; border: 0;">Tổng tiền</td>
-                                        <td style="color: #F90; border: 0;"class="totalMoney">${requestScope.totalMoney}</td>
+                                        <td style="color: #F90; border: 0; float: right;"class="totalMoney">${requestScope.totalMoney}</td>
                                         </tbody>
                                         <tfoot>
                                         <td colspan="3" style=" border: 0;"><a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" style="color: red;font-size: 20px;
