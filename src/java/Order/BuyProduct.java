@@ -65,15 +65,18 @@ public class BuyProduct extends HttpServlet {
         String idProduct = request.getParameter("id");
         String quantity = request.getParameter("quantity");
         var tableNumber = (int) session.getAttribute("tableNumber");
-        String userByMobile = request.getParameter("userByMobile");
-        
+        Product p = PdDAO.getProductById(idProduct);
         
         int idProduct_int, quantity_int;
         try {
             idProduct_int = Integer.parseInt(idProduct);
             quantity_int = Integer.parseInt(quantity);
-            od.addOrderLine(idProduct_int, quantity_int, tableNumber);
-            
+            if(quantity_int > p.getQuantity()){
+                response.sendRedirect("productInfo?id=" + idProduct + "&cid=1");
+                return;
+            }else{
+                od.addOrderLine(idProduct_int, quantity_int, tableNumber);
+            }
             List<OrderLine> list = od.getListOrderLine(tableNumber);
             session.setAttribute("OrderLine", list);
             String totalMoney = od.totalMoney(tableNumber);

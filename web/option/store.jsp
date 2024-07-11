@@ -256,15 +256,21 @@
                     <div class="product" onclick="productInfo('${quan}', '${cid}')">
                         <p style="position: absolute;
                            background-color: red; color: white; width: 50px; text-align: center; border-top-left-radius: 8px;">Hot</p>
-                        <h5 style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
-                            color: red;">${b.pid.price}00 đ</h5>
+                        <c:if test="${b.pid.quantity > 0}">
+                            <h5 style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+                                color: red;">${b.pid.price}00 đ</h5>
+                            </c:if>
+                            <c:if test="${b.pid.quantity == 0}">
+                                <h5 style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+                                color: red;">Hết hàng</h5>
+                            </c:if>
                         <img src="${b.pid.image}" alt="${b.pid.image}"/>
                         <p class="categoryName">${b.pid.category.name}</p>
                         <div class="product-details">
                             <c:if test="${sessionScope.tableNumber!=null}">
                                 <p style="margin: 0; color: brown;">(đang đợi: ${b.pid.quantityWaitting})</p>
                             </c:if>
-                            <p style="text-align: center;">${b.pid.name}</p>
+                            <p style="text-align: center;">${b.pid.name}(${b.pid.quantity})</p>
                             <c:if test="${sessionScope.tableNumber!=null}">
                                 <div class="BuyProduct">
                                     <c:set var="q" value="${param.quantity}"/>
@@ -276,9 +282,6 @@
                                             <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; "><i class="fas fa-shopping-cart"></i></a>
                                         </div>
                                     </c:if>
-                                    <c:if test="${p.quantity == 0}">
-                                        <h3 style="color: red">Hết hàng</h3>
-                                    </c:if>
                                 </div>
                             </c:if>
                         </div>
@@ -289,8 +292,14 @@
                         <c:set var="quan" value="${p.id}"/>
                         <c:set var="cid" value="${p.category.id}"/>
                         <div class="product" onclick="productInfo('${quan}', '${cid}')">
+                            <c:if test="${p.quantity > 0}">
                             <h5 style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
-                                color: red;">${p.price}00 vnđ</h5>
+                                color: red;">${p.price}00 đ</h5>
+                            </c:if>
+                            <c:if test="${p.quantity == 0}">
+                                <h5 style="position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+                                color: red;">Hết hàng</h5>
+                            </c:if>
                             <img src="${p.image}" alt="${p.image}"/>
                             <div class="product-details">
                                 <p class="categoryName">${p.category.name}</p>
@@ -298,7 +307,7 @@
                                     <p style="margin: 0; color: brown;">(đang đợi: ${p.quantityWaitting})</p>
                                 </c:if>
 
-                                <p style="text-align: center;">${p.name}</p>
+                                <p style="text-align: center;">${p.name}(${p.quantity})</p>
                                 <div>
                                     <c:if test="${sessionScope.tableNumber!=null}">
                                         <div class="BuyProduct">
@@ -310,9 +319,6 @@
                                                     <button type="button" onclick="increment('${quan}')">+</button>
                                                     <a href="productInfo?id=${p.id}&cid=${p.category.id}" style="color: black; "><i class="fas fa-shopping-cart"></i></a>
                                                 </div>
-                                            </c:if>
-                                            <c:if test="${p.quantity == 0}">
-                                                <h3 style="color: red">Hết hàng</h3>
                                             </c:if>
                                         </div>
                                     </c:if>

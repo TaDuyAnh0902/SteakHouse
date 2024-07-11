@@ -144,7 +144,7 @@
                         </div>
                         <div class="info-item">
                             <label for="email">Email:</label>
-                            <input type="email" id="email" placeholder="Email *" name="email" value="${profileNew.email}" required />
+                            <input type="email" id="email" placeholder="Email *" name="email" value="${profileNew.email}" readonly />
                         </div>
                         <div class="info-item">
                             <label for="phone">Phone:</label>

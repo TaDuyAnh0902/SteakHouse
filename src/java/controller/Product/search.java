@@ -60,22 +60,31 @@ public class search extends HttpServlet {
         String search = request.getParameter("search");
         ProductsDAO db = new ProductsDAO();
         List<Product> list = null;
+        int sortItem = 0;
         if(search!=null){
             list = db.searchProductByName(search);
+            request.setAttribute("searchContent", search);
         }else {
             switch (sort) {
+                case "sort0" -> {
+                    response.sendRedirect("Action?check=store");
+                    return;
+                }
                 case "sort1" -> {
                     list = db.searchProductBySort(1);
+                    sortItem = 1;
                 }
                 case "sort2" -> {
                     list = db.searchProductBySort(2);
+                    sortItem = 2;
                 }
                 case "sort3" -> {
                     list = db.searchProductBySort(3);
+                    sortItem = 3;
                 }
             }
         }
-        
+        request.setAttribute("sortItem", sortItem);
         request.setAttribute("products", list);
         request.setAttribute("store", "success");
         request.getRequestDispatcher("home.jsp").forward(request, response);

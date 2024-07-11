@@ -138,8 +138,13 @@
                     <img src="${p.image}" alt="image"/>
                 </div>
                 <div>
-                    <h2>${p.name}</h2>
-                    <h3 style="color: red">${p.price}00 vnđ</h3><br><br>
+                    <h2>${p.name}(${p.quantity})</h2>
+                    <c:if test="${p.quantity == 0}">
+                        <h3 style="color: red">${p.price}00 đ (Hết hàng)</h3><br><br>
+                    </c:if>
+                    <c:if test="${p.quantity > 0}">
+                        <h3 style="color: red">${p.price}00 đ</h3><br><br>
+                    </c:if>
                     <c:if test="${sessionScope.tableNumber!=null}">
                         <div class="BuyProduct">
                             <form action="BuyProduct">
@@ -149,10 +154,6 @@
                                     <input type="text" id="quantity" value="1" name="quantity" style="width: 24px; height: 28px; border-radius: 4px;" >
                                     <button type="button" onclick="increment()">+</button><br>
                                 </div>
-
-
-                                <h3 style="color: red"><c:out value="${requestScope.quantityFail}"/></h3>
-
                                 <input type="hidden" name="id" value="${p.id}">     
                                 <input type="hidden" value="${sessionScope.tableNumber}" name="tableNumber">
                                 <!--<input type="hidden" value="${sessionScope.userByMobile}" name="userByMobile">-->
@@ -164,9 +165,6 @@
                                             <input type="submit" value="🛒">
                                         </div>
                                     </div>
-                                </c:if>
-                                <c:if test="${p.quantity == 0}">
-                                    <h3 style="color: red">Hết hàng</h3>
                                 </c:if>
                             </form> 
                         </div>
@@ -184,10 +182,13 @@
             <div class="productByCid">
                 <c:forEach items="${requestScope.productByCid}" var="p">
                     <c:if test="${p.sid.id==1}">
-                        <div class="product">
+                        <div class="product" style="position: relative;">
                             <a href="productInfo?id=${p.id}&cid=${p.category.id}"><img src="${p.image}" alt="${p.image}"/></a>
-                            <h6>${p.name}</h6>
-                            <h6 style="font-weight: bold; color: red">${p.price}00 vnđ</h6>
+                            <h6>${p.name}(${p.quantity})</h6>
+                            <c:if test="${p.quantity > 0}">
+                            <p style="position: absolute; bottom: 0;
+                                color: red; font-size: 15px;">${p.price}00 đ</p>
+                            </c:if>
                         </div>
                     </c:if>
                 </c:forEach>
