@@ -64,6 +64,7 @@ public class manage extends HttpServlet {
             cid_int = Integer.parseInt(cid);
             List<Product> list = d.getproductByCid(cid_int);
             request.setAttribute("products", list);
+            request.setAttribute("productSize", list.size());
         } catch (NumberFormatException e) {
 //            System.out.println(e);
         }

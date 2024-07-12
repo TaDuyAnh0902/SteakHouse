@@ -64,6 +64,7 @@ public class ProductsDAO extends AccountDAO {
                            ,[image]
                            ,[cid]
                            ,[sid]
+                           ,[quantitywaitting]
                        FROM [dbo].[Products]
                        where 1=1""";
         if (cid != 0) {
@@ -85,6 +86,7 @@ public class ProductsDAO extends AccountDAO {
                 Status s = getStatusById(rs.getInt("sid"));
                 p.setSid(s);
                 p.setCategory(c);
+                p.setQuantityWaitting(rs.getInt("quantitywaitting"));
                 list.add(p);
 
             }
@@ -145,6 +147,7 @@ public class ProductsDAO extends AccountDAO {
                            ,[image]
                            ,[cid]
                            ,[sid]
+                           ,[quantitywaitting]
                        FROM [dbo].[Products]
                        where 1=1 and id != ? and cid = ?""";
         try {
@@ -165,6 +168,7 @@ public class ProductsDAO extends AccountDAO {
                 p.setCategory(c);
                 Status s = getStatusById(rs.getInt("sid"));
                 p.setSid(s);
+                p.setQuantityWaitting(rs.getInt("quantitywaitting"));
                 list.add(p);
 
             }
@@ -373,6 +377,22 @@ public class ProductsDAO extends AccountDAO {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, quantity);
             st.setInt(2, pid);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+    
+    public void updateQuantity(String quantity, String id) {
+        String sql = """
+                     UPDATE [dbo].[Products]
+                        SET [quantity] = [quantity] - ?
+                      WHERE id = ?""";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, quantity);
+            st.setString(2, id);
+
             st.executeUpdate();
         } catch (SQLException e) {
         }

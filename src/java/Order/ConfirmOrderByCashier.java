@@ -67,6 +67,7 @@ public class ConfirmOrderByCashier extends HttpServlet {
         ProductsDAO pdDAO = new ProductsDAO();
         BestSellingDAO bsDAO = new BestSellingDAO();
         odDAO.confirmOrder(id);
+        pdDAO.updateQuantity(quantity, pid);
         List<OrderLine> list = odDAO.getAllListOrderLine();
         session.setAttribute("allListOrderLine", list);
         session.removeAttribute("tableStatus");

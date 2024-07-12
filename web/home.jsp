@@ -230,12 +230,16 @@
 
                 <c:if test="${requestScope.contact!=null}"> <%@include file="option/contact.jsp" %> </c:if> 
 
-                <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
-
+                <c:if test="${sessionScope.role==1}">
+                    <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
+                </c:if>
+                
                 <c:if test="${requestScope.ListOrderLine!=null}"> <%@include file="option/ListOrderLine.jsp" %> </c:if>
 
-                <c:if test="${sessionScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %> </c:if>
-
+                <c:if test="${sessionScope.role==2}">
+                    <c:if test="${sessionScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %> </c:if>
+                </c:if>
+                
                 <c:if test="${sessionScope.manageOrder==null && sessionScope.manage==null}">
                     <%@include file="footer.jsp" %>
                 </c:if>
@@ -310,9 +314,9 @@
             $(document).ready(function () {
                 function updateContent() {
                     var currentUrl = window.location.href;
-                    var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
-                    var baseUrlConfirmOrder = "http://localhost:9999/SWP391-SteakHouse/ConfirmOrderByCashier?id=";
-                    var baseUrlSort = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=";
+                    var baseUrlHome = "http://localhost:8080/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
+                    var baseUrlConfirmOrder = "http://localhost:8080/SWP391-SteakHouse/ConfirmOrderByCashier?id=";
+                    var baseUrlSort = "http://localhost:8080/SWP391-SteakHouse/orderSort?check=";
                     if (currentUrl === baseUrlHome || currentUrl.startsWith(baseUrlConfirmOrder) || currentUrl.startsWith(baseUrlSort)) {
                         $.ajax({
                             url: currentUrl,

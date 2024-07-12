@@ -3,20 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.LogIn;
+package Order;
 
+import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.OrderLine;
 
 /**
  *
- * @author Admin
+ * @author ADMIN
  */
-public class test extends HttpServlet {
+public class deleteProductByMobile extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +37,10 @@ public class test extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet test</title>");  
+            out.println("<title>Servlet deleteProductByMobile</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet test at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet deleteProductByMobile at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,7 +57,25 @@ public class test extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String id = request.getParameter("id");
+        OrderDAO od = new OrderDAO();
+        int id_int;
+        try {
+            id_int = Integer.parseInt(id);
+            od.deleteProductByMobile(id_int);
+            var tableNumber = (int) session.getAttribute("tableNumber");
+            request.setAttribute("ListOrderLine", "success");
+            List<OrderLine> list = od.getListOrderLine(tableNumber);
+            session.setAttribute("OrderLine", list);
+            int totalProductByTable = od.totalProductByTable(tableNumber);
+            session.setAttribute("totalProductByTable", totalProductByTable);
+            String totalMoney = od.totalMoney(tableNumber);
+            session.setAttribute("totalMoney", totalMoney);
+        } catch (Exception e) {
+        }
+        
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
     /** 

@@ -77,15 +77,16 @@
             .profile-info label {
                 width: 20%;
                 text-align: right;
-                margin-right: 10px;
+                margin-right: 50px;
             }
 
             .profile-info input[type="text"],
             .profile-info input[type="password"] {
-                width: 60%; /* Adjusted width to be smaller */
-                padding: 8px;
+                width: 50%; /* Adjusted width to be smaller */
+                padding: 5px;
                 border: 1px solid #ddd;
                 border-radius: 5px;
+                margin-right: 120px;
             }
 
             .choose {

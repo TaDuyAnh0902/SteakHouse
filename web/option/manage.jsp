@@ -78,7 +78,6 @@
                 background-color: white;
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                padding: 20px;
             }
 
             .imgProduct {
@@ -93,7 +92,6 @@
 
             #menu_tab {
                 width: 100%;
-                margin-bottom: 20px;
             }
 
             ul.menu {
@@ -270,7 +268,7 @@
                         <table border="1">
                             <c:if test="${requestScope.productSize > 0}">
                                 <tr>
-                                    <th>ID</th>
+                                    <th>No.</th>
                                     <th onclick="productSort('name')">Name</th>
                                     <th>Image</th>
                                     <th onclick="productSort('quantity')">Quantity</th>
@@ -294,14 +292,19 @@
                                     <td>${p.quantity}</td>
                                     <td>${p.price}</td>
                                     <td>${p.describe}</td>
-                                    <td>${p.sid.nameStatus}</td>
-                                    <td><a href="productAction?action=edit&id=${p.id}"><i class="fas fa-edit"></i></a></td>
-                                        <c:if test="${p.sid.id==1}">
-                                        <td><a href="productAction?action=delete&id=${p.id}&cid=${p.category.id}" onclick="return confirmDeleteProduct(${p.id});"><i class="fas fa-trash"></i></a></td>
+                                    <c:if test="${p.sid.id==1}">
+                                        <td><i class="fas fa-check" style="color:green;"></i></td>
                                     </c:if>
                                     <c:if test="${p.sid.id==2}">
-                                        <td><a href="productAction?action=restore&id=${p.id}&cid=${p.category.id}"><i class="fas fa-recycle"></i></a></td>
+                                        <td><i class="fas fa-times" style="color:red;"></i></td>
                                     </c:if>
+                                    <td><a href="productAction?action=edit&id=${p.id}"><i class="fas fa-edit"></i></a></td>
+                                            <c:if test="${p.sid.id==1}">
+                                        <td><a href="productAction?action=delete&id=${p.id}&cid=${p.category.id}" onclick="return confirmDeleteProduct(${p.id});"><i class="fas fa-trash"></i></a></td>
+                                            </c:if>
+                                            <c:if test="${p.sid.id==2}">
+                                        <td><a href="productAction?action=restore&id=${p.id}&cid=${p.category.id}" onclick="return confirmRestoreProduct(${p.id});"><i class="fas fa-recycle"></i></a></td>
+                                            </c:if>
                                 </tr>
                             </c:forEach>
                             <c:if test="${cid!=null}">
@@ -312,7 +315,7 @@
                                     </form>
                                     <form action="adminSearch">
                                         <input type="hidden" name="cid" value="${cid}">
-                                        <input type="text" placeholder="Search" name="productSearch" class="searchProduct">
+                                        <input type="text" placeholder="Search" name="productSearch" class="searchProduct" value="${requestScope.productSearchContent}">
                                     </form>
                                 </div>
                             </c:if>
@@ -336,7 +339,7 @@
 
                         <div>
                             <form action="adminSearch">
-                                <input type="text" placeholder="Search" name="accountSearch" class="searchProduct">
+                                <input type="text" placeholder="Search" name="accountSearch" class="searchProduct" value="${requestScope.accountSearchContent}">
                             </form>
                         </div>
                         <div class="content">
@@ -362,12 +365,17 @@
                                             <td>${a.name}</td>
                                             <td>${a.email}</td>
                                             <td>${a.phoneNumber}</td>
-                                            <td>${a.sid.nameStatus}</td>
+                                            <c:if test="${a.sid.id==1}">
+                                                <td><i class="fas fa-check" style="color:green;"></i></td>
+                                            </c:if>
+                                            <c:if test="${a.sid.id==2}">
+                                                <td><i class="fas fa-times" style="color:red;"></i></td>
+                                            </c:if>
                                             <c:if test="${a.sid.id==1}">
                                                 <td><a href="accountAction?action=delete&username=${a.username}" onclick="return confirmDeleteAccount('${a.username}');"><i class="fas fa-trash"></i></a></td>
                                                     </c:if>
                                                     <c:if test="${a.sid.id==2}">
-                                                <td><a href="accountAction?action=restore&username=${a.username}"><i class="fas fa-recycle"></i></a></td>
+                                                <td><a href="accountAction?action=restore&username=${a.username}" onclick="return confirmRestoreAccount('${a.username}');"><i class="fas fa-recycle"></i></a></td>
                                                     </c:if>
                                         </tr>
                                     </c:if>
@@ -395,10 +403,11 @@
                             <table border="1">
                                 <c:if test="${sessionScope.blogManage!=null}">
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Title</th>
-                                        <th>image</th>
-                                        <th>source</th>
+                                        <th>No.</th>
+                                        <th style="width: 35%;">Title</th>
+                                        <th>Image</th>
+                                        <th>Date</th>
+                                        <th>Source</th>
                                         <th>Status</th>
                                         <th colspan="2">Action</th>
                                     </tr>
@@ -408,14 +417,20 @@
                                         <td>${b.id}</td>
                                         <td>${b.title}</td>
                                         <td><img src="${b.image}" alt="${p.image}" class="imgProduct"/></td>
+                                        <td>${b.date}</td>
                                         <td><a href="${b.source}">${b.source}</a></td>
-                                        <td>${b.sid.nameStatus}</td>
+                                        <c:if test="${b.sid.id==1}">
+                                            <td><i class="fas fa-check" style="color:green;"></i></td>
+                                        </c:if>
+                                        <c:if test="${b.sid.id==2}">
+                                            <td><i class="fas fa-times" style="color:red;"></i></td>
+                                        </c:if>
                                         <td><a href="blogAction?action=edit&id=${b.id}"><i class="fas fa-edit"></i></a></td>
                                                 <c:if test="${b.sid.id==1}">
-                                            <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteTable(${t.id});"><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="blogAction?action=delete&id=${b.id}" onclick="return confirmDeleteBlog(${t.id});"><i class="fas fa-trash"></i></a></td>
                                                 </c:if>
                                                 <c:if test="${b.sid.id==2}">
-                                            <td><a href="blogAction?action=restore&id=${b.id}"><i class="fas fa-recycle"></i></a></td>
+                                                <td><a href="blogAction?action=restore&id=${b.id}" onclick="return confirmRestoreBlog(${t.id});"><i class="fas fa-recycle"></i></a></td>
                                                 </c:if>
                                     </tr>
                                 </c:forEach>
@@ -438,7 +453,7 @@
                         <div class="content">
                             <table border="1">
                                 <tr>
-                                    <th>Id</th>
+                                    <th>No.</th>
                                     <th>Name</th>
                                     <th>QR code</th>
                                     <th>Status</th>
@@ -449,14 +464,19 @@
                                     <tr>
                                         <td>${t.id}</td>
                                         <td>${t.nameTable}</td>
-                                        <td><a href="https://quickchart.io/qr?text=http://192.168.5.103:8080/SWP/home?idTable=${t.id}&caption=Table${t.id}" target="_blank"><i class="fas fa-eye"></i></a></td>
-                                        <td>${t.sid.nameStatus}</td>
+                                        <td><a href="https://quickchart.io/qr?text=http://10.33.15.246:8080/SWP391-SteakHouse/home?idTable=${t.id}&caption=Table${t.id}" target="_blank"><i class="fas fa-eye"></i></a></td>
+                                        <c:if test="${t.sid.id==1}">
+                                            <td><i class="fas fa-check" style="color:green;"></i></td>
+                                        </c:if>
+                                        <c:if test="${t.sid.id==2}">
+                                            <td><i class="fas fa-times" style="color:red;"></i></td>
+                                        </c:if>
                                         <td><a href="tableAction?action=edit&id=${t.id}"><i class="fas fa-edit"></i></a></td>
                                                 <c:if test="${t.sid.id==1}">
-                                            <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteBlog(${b.id});"><i class="fas fa-trash"></i></a></td>
+                                            <td><a href="tableAction?action=delete&id=${t.id}" onclick="return confirmDeleteTable(${b.id});"><i class="fas fa-trash"></i></a></td>
                                                 </c:if>
                                                 <c:if test="${t.sid.id==2}">
-                                            <td><a href="tableAction?action=restore&id=${t.id}"><i class="fas fa-recycle"></i></a></td>
+                                                <td><a href="tableAction?action=restore&id=${t.id}" onclick="return confirmRestoreTable(${b.id});"><i class="fas fa-recycle"></i></a></td>
                                                 </c:if>
                                     </tr>
                                 </c:forEach>
@@ -505,12 +525,32 @@
             }
         }
 
+        function confirmRestoreProduct(id) {
+            var confirmation = confirm("Are you sure you want to restore your Product?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Product restore canceled.");
+                return false;
+            }
+        }
+
         function confirmDeleteAccount(username) {
             var confirmation = confirm("Are you sure you want to delete the Account : " + username + "?");
             if (confirmation === true) {
                 return true;
             } else {
                 alert("Account deletion canceled.");
+                return false;
+            }
+        }
+
+        function confirmRestoreAccount(username) {
+            var confirmation = confirm("Are you sure you want to restore the Account : " + username + "?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Account restore canceled.");
                 return false;
             }
         }
@@ -525,12 +565,32 @@
             }
         }
 
+        function confirmRestoreBlog(id) {
+            var confirmation = confirm("Are you sure you want to restore your Blog?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Blog restore canceled.");
+                return false;
+            }
+        }
+
         function confirmDeleteTable(id) {
             var confirmation = confirm("Are you sure you want to delete Table?");
             if (confirmation === true) {
                 return true;
             } else {
                 alert("Table deletion canceled.");
+                return false;
+            }
+        }
+
+        function confirmRestoreTable(id) {
+            var confirmation = confirm("Are you sure you want to restore your Table?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Table restore canceled.");
                 return false;
             }
         }
