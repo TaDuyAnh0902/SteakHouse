@@ -51,22 +51,24 @@ public class BestSellingDAO extends ProductsDAO {
     public List<BestSelling> getBestSellings(){
         String sql = """
                      WITH CurrentWeekOrders AS (
-                        SELECT
+                            SELECT
+                                pid,
+                                quantity
+                            FROM
+                                BestSelling
+                            WHERE
+                                DATEPART(ISO_WEEK, date) = DATEPART(ISO_WEEK, GETDATE())
+                                AND YEAR(date) = YEAR(GETDATE())
+                        )
+                        SELECT TOP 6
                             pid,
-                            quantity
+                            SUM(quantity) AS total_quantity
                         FROM
-                            BestSelling
-                        WHERE
-                            DATEPART(ISO_WEEK, date) = DATEPART(ISO_WEEK, GETDATE())
-                            AND YEAR(date) = YEAR(GETDATE())
-                    )
-                    SELECT
-                        pid,
-                        SUM(quantity) AS total_quantity
-                    FROM
-                        CurrentWeekOrders
-                    GROUP BY
-                        pid;""";
+                            CurrentWeekOrders
+                        GROUP BY
+                            pid
+                        ORDER BY
+                            total_quantity DESC;""";
         List<BestSelling> list = new ArrayList<>();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
