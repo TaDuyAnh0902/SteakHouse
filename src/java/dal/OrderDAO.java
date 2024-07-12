@@ -128,7 +128,7 @@ public class OrderDAO extends ProductsDAO {
     }
 
     public List<Integer> getAllTableId() {
-        String sql = "select distinct [id] from [table]";
+        String sql = "select distinct [id] from [table] where sid = 1";
         List<Integer> list = new ArrayList<>();
 
         try {
