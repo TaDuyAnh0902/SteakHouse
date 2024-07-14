@@ -182,6 +182,27 @@
                     display: none;
                 }
 
+                #backToTopBtn {
+                    display: none; /* Ẩn nút ban đầu */
+                    position: fixed; /* Định vị nút cố định */
+                    bottom: 10px; /* Cách mép dưới 10px */
+                    right: 10px; /* Cách mép phải 10px */
+                    z-index: 99; /* Đảm bảo nút ở phía trên các phần tử khác */
+                    border: none; /* Bỏ viền */
+                    outline: none; /* Bỏ viền khi focus */
+                    background-color: #555; /* Màu nền */
+                    color: white; /* Màu chữ */
+                    cursor: pointer; /* Con trỏ chuột khi hover */
+                    padding: 5px; /* Đệm trong */
+                    border-radius: 8px; /* Bo góc */
+                    font-size: 16px; /* Kích thước chữ */
+                }
+
+                #backToTopBtn:hover {
+                    background-color: #000; /* Màu nền khi hover */
+                }
+
+
             </style>
         </head>
         <body>
@@ -233,19 +254,19 @@
                 <c:if test="${sessionScope.role==1}">
                     <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
                 </c:if>
-                
+
                 <c:if test="${requestScope.ListOrderLine!=null}"> <%@include file="option/ListOrderLine.jsp" %> </c:if>
 
                 <c:if test="${sessionScope.role==2}">
                     <c:if test="${sessionScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %> </c:if>
                 </c:if>
-                
+
                 <c:if test="${sessionScope.manageOrder==null && sessionScope.manage==null}">
                     <%@include file="footer.jsp" %>
                 </c:if>
             </div>
 
-                <c:if test="${sessionScope.role==3 && sessionScope.tableNumber==null}">
+            <c:if test="${sessionScope.role==3 && sessionScope.tableNumber==null}">
                 <div class="echbay-sms-messenger style-for-position-br">
                     <div class="phonering-alo-alo">
                         <a href="https://www.messenger.com/t/366526929875352" target="_blank" rel="nofollow" class="echbay-phonering-messenger-event">.</a>
@@ -288,10 +309,8 @@
         </script>
 
         <script>
-            // Lấy phần tử nút
             let mybutton = document.getElementById("backToTopBtn");
 
-            // Khi người dùng cuộn xuống 20px từ đầu tài liệu, hiển thị nút
             window.onscroll = function () {
                 scrollFunction()
             };
@@ -304,7 +323,6 @@
                 }
             }
 
-            // Khi người dùng nhấp vào nút, cuộn lên đầu tài liệu với hiệu ứng mượt mà
             mybutton.onclick = function () {
                 window.scrollTo({top: 0, behavior: 'smooth'});
             }
