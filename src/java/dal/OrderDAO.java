@@ -43,6 +43,50 @@ public class OrderDAO extends ProductsDAO {
         return list;
     }
 
+    public OrderLine getOrderLineById(String id) {
+        String sql = "select * from orderline where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                OrderLine olt = new OrderLine();
+                olt.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                olt.setPid(p);
+                Table t = getTableById(rs.getInt("tid"));
+                olt.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                olt.setSid(s);
+                olt.setQuantity(rs.getInt("quantity"));
+                return olt;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+
+    public void deleteOrderline(String id) {
+        String sql = "delete Orderline where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public void updateOrderLine(String id, String quantity) {
+        String sql = "update orderline set quantity = ? where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, quantity);
+            st.setString(2, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
     public Table getTableById(int id) {
         String sql = "select * from [Table] where id = ?";
         try {
@@ -271,7 +315,7 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine olt = new OrderLine();
-                 olt.setId(rs.getInt("id"));
+                olt.setId(rs.getInt("id"));
 
                 Product p = getProductById(rs.getString("pid"));
                 olt.setPid(p);
