@@ -148,6 +148,14 @@
         <servlet-name>deleteProductByMobile</servlet-name>
         <servlet-class>Order.deleteProductByMobile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>cashierAction</servlet-name>
+        <servlet-class>Order.cashierAction</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>orderlineAction</servlet-name>
+        <servlet-class>Order.orderlineAction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>/test</url-pattern>
@@ -295,5 +303,13 @@
     <servlet-mapping>
         <servlet-name>deleteProductByMobile</servlet-name>
         <url-pattern>/deleteProductByMobile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cashierAction</servlet-name>
+        <url-pattern>/cashierAction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>orderlineAction</servlet-name>
+        <url-pattern>/orderlineAction</url-pattern>
     </servlet-mapping>
 </web-app>
