@@ -31,11 +31,15 @@
                 }
                 .ListOrderLine tbody td:nth-child(1) {
                     width: 40%;
+                    border-bottom: 1px solid gray;
                 }
                 .ListOrderLine tbody td:nth-child(2),
                 .ListOrderLine thead th:nth-child(2){
                     width: 25%;
                     text-align: center;
+                }
+                .ListOrderLine tbody td:nth-last-child(2){
+                    border-bottom: 0;
                 }
                 .ListOrderLine tbody {
                     border-bottom: 1px solid #d3d3d3;
@@ -133,7 +137,7 @@
     </head>
     <body>
         <div class="ListOrderLine">
-            <table>
+                <table style="border-collapse: unset">
                 <thead>
                 <th>Tên sản phẩm</th>
                 <th>Số lượng</th>
@@ -186,7 +190,7 @@
                 <td style="color: #F90;" class="totalMoney">${sessionScope.totalMoney}</td>
                 </tbody>
             </table>
-            <a href="ConfirmOrder?action=buy&idTable=${sessionScope.tableNumber}" style="background-color: white;" onclick="openConfirmDialog(event, 'ConfirmOrder?action=buy&idTable=${sessionScope.tableNumber}', 'order');">
+            <a href="ConfirmOrder?action=buy&idTable=${sessionScope.tableNumber}" style="background-color: #E2D9BC;" onclick="openConfirmDialog(event, 'ConfirmOrder?action=buy&idTable=${sessionScope.tableNumber}', 'order');">
                 Đặt
             </a>
         </div>
