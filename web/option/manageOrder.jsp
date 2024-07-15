@@ -185,6 +185,9 @@
                 text-align: end;
                 padding-right: 10%;
             }
+            input[type="number"]{
+                width: 10%;
+            }
         </style>
 
     </head>
@@ -210,6 +213,7 @@
                                         <th onclick="OrderSort('time')">Thời gian</th>
                                         <th onclick="OrderSort('table')">Bàn</th>
                                         <th onclick="OrderSort('status')">Trạng thái</th>
+                                        <th colspan="2"></th>
                                     </tr>
                                 </thead>
                                 <c:forEach items="${sessionScope.allListOrderLine}" var="o">
@@ -218,7 +222,7 @@
                                         <td>
                                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                                 <div>
-                                                    ${o.pid.name} 
+                                                    ${o.pid.name}   (${o.pid.quantity}) 
                                                 </div>
                                                 <div>
                                                     <img src="${o.pid.image}" width="50px" height="50px" alt="alt" style="border-radius: 16px;"/>
@@ -230,11 +234,21 @@
                                         <td style="text-align: center;">${o.tid.nameTable}</td>
                                         <td style="text-align: center;">
                                             <c:if test="${o.sid.id==2}">
-                                                <a href="ConfirmOrderByCashier?id=${o.id}&pid=${o.pid.id}&quantity=${o.quantity}">Confirm</a>
+                                                <a href="ConfirmOrderByCashier?id=${o.id}&pid=${o.pid.id}&quantity=${o.quantity}" style="text-decoration: none;color: brown">Xác Nhận</a>
                                             </c:if>
                                             <c:if test="${o.sid.id==3}">
-                                                Done
+                                                <i class="fas fa-check" style="color:green;"></i>
                                             </c:if>
+                                        </td>
+                                        <td>
+                                            <c:if test="${o.sid.id==2}">
+                                                <a href="cashierAction?check=edit&id=${o.id}"><i class="fas fa-edit" style="color:green;"></i></a>
+                                                </c:if>
+                                        </td>
+                                        <td>
+                                            <c:if test="${o.sid.id==2}">
+                                                <a href="cashierAction?check=delete&id=${o.id}"><i class="fas fa-trash" style="color:green;"></i></a>
+                                                </c:if>
                                         </td>
                                         </tbody>
                                     </c:if>
@@ -242,14 +256,28 @@
                             </table>
                         </div>
                         <div id="RequestPayment-content" style="margin: 0 auto;">
-                            <h3>Thông báo thanh toán</h3>
+                            <c:if test="${requestScope.editOrderline!=null}">
+                                <div>
+                                    <c:set var="olt" value="${requestScope.editOrderline}"/>
+                                    <h3 style="color: brown;">Sửa sản phẩm</h3>
+                                    <form action="orderlineAction" method="post">
+                                        <input type="hidden" value="${olt.id}" name="id"/>
+                                        <img src="${olt.pid.image}" width="30px" height="30px" alt="alt" style="border-radius: 16px;"/>${olt.pid.name} - Bàn ${olt.tid.id} - Số lượng: 
+                                        <input type="number" value="${olt.quantity}" name="quantity"/>
+                                        <input type="submit" value="Sửa" style="background-color: #E2D9BC; 
+                                               color: brown; width: 50px; height: 30px; border: 0; border-radius: 8px;
+                                               cursor: pointer;"/>
+                                    </form>
+                                </div>
+                            </c:if>
+                            <h3 style="color: brown;">Thông báo thanh toán</h3>
                             <ul style="list-style: none;">
                                 <c:forEach items="${sessionScope.listPaymentRequest}" var="l">
                                     <c:set var="type" value="${l.type}"/>
                                     <li>
                                         <div style="display: flex; justify-content: space-between;
                                              align-items: center; width: 100%; height: 50px;
-                                             color: brown; background-color: white;
+                                             color: black; background-color: white;
                                              padding: 5px; border-radius: 8px; margin-bottom: 5px;">
                                             <div>
                                                 <c:if test="${type==1}">
@@ -268,12 +296,12 @@
                                         </div>
                                     </li>
                                 </c:forEach>
-                            <h3 style="margin-top: 50px;">Yêu cầu khách hàng</h3>
+                            <h3 style="margin-top: 50px;color: brown;">Yêu cầu khách hàng</h3>
                                 <c:forEach items="${sessionScope.listClientRequest}" var="cl">
                                     <li>
                                         <div style="display: flex; justify-content: space-between;
                                              align-items: center; width: 100%; height: 50px;
-                                             color: brown; background-color: white;
+                                             color: black; background-color: white;
                                              padding: 5px; border-radius: 8px; margin-bottom: 5px;">
                                             <div>
                                                 <span>${cl.content}</span>
