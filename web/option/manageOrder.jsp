@@ -48,25 +48,25 @@
                 display: flex;
                 height: 100vh;
             }
-/*            .manageOrder-left {
-                width: 20%;
-                font-size: 20px;
-                border-right: 1px solid gray;
-            }
-            .manageOrder-left > ul {
-                list-style: none;
-                display: block;
-                height: 100%;
-            }
-            .manageOrder-left ul li {
-                cursor: pointer;
-                padding: 16px;
-                text-align: center;
-                border-bottom: 1px solid rgb(179, 179, 179);
-            }
-            .manageOrder-left ul li:hover {
-                background-color: #E2D9BC;
-            }*/
+            /*            .manageOrder-left {
+                            width: 20%;
+                            font-size: 20px;
+                            border-right: 1px solid gray;
+                        }
+                        .manageOrder-left > ul {
+                            list-style: none;
+                            display: block;
+                            height: 100%;
+                        }
+                        .manageOrder-left ul li {
+                            cursor: pointer;
+                            padding: 16px;
+                            text-align: center;
+                            border-bottom: 1px solid rgb(179, 179, 179);
+                        }
+                        .manageOrder-left ul li:hover {
+                            background-color: #E2D9BC;
+                        }*/
             .manageOrder-left {
                 width: 20%;
                 font-size: 20px;
@@ -107,41 +107,41 @@
                 width: 70%;
                 /*padding: 0 10px;*/
             }
-/*            #table-container table {
-                display: inline-block;
-                width: 100%;
-                border-collapse: collapse;
-            }
-            #table-container th,
-            #table-container td {
-                padding: 5px;
-            }
-            #table-container thead {
-                width: 100%;
-            }
-            #table-container table th {
-                text-align: center;
-            }
-            #table-container table th:hover{
-                cursor: pointer;
-            }
-            #table-container table thead:nth-child(1) {
-                border-top-left-radius: 16px;
-            }
-            #table-container th:nth-child(1),
-            #table-container th:nth-child(3)
-            {
-                width: 40%;
-            }
-            #table-container th:nth-child(4),
-            #table-container th:nth-child(5)
-            {
-                width: 15%;
-            }
-            #table-container th:nth-child(2)
-            {
-                width: 10%;
-            }*/
+            /*            #table-container table {
+                            display: inline-block;
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        #table-container th,
+                        #table-container td {
+                            padding: 5px;
+                        }
+                        #table-container thead {
+                            width: 100%;
+                        }
+                        #table-container table th {
+                            text-align: center;
+                        }
+                        #table-container table th:hover{
+                            cursor: pointer;
+                        }
+                        #table-container table thead:nth-child(1) {
+                            border-top-left-radius: 16px;
+                        }
+                        #table-container th:nth-child(1),
+                        #table-container th:nth-child(3)
+                        {
+                            width: 40%;
+                        }
+                        #table-container th:nth-child(4),
+                        #table-container th:nth-child(5)
+                        {
+                            width: 15%;
+                        }
+                        #table-container th:nth-child(2)
+                        {
+                            width: 10%;
+                        }*/
             .allListTable {
                 display: flex;
                 flex-wrap: wrap;
@@ -234,7 +234,7 @@
                                         <td style="text-align: center;">${o.tid.nameTable}</td>
                                         <td style="text-align: center;">
                                             <c:if test="${o.sid.id==2}">
-                                                <a href="ConfirmOrderByCashier?id=${o.id}&pid=${o.pid.id}&quantity=${o.quantity}" style="text-decoration: none;color: brown">Xác Nhận</a>
+                                                <a href="ConfirmOrderByCashier?id=${o.id}&pid=${o.pid.id}&quantity=${o.quantity}" style="text-decoration: none;color: brown" onclick="return confirmProduct()">Xác Nhận</a>
                                             </c:if>
                                             <c:if test="${o.sid.id==3}">
                                                 <i class="fas fa-check" style="color:green;"></i>
@@ -247,8 +247,10 @@
                                         </td>
                                         <td>
                                             <c:if test="${o.sid.id==2}">
-                                                <a href="cashierAction?check=delete&id=${o.id}"><i class="fas fa-trash" style="color:green;"></i></a>
-                                                </c:if>
+                                                <a href="cashierAction?check=delete&id=${o.id}" onclick="return confirmDeletion()">
+                                                    <i class="fas fa-trash" style="color:green;"></i>
+                                                </a>
+                                            </c:if>
                                         </td>
                                         </tbody>
                                     </c:if>
@@ -264,9 +266,9 @@
                                         <input type="hidden" value="${olt.id}" name="id"/>
                                         <img src="${olt.pid.image}" width="30px" height="30px" alt="alt" style="border-radius: 16px;"/>${olt.pid.name} - Bàn ${olt.tid.id} - Số lượng: 
                                         <input type="number" value="${olt.quantity}" name="quantity"/>
-                                        <input type="submit" value="Sửa" style="background-color: #E2D9BC; 
+                                        <input type="submit" value="Sửa" style="background-color: #E2D9BC;
                                                color: brown; width: 50px; height: 30px; border: 0; border-radius: 8px;
-                                               cursor: pointer;"/>
+                                               cursor: pointer;"  onsubmit="return confirmEdit();"/>
                                     </form>
                                 </div>
                             </c:if>
@@ -296,7 +298,7 @@
                                         </div>
                                     </li>
                                 </c:forEach>
-                            <h3 style="margin-top: 50px;color: brown;">Yêu cầu khách hàng</h3>
+                                <h3 style="margin-top: 50px;color: brown;">Yêu cầu khách hàng</h3>
                                 <c:forEach items="${sessionScope.listClientRequest}" var="cl">
                                     <li>
                                         <div style="display: flex; justify-content: space-between;
@@ -373,9 +375,13 @@
                                         <td style="color: #F90; border: 0; float: right;"class="totalMoney">${requestScope.totalMoney}</td>
                                         </tbody>
                                         <tfoot>
-                                        <td colspan="3" style=" border: 0;"><a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" style="color: red;font-size: 20px;
-                                                            text-decoration: none; display: block; text-align: center;">Hoàn tất</a></td>
-                                        </tfoot>
+                                        <td colspan="3" style="border: 0;">
+                                            <a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" 
+                                               style="color: red;font-size: 20px; text-decoration: none; display: block; text-align: center;"
+                                               onclick="return confirmCompletion()">
+                                                Hoàn tất
+                                            </a>
+                                        </td>
                                     </table>
                                 </c:if>
 
@@ -387,7 +393,7 @@
         </div>
 
     </body>
-        <script>
+    <script>
         function manageOrderAction(ac) {
             window.location.href = "manageOrderAction?check=" + ac;
         }
@@ -434,5 +440,38 @@
                 }
             }
         }
+    </script>
+
+    <script>
+        function confirmDeletion() {
+            var result = confirm("Bạn có chắc chắn muốn xóa món này không?");
+            if (result) {
+                alert("Xóa món thành công.");
+            }
+            return result;
+        }
+
+        function confirmCompletion() {
+           var result = confirm("Bạn có chắc chắn muốn hoàn tất đơn hàng này không?");
+            if (result) {
+                alert("Hoàn tất đơn hàng.");
+            }
+            return result;
+        }
+
+        function confirmProduct() {
+            var result = confirm("Món ăn đã được phục vụ chưa?");
+             if (result) {
+                alert("Món ăn đã được phục vụ.");
+            }
+            return result;
+        }
+
+// Xử lý khi người dùng nhấn nút "Cancel"
+        function handleCancel() {
+            alert("Hành động đã bị huỷ bỏ.");
+            return false; // Ngăn form hoặc hành động mặc định khỏi thực hiện
+        }
+
     </script>
 </html>
