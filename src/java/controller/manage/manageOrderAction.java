@@ -77,6 +77,7 @@ public class manageOrderAction extends HttpServlet {
             List<ClientRequest> list3 = hmDAO.getAllClientRequest();
             session.setAttribute("listClientRequest", list3);
         } else if ("viewTable".equals(check)) {
+            session.removeAttribute("changedQuantity");
             Map<Integer, Boolean> map = odDAO.getTableStatus();
             session.setAttribute("tableStatus", map);
             session.removeAttribute("allListOrderLine");
