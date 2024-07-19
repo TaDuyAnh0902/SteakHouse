@@ -57,6 +57,7 @@ public class cashierAction extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
+        session.removeAttribute("changedQuantity");
         OrderDAO t = new OrderDAO();
         String check = request.getParameter("check");
         String id = request.getParameter("id");
