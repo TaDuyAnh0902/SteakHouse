@@ -241,16 +241,12 @@
                                             </c:if>
                                         </td>
                                         <td>
-                                            <c:if test="${o.sid.id==2}">
-                                                <a href="cashierAction?check=edit&id=${o.id}"><i class="fas fa-edit" style="color:green;"></i></a>
-                                                </c:if>
+                                            <a href="cashierAction?check=edit&id=${o.id}"><i class="fas fa-edit" style="color:green;"></i></a>
                                         </td>
                                         <td>
-                                            <c:if test="${o.sid.id==2}">
-                                                <a href="cashierAction?check=delete&id=${o.id}" onclick="return confirmDeletion()">
-                                                    <i class="fas fa-trash" style="color:green;"></i>
-                                                </a>
-                                            </c:if>
+                                            <a href="cashierAction?check=delete&id=${o.id}&tid=${o.tid.id}" onclick="return confirmDeletion()">
+                                                <i class="fas fa-trash" style="color:green;"></i>
+                                            </a>
                                         </td>
                                         </tbody>
                                     </c:if>
@@ -319,13 +315,15 @@
                         </div>
                     </div>
                 </c:if>
+                <c:if test="${sessionScope.changedQuantity!=null}">
+                    <script>
+                        alert("${sessionScope.changedQuantity}");
+                    </script>
+                </c:if>
+
                 <c:if test="${sessionScope.tableStatus!=null}">
                     <div class="manageOrder-right-content">
                         <div class="allListTable">
-
-                            <%--<c:forEach items="${sessionScope.allListTable}" var="t">--%>
-                                <!--<li><a href="ViewTable?idTable=${t.id}">${t.nameTable}</a></li>-->
-                            <%--</c:forEach>--%>
                             <c:forEach var="entry" items="${sessionScope.tableStatus}">
                                 <c:set var="key" value="${entry.key}" />
                                 <c:set var="value" value="${entry.value}" />
@@ -455,15 +453,7 @@
 
         function confirmProduct() {
             var result = confirm("Món ăn đã được phục vụ chưa?");
-             
             return result;
         }
-
-// Xử lý khi người dùng nhấn nút "Cancel"
-        function handleCancel() {
-            alert("Hành động đã bị huỷ bỏ.");
-            return false; // Ngăn form hoặc hành động mặc định khỏi thực hiện
-        }
-
     </script>
 </html>
