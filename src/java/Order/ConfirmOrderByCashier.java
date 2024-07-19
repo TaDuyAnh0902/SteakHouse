@@ -78,11 +78,12 @@ public class ConfirmOrderByCashier extends HttpServlet {
             bsDAO.addBestSelling(pid_int, quantity_int);
             pdDAO.updateProductWaitting(pid_int, quantity_int);
             Product p = pdDAO.getProductById(pid);
+            OrderLine o = odDAO.getOrderLineById(id);
             int firstQuantity = odDAO.firstQuantity(pid_int);
             odDAO.autoUpdateQuantity(pid_int);
             int secondQuantity = odDAO.firstQuantity(pid_int);
             if(firstQuantity != secondQuantity) {
-                session.setAttribute("changedQuantity", "Món " + p.getName() + " đã chuyển từ " +  firstQuantity + " -> " + secondQuantity);
+                session.setAttribute("changedQuantity", "Món " + p.getName() + o.getTid().getNameTable() + " đã chuyển từ " +  firstQuantity + " -> " + secondQuantity);
             }else{
                 session.removeAttribute("changedQuantity");
             }
