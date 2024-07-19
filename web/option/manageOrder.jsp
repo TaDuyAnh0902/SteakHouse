@@ -445,25 +445,17 @@
     <script>
         function confirmDeletion() {
             var result = confirm("Bạn có chắc chắn muốn xóa món này không?");
-            if (result) {
-                alert("Xóa món thành công.");
-            }
             return result;
         }
 
         function confirmCompletion() {
            var result = confirm("Bạn có chắc chắn muốn hoàn tất đơn hàng này không?");
-            if (result) {
-                alert("Hoàn tất đơn hàng.");
-            }
             return result;
         }
 
         function confirmProduct() {
             var result = confirm("Món ăn đã được phục vụ chưa?");
-             if (result) {
-                alert("Món ăn đã được phục vụ.");
-            }
+             
             return result;
         }
 
