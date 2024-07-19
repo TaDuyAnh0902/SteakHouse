@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.OrderLine;
 
 /**
@@ -55,14 +56,18 @@ public class cashierAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
         OrderDAO t = new OrderDAO();
         String check = request.getParameter("check");
         String id = request.getParameter("id");
+        String tid = request.getParameter("tid");
         if("edit".equals(check)){
             OrderLine odt = t.getOrderLineById(id);
             request.setAttribute("editOrderline", odt);
         }else if("delete".equals(check)){
             t.deleteOrderline(id);
+            int totalProductByTable = t.totalProductByTable(Integer.parseInt(tid));
+            session.setAttribute("totalProductByTable", totalProductByTable);
             response.sendRedirect("manageOrderAction?check=viewOrder");
             return;
         }
