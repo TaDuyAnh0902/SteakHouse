@@ -332,9 +332,9 @@
             $(document).ready(function () {
                 function updateContent() {
                     var currentUrl = window.location.href;
-                    var baseUrlHome = "http://localhost:8080/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
-                    var baseUrlConfirmOrder = "http://localhost:8080/SWP391-SteakHouse/ConfirmOrderByCashier?id=";
-                    var baseUrlSort = "http://localhost:8080/SWP391-SteakHouse/orderSort?check=";
+                    var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
+                    var baseUrlConfirmOrder = "http://localhost:9999/SWP391-SteakHouse/ConfirmOrderByCashier?id=";
+                    var baseUrlSort = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=";
                     if (currentUrl === baseUrlHome || currentUrl.startsWith(baseUrlConfirmOrder) || currentUrl.startsWith(baseUrlSort)) {
                         $.ajax({
                             url: currentUrl,
