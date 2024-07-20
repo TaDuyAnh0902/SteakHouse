@@ -871,6 +871,22 @@ public class OrderDAO extends ProductsDAO {
         }
         return 0;
     }
+    public int firstQuantity(String id) {
+        String sql = """
+                     select * from OrderLine where id = ?""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                OrderLine l = new OrderLine();
+                l.setQuantity(rs.getInt("quantity"));
+                return l.getQuantity();
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
     
 //    public List<String> pidByTableId(int idTable){
 //        String sql = "select distinct pid from OrderLine where tid = ? and sid = 3";
