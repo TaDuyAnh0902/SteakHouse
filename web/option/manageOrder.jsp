@@ -260,6 +260,7 @@
                                     <h3 style="color: brown;">Sửa sản phẩm</h3>
                                     <form action="orderlineAction" method="post">
                                         <input type="hidden" value="${olt.id}" name="id"/>
+                                        <input type="hidden" value="${olt.pid.id}" name="pid"/>
                                         <img src="${olt.pid.image}" width="30px" height="30px" alt="alt" style="border-radius: 16px;"/>${olt.pid.name} - Bàn ${olt.tid.id} - Số lượng: 
                                         <input type="number" value="${olt.quantity}" name="quantity"/>
                                         <input type="submit" value="Sửa" style="background-color: #E2D9BC;
