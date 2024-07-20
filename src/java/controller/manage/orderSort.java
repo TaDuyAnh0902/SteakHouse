@@ -58,6 +58,7 @@ public class orderSort extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
+        session.removeAttribute("changedQuantity");
         String check = request.getParameter("check");
         String action = request.getParameter("action");
         OrderDAO odDAO = new OrderDAO();

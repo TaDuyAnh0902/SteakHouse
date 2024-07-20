@@ -222,7 +222,7 @@
                                         <td>
                                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                                 <div>
-                                                    ${o.pid.name}   (${o.pid.quantity}) 
+                                                    <p style="text-align: left" > ${o.pid.name}   (${o.pid.quantity}) </p>
                                                 </div>
                                                 <div>
                                                     <img src="${o.pid.image}" width="50px" height="50px" alt="alt" style="border-radius: 16px;"/>
