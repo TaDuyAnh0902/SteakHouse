@@ -139,7 +139,7 @@
                     border: 0;
                     color: white
                 }
-                
+
                 .modal2 {
                     display: none;
                     position: fixed;
@@ -241,8 +241,8 @@
                 <h2>Gọi nhân viên</h2>
                 <p>Bạn muốn yêu cầu nhân viên làm gì ?</p>
                 <form action="paymentRequest">
-                    <input type="text" name="request" style="width: 100%; 
-                           height: 50px;border-radius: 8px; 
+                    <input type="text" name="request" style="width: 100%;
+                           height: 50px;border-radius: 8px;
                            margin-bottom: 20px; font-size: 20px; padding: 0 10px;">
                     <input type="submit" value="Gửi yêu cầu" id="PaymentSubmit"/>
                 </form>
@@ -252,7 +252,7 @@
     <script type="text/javascript">
         (function (d, m) {
             var kommunicateSettings =
-                    {"appId": "318166b3922cf64a7a043ecb1d952dc72", "popupWidget": true, "automaticChatOpenOnNavigation": true};
+                    {"appId": "27050a3ff72e1078f8f2f4b90dd481a7c", "popupWidget": true, "automaticChatOpenOnNavigation": true};
             var s = document.createElement("script");
             s.type = "text/javascript";
             s.async = true;
@@ -288,7 +288,7 @@
                 }
             }
         });
-        
+
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
