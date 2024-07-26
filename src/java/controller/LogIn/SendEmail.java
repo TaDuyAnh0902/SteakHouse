@@ -32,8 +32,8 @@ public class SendEmail {
         String toEmail = user.getEmail();
 //        String fromEmail = "steakhouseswp@gmail.com";
 //        String password = "syup vpum sefq dmoj";
-        String fromEmail = "Steakhouseswp391@gmail.com";
-        String password = "ekkb vxnn gmlg dkyx";
+        String fromEmail = "steakhouseswp301@gmail.com";
+        String password = "etkh wyhs cpeg wjsk";
 
         try {
             Properties pr = new Properties();
