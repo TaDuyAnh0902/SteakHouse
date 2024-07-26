@@ -34,7 +34,7 @@ function validateProductAdd() {
     }
 
     // Validate Price
-    if (price === "" || isNaN(price) || price <= 0) {
+    if (price <= 0) {
         alert("Price must be a positive number.");
         return false;
     }
@@ -101,7 +101,7 @@ function validateProductUpdate() {
     }
 
     // Validate Price
-    if (price === "" || isNaN(price) || price <= 0) {
+    if (price <= 0) {
         alert("Price must be a positive number.");
         return false;
     }
