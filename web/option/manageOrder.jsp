@@ -195,7 +195,7 @@
         <div class="manageOrder">
             <div class="manageOrder-left">
                 <ul>
-                    <li onclick="manageOrderAction('viewOrder')" id="refreshBtn">Đơn hàng</li>
+                    <li onclick="manageOrderAction('viewOrder')" id="refreshBtn">Trạng Thái Món Ăn</li>
 
                     <li onclick="manageOrderAction('viewTable')" id="clearBtn">Quản lý bàn</li>
                 </ul>
