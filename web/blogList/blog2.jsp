@@ -108,7 +108,7 @@
                 Đặc trưng của Thịt Bò Mỹ chọn làm beefsteak là cơ thịt của bò phải ít hoạt động để nhóm thịt mềm mại, ngọt thịt.
                 Ngoài ra, để miếng beefsteak thêm vị béo ngậy và ngọt thịt thì những nhóm thịt có nhiều dắt mỡ trắng xen kẽ phần thịt đỏ rất được ưa chuộng.
             </p>
-            <img src="images/blog-2.jpg" alt="Thịt bò Mỹ ngon">
+            <img src="images/blog-2.jpg" alt="Thịt bò Mỹ ngon" onerror="this.onerror=null; this.src='../images/blog-2.jpg'">
             <p>
                 Các phần thịt thông thường áp dụng cho món Steak như: Thăn Nội bò Mỹ (TenderLoin), Đầu thăn ngoại (Rib eye), lõi vai (topblade).
                 Đây là các nhóm cơ phù rất phù hợp với các món Beefsteak bò Mỹ thượng hạng. 
