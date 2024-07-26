@@ -68,9 +68,21 @@
                 Image: <input type="text" name="image" value="${x.image}" required><br>
 
                 Cid : <input type="text" name="cid" value="${x.category.id}" readonly><br>
-                <input type="submit" value="Update">
+                <input type="submit" value="Update" onclick="return confirmUpdateProduct();">
             </form>
         </div>
 
     </body>
+
+    <script>
+        function confirmUpdateProduct() {
+            var confirmation = confirm("Are you sure you want to update Product?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Product deletion canceled.");
+                return false;
+            }
+        }
+    </script>
 </html>
