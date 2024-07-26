@@ -13,7 +13,7 @@
             .blogAdd {
                 padding: 0 20%;
             }
-            
+
             h1 {
                 color: #333;
                 text-align: center;
@@ -55,9 +55,21 @@
                 Title: <input type="text" name="title" required><br>
                 Image: <input type="file" name="image" required><br>
                 Source: <input type="file" name="source" required><br>
-                <input type="submit" value="Add">
+                <input type="submit" value="Add" onclick="return confirmBlogAdd();">
             </form>
             <script src="option/Validate.js"></script>
         </div>
     </body>
+
+    <script>
+                    function confirmBlogAdd() {
+                        var confirmation = confirm("Are you sure you want to add Blog?");
+                        if (confirmation === true) {
+                            return true;
+                        } else {
+                            alert("Blog deletion canceled.");
+                            return false;
+                        }
+                    }
+    </script>
 </html>
