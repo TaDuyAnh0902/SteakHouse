@@ -182,27 +182,6 @@
                     display: none;
                 }
 
-                #backToTopBtn {
-                    display: none; /* Ẩn nút ban đầu */
-                    position: fixed; /* Định vị nút cố định */
-                    bottom: 10px; /* Cách mép dưới 10px */
-                    right: 10px; /* Cách mép phải 10px */
-                    z-index: 99; /* Đảm bảo nút ở phía trên các phần tử khác */
-                    border: none; /* Bỏ viền */
-                    outline: none; /* Bỏ viền khi focus */
-                    background-color: #555; /* Màu nền */
-                    color: white; /* Màu chữ */
-                    cursor: pointer; /* Con trỏ chuột khi hover */
-                    padding: 5px; /* Đệm trong */
-                    border-radius: 8px; /* Bo góc */
-                    font-size: 16px; /* Kích thước chữ */
-                }
-
-                #backToTopBtn:hover {
-                    background-color: #000; /* Màu nền khi hover */
-                }
-
-
             </style>
         </head>
         <body>
@@ -279,11 +258,27 @@
                         <a href="https://zalo.me/0865448856" target="_blank" rel="nofollow" class="echbay-phonering-zalo-event">.</a>
                     </div>
                 </div>
+                <script type="text/javascript">
+                    (function (d, m) {
+                        var kommunicateSettings =
+                                {"appId": "27050a3ff72e1078f8f2f4b90dd481a7c", "popupWidget": true, "automaticChatOpenOnNavigation": true};
+                        var s = document.createElement("script");
+                        s.type = "text/javascript";
+                        s.async = true;
+                        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+                        var h = document.getElementsByTagName("head")[0];
+                        h.appendChild(s);
+                        window.kommunicate = m;
+                        m._globals = kommunicateSettings;
+                    })(document, window.kommunicate || {});
+                    /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+                </script>
             </c:if>
 
-            <button id="backToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+            <!--            <button id="backToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>-->
 
         </body>
+
         <script>
             var quantity = 1;
 
