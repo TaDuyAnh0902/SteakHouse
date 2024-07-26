@@ -60,10 +60,21 @@
             <form action="tableAction" method="post" name="tableUpdateForm" onsubmit="return validateUpdateTable()">
                 <input type="hidden" name="id" value="${t.id}">
                 Table Name: <input type="text" name="tableUpdate" value="${t.nameTable}" required><br>
-                <input type="submit" value="Update">
+                <input type="submit" value="Update" onclick="return confirmUpdateTable();">
             </form>
-                <script src="option/Validate.js"></script>
+            <script src="option/Validate.js"></script>
         </div>
 
     </body>
+    <script>
+                    function confirmUpdateTable() {
+                        var confirmation = confirm("Are you sure you want to update Table ?");
+                        if (confirmation === true) {
+                            return true;
+                        } else {
+                            alert("Table deletion canceled.");
+                            return false;
+                        }
+                    }
+    </script>
 </html>
