@@ -19,7 +19,7 @@
             .tableAdd {
                 padding: 0 20%;
             }
-            
+
             h1 {
                 color: #333;
                 text-align: center;
@@ -53,17 +53,28 @@
                 background-color: var(--green-color);
             }
         </style>
-        
+
     </head>
     <body>
-    <div class="tableAdd">
-        <h1>Add Table</h1>
-        <form name="addTableForm" action="tableAction" method="post" onsubmit="return validateTable()">
-            Name: <input type="text" name="name" required><br>
-            <input type="submit" value="Add">
-        </form>
-    </div>
-    <script src="option/Validate.js"></script>
-</body>
+        <div class="tableAdd">
+            <h1>Add Table</h1>
+            <form name="addTableForm" action="tableAction" method="post" onsubmit="return validateTable()">
+                Name: <input type="text" name="name" required><br>
+                <input type="submit" value="Add" onclick="return confirmTableAdd();">
+            </form>
+        </div>
+        <script src="option/Validate.js"></script>
+    </body>
+    <script>
+                    function confirmTableAdd() {
+                        var confirmation = confirm("Are you sure you want to add Table ?");
+                        if (confirmation === true) {
+                            return true;
+                        } else {
+                            alert("Table deletion canceled.");
+                            return false;
+                        }
+                    }
+    </script>
 
 </html>
