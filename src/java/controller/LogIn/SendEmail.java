@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controller.LogIn;
+
 import java.util.Properties;
 import java.util.Random;
 import javax.mail.Authenticator;
@@ -13,6 +14,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.Account;
+
 /**
  *
  * @author ASUS
@@ -28,8 +30,10 @@ public class SendEmail {
     public boolean sendEmail(Account user) {
         boolean test = false;
         String toEmail = user.getEmail();
-        String fromEmail = "steakhouseswp@gmail.com";
-        String password = "syup vpum sefq dmoj";
+//        String fromEmail = "steakhouseswp@gmail.com";
+//        String password = "syup vpum sefq dmoj";
+        String fromEmail = "steakhouseswp301@gmail.com";
+        String password = "etkh wyhs cpeg wjsk";
 
         try {
             Properties pr = new Properties();

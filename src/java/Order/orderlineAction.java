@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.manage;
+package Order;
 
-import dal.HomeMobileRequestDAO;
 import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,19 +11,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Map;
-import model.ClientRequest;
 import model.OrderLine;
-import model.PaymentRequest;
-import model.Table;
 
 /**
  *
  * @author HP
  */
-public class manageOrderAction extends HttpServlet {
+public class orderlineAction extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +36,10 @@ public class manageOrderAction extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet manageOrderAction</title>");
+            out.println("<title>Servlet orderlineAction</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet manageOrderAction at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet orderlineAction at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,25 +57,7 @@ public class manageOrderAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        OrderDAO odDAO = new OrderDAO();
-        HomeMobileRequestDAO hmDAO = new HomeMobileRequestDAO();
-        String check = request.getParameter("check");
-        if ("viewOrder".equals(check)) {
-            List<OrderLine> list = odDAO.getAllListOrderLine();
-            session.setAttribute("allListOrderLine", list);
-            session.removeAttribute("tableStatus");
-            List<PaymentRequest> list2 = hmDAO.getAllPaymentRequest();
-            session.setAttribute("listPaymentRequest", list2);
-            List<ClientRequest> list3 = hmDAO.getAllClientRequest();
-            session.setAttribute("listClientRequest", list3);
-        } else if ("viewTable".equals(check)) {
-            session.removeAttribute("changedQuantity");
-            Map<Integer, Boolean> map = odDAO.getTableStatus();
-            session.setAttribute("tableStatus", map);
-            session.removeAttribute("allListOrderLine");
-        }
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -96,7 +71,22 @@ public class manageOrderAction extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        OrderDAO t = new OrderDAO();
+        String id = request.getParameter("id");
+        String pid = request.getParameter("pid");
+        OrderLine x = t.getOrderLineById(id);
+        int firstQuantity =0;
+        if(x.getSid().getId()==3){
+            firstQuantity = t.firstQuantity(id);
+        }
+        String quantity = request.getParameter("quantity");
+        t.updateOrderLine(id, quantity);
+        if(x.getSid().getId()==3){
+            int quantityOfProduct = firstQuantity - Integer.parseInt(quantity);
+            t.updateQuantity(quantityOfProduct, pid);
+        }
+        
+        response.sendRedirect("manageOrderAction?check=viewOrder");
     }
 
     /**

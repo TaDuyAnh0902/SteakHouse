@@ -56,11 +56,23 @@
                 Title: <input type="text" name="newTitle" value="${b.title}" required><br>
                 Image: <input type="text" name="newImage" value="${b.image}" required><br>
                 Source: <input type="text" name="newSource" value="${b.source}" required><br>
-                
-                <input type="submit" value="Update">
+
+                <input type="submit" value="Update" onclick="return confirmUpdateBlog();">
             </form>
-                 <script src="option/Validate.js"></script>
+            <script src="option/Validate.js"></script>
         </div>
 
     </body>
+
+    <script>
+                    function confirmUpdateBlog() {
+                        var confirmation = confirm("Are you sure you want to update Blog?");
+                        if (confirmation === true) {
+                            return true;
+                        } else {
+                            alert("Blog deletion canceled.");
+                            return false;
+                        }
+                    }
+    </script>
 </html>

@@ -48,25 +48,25 @@
                 display: flex;
                 height: 100vh;
             }
-/*            .manageOrder-left {
-                width: 20%;
-                font-size: 20px;
-                border-right: 1px solid gray;
-            }
-            .manageOrder-left > ul {
-                list-style: none;
-                display: block;
-                height: 100%;
-            }
-            .manageOrder-left ul li {
-                cursor: pointer;
-                padding: 16px;
-                text-align: center;
-                border-bottom: 1px solid rgb(179, 179, 179);
-            }
-            .manageOrder-left ul li:hover {
-                background-color: #E2D9BC;
-            }*/
+            /*            .manageOrder-left {
+                            width: 20%;
+                            font-size: 20px;
+                            border-right: 1px solid gray;
+                        }
+                        .manageOrder-left > ul {
+                            list-style: none;
+                            display: block;
+                            height: 100%;
+                        }
+                        .manageOrder-left ul li {
+                            cursor: pointer;
+                            padding: 16px;
+                            text-align: center;
+                            border-bottom: 1px solid rgb(179, 179, 179);
+                        }
+                        .manageOrder-left ul li:hover {
+                            background-color: #E2D9BC;
+                        }*/
             .manageOrder-left {
                 width: 20%;
                 font-size: 20px;
@@ -107,41 +107,41 @@
                 width: 70%;
                 /*padding: 0 10px;*/
             }
-/*            #table-container table {
-                display: inline-block;
-                width: 100%;
-                border-collapse: collapse;
-            }
-            #table-container th,
-            #table-container td {
-                padding: 5px;
-            }
-            #table-container thead {
-                width: 100%;
-            }
-            #table-container table th {
-                text-align: center;
-            }
-            #table-container table th:hover{
-                cursor: pointer;
-            }
-            #table-container table thead:nth-child(1) {
-                border-top-left-radius: 16px;
-            }
-            #table-container th:nth-child(1),
-            #table-container th:nth-child(3)
-            {
-                width: 40%;
-            }
-            #table-container th:nth-child(4),
-            #table-container th:nth-child(5)
-            {
-                width: 15%;
-            }
-            #table-container th:nth-child(2)
-            {
-                width: 10%;
-            }*/
+            /*            #table-container table {
+                            display: inline-block;
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        #table-container th,
+                        #table-container td {
+                            padding: 5px;
+                        }
+                        #table-container thead {
+                            width: 100%;
+                        }
+                        #table-container table th {
+                            text-align: center;
+                        }
+                        #table-container table th:hover{
+                            cursor: pointer;
+                        }
+                        #table-container table thead:nth-child(1) {
+                            border-top-left-radius: 16px;
+                        }
+                        #table-container th:nth-child(1),
+                        #table-container th:nth-child(3)
+                        {
+                            width: 40%;
+                        }
+                        #table-container th:nth-child(4),
+                        #table-container th:nth-child(5)
+                        {
+                            width: 15%;
+                        }
+                        #table-container th:nth-child(2)
+                        {
+                            width: 10%;
+                        }*/
             .allListTable {
                 display: flex;
                 flex-wrap: wrap;
@@ -185,6 +185,9 @@
                 text-align: end;
                 padding-right: 10%;
             }
+            input[type="number"]{
+                width: 10%;
+            }
         </style>
 
     </head>
@@ -192,7 +195,7 @@
         <div class="manageOrder">
             <div class="manageOrder-left">
                 <ul>
-                    <li onclick="manageOrderAction('viewOrder')" id="refreshBtn">Đơn hàng</li>
+                    <li onclick="manageOrderAction('viewOrder')" id="refreshBtn">Trạng Thái Món Ăn</li>
 
                     <li onclick="manageOrderAction('viewTable')" id="clearBtn">Quản lý bàn</li>
                 </ul>
@@ -210,6 +213,7 @@
                                         <th onclick="OrderSort('time')">Thời gian</th>
                                         <th onclick="OrderSort('table')">Bàn</th>
                                         <th onclick="OrderSort('status')">Trạng thái</th>
+                                        <th colspan="2"></th>
                                     </tr>
                                 </thead>
                                 <c:forEach items="${sessionScope.allListOrderLine}" var="o">
@@ -218,7 +222,7 @@
                                         <td>
                                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                                 <div>
-                                                    ${o.pid.name} 
+                                                    <p style="text-align: left" > ${o.pid.name}   (${o.pid.quantity}) </p>
                                                 </div>
                                                 <div>
                                                     <img src="${o.pid.image}" width="50px" height="50px" alt="alt" style="border-radius: 16px;"/>
@@ -230,11 +234,19 @@
                                         <td style="text-align: center;">${o.tid.nameTable}</td>
                                         <td style="text-align: center;">
                                             <c:if test="${o.sid.id==2}">
-                                                <a href="ConfirmOrderByCashier?id=${o.id}&pid=${o.pid.id}&quantity=${o.quantity}">Confirm</a>
+                                                <a href="ConfirmOrderByCashier?id=${o.id}&pid=${o.pid.id}&quantity=${o.quantity}" style="text-decoration: none;color: brown" onclick="return confirmProduct()">Xác Nhận</a>
                                             </c:if>
                                             <c:if test="${o.sid.id==3}">
-                                                Done
+                                                <i class="fas fa-check" style="color:green;"></i>
                                             </c:if>
+                                        </td>
+                                        <td>
+                                            <a href="cashierAction?check=edit&id=${o.id}"><i class="fas fa-edit" style="color:green;"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="cashierAction?check=delete&id=${o.id}&tid=${o.tid.id}" onclick="return confirmDeletion()">
+                                                <i class="fas fa-trash" style="color:green;"></i>
+                                            </a>
                                         </td>
                                         </tbody>
                                     </c:if>
@@ -242,14 +254,29 @@
                             </table>
                         </div>
                         <div id="RequestPayment-content" style="margin: 0 auto;">
-                            <h3>Thông báo thanh toán</h3>
+                            <c:if test="${requestScope.editOrderline!=null}">
+                                <div>
+                                    <c:set var="olt" value="${requestScope.editOrderline}"/>
+                                    <h3 style="color: brown;">Sửa sản phẩm</h3>
+                                    <form action="orderlineAction" method="post">
+                                        <input type="hidden" value="${olt.id}" name="id"/>
+                                        <input type="hidden" value="${olt.pid.id}" name="pid"/>
+                                        <img src="${olt.pid.image}" width="30px" height="30px" alt="alt" style="border-radius: 16px;"/>${olt.pid.name} - Bàn ${olt.tid.id} - Số lượng: 
+                                        <input type="number" value="${olt.quantity}" name="quantity"/>
+                                        <input type="submit" value="Sửa" style="background-color: #E2D9BC;
+                                               color: brown; width: 50px; height: 30px; border: 0; border-radius: 8px;
+                                               cursor: pointer;"  onsubmit="return confirmEdit();"/>
+                                    </form>
+                                </div>
+                            </c:if>
+                            <h3 style="color: brown;">Thông báo thanh toán</h3>
                             <ul style="list-style: none;">
                                 <c:forEach items="${sessionScope.listPaymentRequest}" var="l">
                                     <c:set var="type" value="${l.type}"/>
                                     <li>
                                         <div style="display: flex; justify-content: space-between;
                                              align-items: center; width: 100%; height: 50px;
-                                             color: brown; background-color: white;
+                                             color: black; background-color: white;
                                              padding: 5px; border-radius: 8px; margin-bottom: 5px;">
                                             <div>
                                                 <c:if test="${type==1}">
@@ -268,12 +295,12 @@
                                         </div>
                                     </li>
                                 </c:forEach>
-                            <h3 style="margin-top: 50px;">Yêu cầu khách hàng</h3>
+                                <h3 style="margin-top: 50px;color: brown;">Yêu cầu khách hàng</h3>
                                 <c:forEach items="${sessionScope.listClientRequest}" var="cl">
                                     <li>
                                         <div style="display: flex; justify-content: space-between;
                                              align-items: center; width: 100%; height: 50px;
-                                             color: brown; background-color: white;
+                                             color: black; background-color: white;
                                              padding: 5px; border-radius: 8px; margin-bottom: 5px;">
                                             <div>
                                                 <span>${cl.content}</span>
@@ -289,13 +316,15 @@
                         </div>
                     </div>
                 </c:if>
+                <c:if test="${sessionScope.changedQuantity!=null}">
+                    <script>
+                        alert("${sessionScope.changedQuantity}");
+                    </script>
+                </c:if>
+
                 <c:if test="${sessionScope.tableStatus!=null}">
                     <div class="manageOrder-right-content">
                         <div class="allListTable">
-
-                            <%--<c:forEach items="${sessionScope.allListTable}" var="t">--%>
-                                <!--<li><a href="ViewTable?idTable=${t.id}">${t.nameTable}</a></li>-->
-                            <%--</c:forEach>--%>
                             <c:forEach var="entry" items="${sessionScope.tableStatus}">
                                 <c:set var="key" value="${entry.key}" />
                                 <c:set var="value" value="${entry.value}" />
@@ -345,9 +374,13 @@
                                         <td style="color: #F90; border: 0; float: right;"class="totalMoney">${requestScope.totalMoney}</td>
                                         </tbody>
                                         <tfoot>
-                                        <td colspan="3" style=" border: 0;"><a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" style="color: red;font-size: 20px;
-                                                            text-decoration: none; display: block; text-align: center;">Hoàn tất</a></td>
-                                        </tfoot>
+                                        <td colspan="3" style="border: 0;">
+                                            <a href="pay?idTable=${table}&totalMoney=${requestScope.totalMoney}" 
+                                               style="color: red;font-size: 20px; text-decoration: none; display: block; text-align: center;"
+                                               onclick="return confirmCompletion()">
+                                                Hoàn tất
+                                            </a>
+                                        </td>
                                     </table>
                                 </c:if>
 
@@ -359,7 +392,7 @@
         </div>
 
     </body>
-        <script>
+    <script>
         function manageOrderAction(ac) {
             window.location.href = "manageOrderAction?check=" + ac;
         }
@@ -405,6 +438,23 @@
                     window.location.href = "orderSort?check=status&action=StatusDESC";
                 }
             }
+        }
+    </script>
+
+    <script>
+        function confirmDeletion() {
+            var result = confirm("Bạn có chắc chắn muốn xóa món này không?");
+            return result;
+        }
+
+        function confirmCompletion() {
+           var result = confirm("Bạn có chắc chắn muốn hoàn tất đơn hàng này không?");
+            return result;
+        }
+
+        function confirmProduct() {
+            var result = confirm("Món ăn đã được phục vụ chưa?");
+            return result;
         }
     </script>
 </html>

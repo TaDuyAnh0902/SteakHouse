@@ -9,6 +9,15 @@ function validateProductAdd() {
     var price = form["price"].value;
     var describe = form["describe"].value;
 
+    if (name.length < 6) {
+        alert("Name must be at least 6 characters long.");
+        return false;
+    }
+
+    if (name.length > 30) {
+        alert("Name cannot exceed 30 characters long.");
+        return false;
+    }
     // Validate Name
     if (!/^[a-zA-Z0-9\sÀ-Ỹà-ỹẠ-Ỷạ-ỵĂ-Ắă-ắẰ-Ỳằ-ỳẠ-Ỵạ-ỵÂ-Ậâ-ậẦ-Ỷầ-ỷẠ-Ỵạ-ỵĐđĨĩƠ-ớơ-ớỠ-Ỷỡ-ỷỌ-Ựọ-ựỜ-Ỹờ-ỹỘ-Ỷộ-ỷỢ-Ựợ-ựÚú]+$/u.test(name)) {
         alert("Name can only contain letters, numbers, spaces, and Vietnamese characters.");
@@ -34,8 +43,13 @@ function validateProductAdd() {
     }
 
     // Validate Price
-    if (price === "" || isNaN(price) || price <= 0) {
+    if (price <= 0) {
         alert("Price must be a positive number.");
+        return false;
+    }
+
+    if (price.length > 15) {
+        alert("Price cannot exceed 15 characters long.");
         return false;
     }
     if (/^\s/.test(price)) {
@@ -52,6 +66,16 @@ function validateProductAdd() {
     }
 
     // Validate Describe
+    if (describe.length < 10) {
+        alert("Describe must be at least 10 characters long.");
+        return false;
+    }
+
+    if (describe.length > 200) {
+        alert("Describe cannot exceed 200 characters long.");
+        return false;
+    }
+
     if (/^\s/.test(describe)) {
         alert("Describe cannot have leading spaces.");
         return false;
@@ -77,6 +101,16 @@ function validateProductUpdate() {
     var image = form["image"].value;
 
     // Validate Name
+    if (name.length < 6) {
+        alert("Name must be at least 6 characters long.");
+        return false;
+    }
+
+    if (name.length > 30) {
+        alert("Name cannot exceed 30 characters long.");
+        return false;
+    }
+
     if (/^\s/.test(name)) {
         alert("Name cannot have leading spaces.");
         return false;
@@ -101,7 +135,11 @@ function validateProductUpdate() {
     }
 
     // Validate Price
-    if (price === "" || isNaN(price) || price <= 0) {
+    if (price.length > 15) {
+        alert("Price cannot exceed 15 characters long.");
+        return false;
+    }
+    if (price <= 0) {
         alert("Price must be a positive number.");
         return false;
     }
@@ -119,6 +157,16 @@ function validateProductUpdate() {
     }
 
     // Validate Describe
+    if (describe.length < 10) {
+        alert("Describe must be at least 10 characters long.");
+        return false;
+    }
+
+    if (describe.length > 200) {
+        alert("Describe cannot exceed 200 characters long.");
+        return false;
+    }
+
     if (/^\s/.test(describe)) {
         alert("Describe cannot have leading spaces.");
         return false;
@@ -148,6 +196,16 @@ function validateProductUpdate() {
 function validateTable() {
     var name = document.forms["addTableForm"]["name"].value;
 
+    if (name.length < 4) {
+        alert("Name must be at least 4 characters long.");
+        return false;
+    }
+
+    if (name.length > 30) {
+        alert("Name cannot exceed 30 characters long.");
+        return false;
+    }
+
     if (/^\s/.test(name)) {
         alert("Name cannot have leading spaces.");
         return false;
@@ -171,6 +229,16 @@ function validateTable() {
 function validateUpdateTable() {
     var form = document.forms["tableUpdateForm"];
     var tableName = form["tableUpdate"].value;
+
+    if (tableName.length < 1) {
+        alert("TableName must be at least 1 characters long.");
+        return false;
+    }
+
+    if (tableName.length > 30) {
+        alert("Tame cannot exceed 30 characters long.");
+        return false;
+    }
 
     if (/^\s/.test(tableName)) {
         alert("Table name cannot have leading spaces.");
@@ -196,6 +264,16 @@ function validateUpdateTable() {
 function validateBlog() {
     var title = document.forms["blogAdd"]["title"].value;
 
+    if (title.length < 10) {
+        alert("Title must be at least 10 characters long.");
+        return false;
+    }
+
+    if (title.length > 100) {
+        alert("Name cannot exceed 100 characters long.");
+        return false;
+    }
+
     if (/^\s/.test(title)) {
         alert("Title cannot have leading spaces.");
         return false;
@@ -218,6 +296,15 @@ function validateBlogUpdate() {
     var image = form["newImage"].value;
     var source = form["newSource"].value;
 
+    if (title.length < 10) {
+        alert("Title must be at least 10 characters long.");
+        return false;
+    }
+
+    if (title.length > 100) {
+        alert("Name cannot exceed 100 characters long.");
+        return false;
+    }
     if (/^\s/.test(title)) {
         alert("Title cannot have leading spaces.");
         return false;
@@ -251,6 +338,16 @@ function validateContact() {
     var message = form["message"].value;
 
     // Validate Name
+    if (name.length < 6) {
+        alert("Name must be at least 6 characters long.");
+        return false;
+    }
+
+    if (name.length > 30) {
+        alert("Name cannot exceed 30 characters long.");
+        return false;
+    }
+
     if (/^\s/.test(name)) {
         alert("Name cannot have leading spaces.");
         return false;
@@ -265,6 +362,17 @@ function validateContact() {
     }
 
     // Validate Title
+
+    if (title.length < 6) {
+        alert("Title must be at least 6 characters long.");
+        return false;
+    }
+
+    if (title.length > 30) {
+        alert("Title cannot exceed 30 characters long.");
+        return false;
+    }
+
     if (/^\s/.test(title)) {
         alert("Title cannot have leading spaces.");
         return false;
@@ -290,6 +398,17 @@ function validateContact() {
     }
 
     // Validate Message
+
+    if (message.length < 6) {
+        alert("Message must be at least 6 characters long.");
+        return false;
+    }
+
+    if (message.length > 30) {
+        alert("Message cannot exceed 30 characters long.");
+        return false;
+    }
+
     if (/^\s/.test(message)) {
         alert("Message cannot have leading spaces.");
         return false;

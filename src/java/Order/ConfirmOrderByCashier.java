@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.OrderLine;
+import model.Product;
 
 /**
  *
@@ -76,7 +77,17 @@ public class ConfirmOrderByCashier extends HttpServlet {
             int quantity_int = Integer.parseInt(quantity);
             bsDAO.addBestSelling(pid_int, quantity_int);
             pdDAO.updateProductWaitting(pid_int, quantity_int);
-        } catch (Exception e) {
+            Product p = pdDAO.getProductById(pid);
+            OrderLine o = odDAO.getOrderLineById(id);
+            int firstQuantity = odDAO.firstQuantity(pid_int);
+            odDAO.autoUpdateQuantity(pid_int);
+            int secondQuantity = odDAO.firstQuantity(pid_int);
+            if(firstQuantity != secondQuantity) {
+                session.setAttribute("changedQuantity", "Món " + p.getName() + o.getTid().getNameTable() + " đã chuyển từ " +  firstQuantity + " -> " + secondQuantity);
+            }else{
+                session.removeAttribute("changedQuantity");
+            }
+        } catch (NumberFormatException e) {
         }
         response.sendRedirect("manageOrderAction?check=viewOrder");
     } 

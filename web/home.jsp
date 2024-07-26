@@ -233,19 +233,19 @@
                 <c:if test="${sessionScope.role==1}">
                     <c:if test="${sessionScope.manage!=null}"> <%@include file="option/manage.jsp" %> </c:if>
                 </c:if>
-                
+
                 <c:if test="${requestScope.ListOrderLine!=null}"> <%@include file="option/ListOrderLine.jsp" %> </c:if>
 
                 <c:if test="${sessionScope.role==2}">
                     <c:if test="${sessionScope.manageOrder!=null}"> <%@include file="option/manageOrder.jsp" %> </c:if>
                 </c:if>
-                
+
                 <c:if test="${sessionScope.manageOrder==null && sessionScope.manage==null}">
                     <%@include file="footer.jsp" %>
                 </c:if>
             </div>
 
-                <c:if test="${sessionScope.role==3 && sessionScope.tableNumber==null}">
+            <c:if test="${sessionScope.role==3 && sessionScope.tableNumber==null}">
                 <div class="echbay-sms-messenger style-for-position-br">
                     <div class="phonering-alo-alo">
                         <a href="https://www.messenger.com/t/366526929875352" target="_blank" rel="nofollow" class="echbay-phonering-messenger-event">.</a>
@@ -258,11 +258,27 @@
                         <a href="https://zalo.me/0865448856" target="_blank" rel="nofollow" class="echbay-phonering-zalo-event">.</a>
                     </div>
                 </div>
+                <script type="text/javascript">
+                    (function (d, m) {
+                        var kommunicateSettings =
+                                {"appId": "27050a3ff72e1078f8f2f4b90dd481a7c", "popupWidget": true, "automaticChatOpenOnNavigation": true};
+                        var s = document.createElement("script");
+                        s.type = "text/javascript";
+                        s.async = true;
+                        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+                        var h = document.getElementsByTagName("head")[0];
+                        h.appendChild(s);
+                        window.kommunicate = m;
+                        m._globals = kommunicateSettings;
+                    })(document, window.kommunicate || {});
+                    /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+                </script>
             </c:if>
 
-            <button id="backToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+            <!--            <button id="backToTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>-->
 
         </body>
+
         <script>
             var quantity = 1;
 
@@ -288,10 +304,8 @@
         </script>
 
         <script>
-            // Lấy phần tử nút
             let mybutton = document.getElementById("backToTopBtn");
 
-            // Khi người dùng cuộn xuống 20px từ đầu tài liệu, hiển thị nút
             window.onscroll = function () {
                 scrollFunction()
             };
@@ -304,7 +318,6 @@
                 }
             }
 
-            // Khi người dùng nhấp vào nút, cuộn lên đầu tài liệu với hiệu ứng mượt mà
             mybutton.onclick = function () {
                 window.scrollTo({top: 0, behavior: 'smooth'});
             }
@@ -314,9 +327,9 @@
             $(document).ready(function () {
                 function updateContent() {
                     var currentUrl = window.location.href;
-                    var baseUrlHome = "http://localhost:8080/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
-                    var baseUrlConfirmOrder = "http://localhost:8080/SWP391-SteakHouse/ConfirmOrderByCashier?id=";
-                    var baseUrlSort = "http://localhost:8080/SWP391-SteakHouse/orderSort?check=";
+                    var baseUrlHome = "http://localhost:9999/SWP391-SteakHouse/manageOrderAction?check=viewOrder";
+                    var baseUrlConfirmOrder = "http://localhost:9999/SWP391-SteakHouse/ConfirmOrderByCashier?id=";
+                    var baseUrlSort = "http://localhost:9999/SWP391-SteakHouse/orderSort?check=";
                     if (currentUrl === baseUrlHome || currentUrl.startsWith(baseUrlConfirmOrder) || currentUrl.startsWith(baseUrlSort)) {
                         $.ajax({
                             url: currentUrl,

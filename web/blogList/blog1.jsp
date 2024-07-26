@@ -106,7 +106,7 @@
                 do không chọn đúng phần thịt và không biết cách chế biến dẫn tới thịt bò bị dai, cứng khi nấu ăn và giảm đi hương vị thơm ngon đặc trưng. Sau đây, 
                 chúng tôi sẽ hướng dẫn bạn một số mẹo nhỏ để chọn được thịt bò mềm, tươi ngon, làm steak chuẩn âu cho món ăn tròn vị đậm chất phương tây.
             </p>
-            <img src="blogImages/blog1.jpg" alt="Thịt bò Mỹ ngon">
+            <img src="blogImages/blog1.jpg" alt="Thịt bò Mỹ ngon" onerror="this.onerror=null; this.src='../blogImages/blog1.jpg'">
             <p>
                 Cách chọn thịt bò đông lạnh:
                 Thịt bò ngon có màu đỏ tươi, mỡ màu trắng nhiều vân mỡ trắng xen kẽ với nhau nhiều, nếu ít mỡ trắng dễ cứng và khô miếng thịt. Làm steak nên dùng 

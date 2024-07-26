@@ -103,7 +103,7 @@
                 Beefsteak với bộ sậu miếng thịt bò áp chảo thơm thơm, sực sực áo với nước sốt dậy lên hương vị nồng nàn khó cưỡng, 
                 dùng kèm với khoai chiên giòn giòn, bánh mì mềm mềm và salad thanh thanh, mát mát đã quá quen thuộc, không cần phải bàn!
             </p>
-            <img src="blogImages/blog3.jpg" alt="Bread Steak">
+            <img src="blogImages/blog3.jpg" alt="Bread Steak" onerror="this.onerror=null; this.src='../blogImages/blog3.jpg'">
             <p>
                 Nhưng Steak không đơn điệu chỉ có mỗi thịt bò. Steak đà điểu, cá sấu, cừu, nai, gà, heo, cá ngừ, cá hồi… từng làm dậy sóng 
                 bao tử các tín đồ của steak.

@@ -43,6 +43,50 @@ public class OrderDAO extends ProductsDAO {
         return list;
     }
 
+    public OrderLine getOrderLineById(String id) {
+        String sql = "select * from orderline where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                OrderLine olt = new OrderLine();
+                olt.setId(rs.getInt("id"));
+                Product p = getProductById(rs.getString("pid"));
+                olt.setPid(p);
+                Table t = getTableById(rs.getInt("tid"));
+                olt.setTid(t);
+                Status s = getStatusById(rs.getInt("sid"));
+                olt.setSid(s);
+                olt.setQuantity(rs.getInt("quantity"));
+                return olt;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+
+    public void deleteOrderline(String id) {
+        String sql = "delete Orderline where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public void updateOrderLine(String id, String quantity) {
+        String sql = "update orderline set quantity = ? where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, quantity);
+            st.setString(2, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
     public Table getTableById(int id) {
         String sql = "select * from [Table] where id = ?";
         try {
@@ -271,7 +315,7 @@ public class OrderDAO extends ProductsDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 OrderLine olt = new OrderLine();
-                 olt.setId(rs.getInt("id"));
+                olt.setId(rs.getInt("id"));
 
                 Product p = getProductById(rs.getString("pid"));
                 olt.setPid(p);
@@ -763,4 +807,134 @@ public class OrderDAO extends ProductsDAO {
 
         return list;
     }
+
+    public void autoUpdateQuantity(int pid) {
+        String sql = """
+                   WITH TopOrderLine AS (
+                       SELECT TOP(1) *
+                       FROM OrderLine
+                       WHERE pid = ? AND sid = 2
+                       ORDER BY dateOrderline ASC
+                   )
+                   
+                   -- Step 2: Fetch the quantity for the pid from the Products table
+                   , ProductQuantity AS (
+                       SELECT quantity AS product_quantity
+                       FROM Products
+                       WHERE id = ?
+                   )
+                   
+                   -- Step 3: Compare and update the quantity if needed
+                   UPDATE ol
+                   SET ol.quantity = pq.product_quantity
+                   FROM OrderLine ol
+                   INNER JOIN TopOrderLine tol ON ol.id = tol.id
+                   INNER JOIN ProductQuantity pq ON 1 = 1  -- This join is just to bring in the product_quantity
+                   WHERE tol.quantity > pq.product_quantity
+                   AND pq.product_quantity > 0;
+                   
+                   -- Step 4: Delete the row if the product quantity is 0
+                   DELETE ol
+                   FROM OrderLine ol
+                   INNER JOIN (
+                       SELECT TOP(1) id, pid, sid, quantity, dateOrderline
+                       FROM OrderLine
+                       WHERE pid = ? AND sid = 2
+                       ORDER BY dateOrderline ASC
+                   ) tol ON ol.id = tol.id
+                   INNER JOIN Products p ON tol.pid = p.id
+                   WHERE p.quantity = 0;""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, pid);
+            st.setInt(2, pid);
+            st.setInt(3, pid);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public int firstQuantity(int pid) {
+        String sql = """
+                     select TOP(1) * from OrderLine where pid = ? and sid=2
+                     order by dateOrderline asc""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, pid);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                OrderLine l = new OrderLine();
+                l.setQuantity(rs.getInt("quantity"));
+                return l.getQuantity();
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
+    public int firstQuantity(String id) {
+        String sql = """
+                     select * from OrderLine where id = ?""";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                OrderLine l = new OrderLine();
+                l.setQuantity(rs.getInt("quantity"));
+                return l.getQuantity();
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
+    
+//    public List<String> pidByTableId(int idTable){
+//        String sql = "select distinct pid from OrderLine where tid = ? and sid = 3";
+//        List<String> list = new ArrayList<>();
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, idTable);
+//            ResultSet rs = st.executeQuery();
+//            while (rs.next()) {
+//                list.add(rs.getString(1));
+//            }
+//        } catch (SQLException e) {
+//        }
+//        return list;
+//    }
+//    public List<Integer> quantityByTableId(int idTable){
+//        String sql = """
+//                         WITH MaxQuantities AS (
+//                         SELECT id, pid, dateOrderline, tid, sid, MAX(quantity) AS max_quantity
+//                         FROM orderline
+//                         GROUP BY id, pid, tid, sid, dateOrderline
+//                         HAVING tid = ?
+//                     )
+//                     
+//                     -- Step 2: Sum the max_quantity for records where sid = 3 and pid are the same
+//                     SELECT SUM(max_quantity) AS total_max_quantity
+//                     FROM MaxQuantities
+//                     WHERE sid = 3
+//                     GROUP BY pid;""";
+//        List<Integer> list = new ArrayList<>();
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, idTable);
+//            ResultSet rs = st.executeQuery();
+//            while (rs.next()) {
+//                list.add(rs.getInt(1));
+//            }
+//        } catch (SQLException e) {
+//        }
+//        return list;
+//    }
+//    public Map<Product, Integer> getListOrderLineByIdTable(int idTable){
+//        Map<Product, Integer> map = new HashMap<>();
+//        List<String> list = pidByTableId(idTable);
+//        List<Integer> list2 = quantityByTableId(idTable);
+//        for(int i=0; i<list.size();i++){
+//            map.put(getProductById(list.get(i)), list2.get(i));
+//        }
+//        return map;
+//    }
 }

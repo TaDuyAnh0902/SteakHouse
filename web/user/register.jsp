@@ -159,8 +159,13 @@
                 return false;
             }
 
-            if (name.length < 6) {
+        if (name.length < 6 ) {
                 alert("Name must be at least 6 characters long.");
+                return false;
+            }
+
+             if (name.length >30 ) {
+                alert("Name cannot exceed 30 characters long.");
                 return false;
             }
 
@@ -182,6 +187,11 @@
                 alert("Username must be at least 6 characters long.");
                 return false;
             }
+            
+             if (username.length >30 ) {
+                alert("UserName cannot exceed 30 characters long.");
+                return false;
+            }
 
             var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (/^\s/.test(email)) {
@@ -201,6 +211,11 @@
 
             if (password.length < 8) {
                 alert("Password must be at least 8 characters long.");
+                return false;
+            }
+            
+             if (password.length 30) {
+                alert("Password cannot exceed 30 characters long.");
                 return false;
             }
 

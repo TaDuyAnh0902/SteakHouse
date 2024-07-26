@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-           body {
+            body {
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
@@ -168,7 +168,7 @@
                 </div>
                 <div class="choose">
                     <div>
-                        <input type="submit" value="Save">
+                        <input type="submit" value="Save" onclick="return confirmSubmit();">
                     </div>
                     <div>
                         <a href="Profile?user=${profileNew.username}">Back</a>
@@ -178,6 +178,8 @@
         </div>
     </body>
     <script>
+
+
         function validateUpdateProfile() {
             var form = document.forms["changeProfile"];
             var name = form["name"].value;
@@ -185,6 +187,17 @@
             var phoneNumber = form["phoneNumber"].value;
             var password = form["pass"].value;
             var confirmPassword = form["confirmPass"].value;
+
+            if (name.length < 6) {
+                alert("Name must be at least 6 characters long.");
+                return false;
+            }
+
+            if (name.length > 30) {
+                alert("Name cannot exceed 30 characters long.");
+                return false;
+            }
+
 
             // Validate Name
             if (/^\s/.test(name)) {
@@ -243,6 +256,11 @@
                 return false;
             }
 
+            if (password.length > 30) {
+                alert("Password cannot exceed 30 characters long.");
+                return false;
+            }
+
             if (/^\s/.test(password)) {
                 alert("Password cannot have leading spaces.");
                 return false;
@@ -264,7 +282,22 @@
                 return false;
             }
 
+
             return true;
+
+
+        }
+    </script>
+
+    <script>
+        function confirmSubmit() {
+            var confirmation = confirm("Are you sure you want to update your Profile?");
+            if (confirmation === true) {
+                return true;
+            } else {
+                alert("Profile deletion canceled.");
+                return false;
+            }
         }
     </script>
 </html>
